@@ -1,6 +1,8 @@
 import logging
 import os
 
+from yelp.utils.slugify import slugify
+
 os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
 
 from parse_rest.user import User
@@ -35,7 +37,11 @@ class ParseUserUtils(object):
     @classmethod
     def signup(cls, user):
         if not ParseUserUtils.user_exist(user):
-            user = User.signup(user['displayname'], user['password'], email=user['email'])
+            user = User.signup(
+                user['displayname'], user['password'],
+                email=user['email'], slug=slugify(user['displayname']),
+                loginType='email'
+            )
             return user
 
     @classmethod
