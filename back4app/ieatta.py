@@ -2,6 +2,8 @@ import json
 
 from parse_rest.user import User
 
+from yelp.parse.parse_utils import ParseUserUtils
+
 
 class IEATTADemo(object):
     def __init__(self):
@@ -13,9 +15,8 @@ class IEATTADemo(object):
         self.users = self.data['users']
 
     def signup(self):
-        pass
         user = self.users[0]
-        u = User.signup(user['displayname'], user['password'], email=user['email'])
+        ParseUserUtils.signup(user)
 
 
 def main():

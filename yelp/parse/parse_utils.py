@@ -33,9 +33,8 @@ class ParseUserUtils(object):
         return crawler
 
     @classmethod
-    def getCrawlerUser(cls):
-        pass
-
+    def signup(cls, user):
+        u = User.signup(user['displayname'], user['password'], email=user['email'])
 
 
 # =============================================
