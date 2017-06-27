@@ -34,7 +34,14 @@ class ParseUserUtils(object):
 
     @classmethod
     def signup(cls, user):
-        u = User.signup(user['displayname'], user['password'], email=user['email'])
+        if not ParseUserUtils.user_exist(user):
+            pass
+            # u = User.signup(user['displayname'], user['password'], email=user['email'])
+
+    @classmethod
+    def user_exist(cls, user):
+        count = User.Query.filter(email=user['email']).count()
+        return count > 0
 
 
 # =============================================
