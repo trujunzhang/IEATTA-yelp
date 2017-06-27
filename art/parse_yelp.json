@@ -1,9 +1,10 @@
 {
   "users": [
     {
-      "url":"https://www.yelp.com.sg/user_details?userid=s8gLtEUIDY0qD2h67VtSug",
-      "displayname": "Jaron L."
-
+      "url": "https://www.yelp.com.sg/user_details?userid=s8gLtEUIDY0qD2h67VtSug",
+      "displayname": "Jaron L.",
+      "password": "jaronIEATTA@123",
+      "email": "jaron@gmail.com"
     }
   ]
 }
