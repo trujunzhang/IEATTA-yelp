@@ -35,8 +35,8 @@ class ParseUserUtils(object):
     @classmethod
     def signup(cls, user):
         if not ParseUserUtils.user_exist(user):
-            pass
-            # u = User.signup(user['displayname'], user['password'], email=user['email'])
+            user = User.signup(user['displayname'], user['password'], email=user['email'])
+            return user
 
     @classmethod
     def user_exist(cls, user):
