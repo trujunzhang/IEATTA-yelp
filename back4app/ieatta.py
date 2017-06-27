@@ -13,8 +13,8 @@ class IEATTADemo(object):
         self.users = self.data['users']
 
     def signup(self):
-        user = self.users[0]
-        ParseUserUtils.signup(user)
+        for user in self.users:
+            ParseUserUtils.signup(user)
 
 
 def main():
