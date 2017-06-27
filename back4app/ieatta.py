@@ -13,8 +13,12 @@ class IEATTADemo(object):
         self.users = self.data['users']
 
     def signup(self):
+        #  Step1: sign up all terms.
         for user in self.users:
             ParseUserUtils.signup(user)
+
+        # Step2: restaurants with events
+
 
 
 def main():
