@@ -1,7 +1,5 @@
 import json
 
-from parse_rest.user import User
-
 from yelp.parse.parse_utils import ParseUserUtils
 
 
