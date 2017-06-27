@@ -10,9 +10,12 @@ class IEATTADemo(object):
         with open('parse_yelp.json') as data_file:
             self.data = json.load(data_file)
 
+        self.users = self.data['users']
+
     def signup(self):
         pass
-        # u = User.signup("dhelmet", "12345", phone="555-555-5555")
+        user = self.users[0]
+        u = User.signup(user['displayname'], user['password'], email=user['email'])
 
 
 def main():
