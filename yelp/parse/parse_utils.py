@@ -91,6 +91,12 @@ class ParseEventUtils(object):
         return _exist
 
     @classmethod
+    def add_restaurant(cls, event, restaurant):
+        event.add('restaurants', restaurant)
+
+        return event
+
+    @classmethod
     def event_exist(cls, href):
         _exist = Event.Query.filter(url=href).get()
         return _exist
@@ -148,6 +154,16 @@ class ParsePostUtils(object):
             instance.save()
 
             _exist = instance
+        return _exist
+
+    @classmethod
+    def add_event(cls, href, event):
+        _exist = ParsePostUtils.post_exist(href=href)
+        if not _exist:
+            raise Exception('Not found the restaurant!')
+
+        _exist.add('events', event)
+
         return _exist
 
     @classmethod
