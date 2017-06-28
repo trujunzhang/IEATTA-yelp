@@ -3,6 +3,29 @@ import json
 from yelp.parse.parse_utils import ParseUserUtils, ParsePostUtils, ParseEventUtils
 
 
+class UserImporter(object):
+    def __init__(self, restaurant, users, recipes):
+        super(UserImporter, self).__init__()
+
+        self.restaurant = restaurant
+        self.users = users
+        self.recipes = recipes
+
+        x = 0
+
+    def save_user(self):
+        self.point_user = ParseUserUtils.save(self.restaurant)
+        return self
+
+    def save_recipes(self):
+        if not 'events' in self.restaurant.keys():
+            return self
+
+        for event in self.restaurant['events']:
+            event_importer = EventImporter(event, self.users, self.recipes)
+            event_importer.save_event(self.point_restaurant.url).save_users()
+
+
 class EventImporter(object):
     def __init__(self, event, users, recipes):
         super(EventImporter, self).__init__()
@@ -28,7 +51,9 @@ class EventImporter(object):
 
         _data = self.event['test']['Whoin']
         for user in _data:
-            pass
+            user_importer = UserImporter(restaurant, self.users, self.recipes)
+            point_user = ''
+            ParseEventUtils.add_user(self.point_event, point_user)
 
 
 class RestaurantImporter(object):

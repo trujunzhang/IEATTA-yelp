@@ -97,6 +97,12 @@ class ParseEventUtils(object):
         return event
 
     @classmethod
+    def add_user(cls, event, point_user):
+        event.add('users', point_user)
+
+        return event
+
+    @classmethod
     def event_exist(cls, href):
         _exist = Event.Query.filter(url=href).get()
         return _exist
