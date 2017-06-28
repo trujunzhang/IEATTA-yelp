@@ -1,6 +1,6 @@
 import json
 
-from yelp.parse.parse_utils import ParseUserUtils
+from yelp.parse.parse_utils import ParseUserUtils, ParsePostUtils
 
 
 class EventImporter(object):
@@ -19,13 +19,18 @@ class RestaurantImporter(object):
         self.users = users
         self.recipes = recipes
 
-        if 'events' in restaurant.keys():
-            self._events = restaurant['events']
-
         x = 0
 
-    def save(self):
-        pass
+    def save_restaurant(self):
+        self.restaurant_instance = ParsePostUtils.save(self.restaurant)
+
+        return self
+
+    def save_event(self):
+        if not 'events' in self.restaurant.keys():
+            return self
+
+        self._events = self.restaurant['events']
 
 
 class IEATTADemo(object):
@@ -41,13 +46,13 @@ class IEATTADemo(object):
 
     def signup(self):
         #  Step1: sign up all terms.
-        for user in self.users:
-            ParseUserUtils.signup(user)
+        # for user in self.users:
+        #     ParseUserUtils.signup(user)
 
         # Step2: restaurants with events
         for restaurant in self.restaurants:
             restaurantImporter = RestaurantImporter(restaurant, self.users, self.recipes)
-            # restaurantImporter.save()
+            restaurantImporter.save_restaurant().save_event()
 
 
 def main():

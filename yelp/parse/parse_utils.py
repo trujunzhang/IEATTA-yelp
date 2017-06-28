@@ -111,15 +111,18 @@ class Photo(Object):
 class ParsePhotoUtils(object):
     @classmethod
     def save(cls, url):
-        instance = Photo()
+        _exist = ParsePhotoUtils.photo_exist(url)
+        if not _exist:
+            instance = Photo()
 
-        instance.original = ''
-        instance.thumbnail = ''
-        instance.url = url
+            instance.original = ''
+            instance.thumbnail = ''
+            instance.url = url
 
-        instance.save()
+            instance.save()
+            _exist = instance
 
-        return instance
+        return _exist
 
     @classmethod
     def photo_exist(cls, href):
@@ -135,22 +138,26 @@ class Post(Object):
 class ParsePostUtils(object):
     @classmethod
     def save(cls, item, photos):
-        _location = item['geoLocation']
+        _exist = ParsePostUtils.post_exist(item['url'])
+        if not _exist:
+            _location = item['geoLocation']
 
-        instance = Post()
-        instance.url = item['url']
+            instance = Post()
+            instance.url = item['url']
 
-        instance.geoLocation = GeoPoint(_location[0], _location[1])
-        instance.address = item['address']
+            instance.geoLocation = GeoPoint(_location[0], _location[1])
+            instance.address = item['address']
 
-        instance.photos = photos
+            instance.photos = photos
 
-        instance.save()
+            instance.save()
+
+            _exist = instance
+        return _exist
 
     @classmethod
     def post_exist(cls, href):
-        _count = Post.Query.filter(url=href).count()
-        return _count > 0
+        return Post.Query.filter(url=href).get()
 
 
 class Comment(Object):
