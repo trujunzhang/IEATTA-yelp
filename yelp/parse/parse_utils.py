@@ -123,30 +123,27 @@ class ParseHistoryUtils(object):
 # =============================================
 #  Web app
 # =============================================
-class Topic(Object):
+class Photo(Object):
     pass
 
 
-class ParseTopicUtils(object):
+class ParsePhotoUtils(object):
     @classmethod
-    def save(cls, item):
-        instance = Topic()
-        instance.name = item['name']
-        instance.slug = item['slug']
-        instance.status = item['status']
-        instance.isIgnore = item['is_ignore']
-        instance.active = item['active']
-        # instance.days = []
+    def save(cls, url):
+        instance = Photo()
+
+        instance.original = ''
+        instance.thumbnail = ''
+        instance.url = url
 
         instance.save()
 
         return instance
 
     @classmethod
-    def get_topic_by_name(cls, name):
-        query_count = Topic.Query.filter(name=name).count()
-        if query_count:
-            return Topic.Query.filter(name=name).get()
+    def photo_exist(cls, href):
+        _count = Photo.Query.filter(url=href).count()
+        return _count > 0
 
 
 # Post is Restaurant
@@ -171,12 +168,8 @@ class ParsePostUtils(object):
 
     @classmethod
     def post_exist(cls, href):
-        history_count = Post.Query.filter(url=href).count()
-        return history_count > 0
-
-
-class Folder(Object):
-    pass
+        _count = Post.Query.filter(url=href).count()
+        return _count > 0
 
 
 class Comment(Object):
