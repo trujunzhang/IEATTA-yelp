@@ -3,6 +3,11 @@ import json
 from yelp.parse.parse_utils import ParseUserUtils
 
 
+class RestaurantImporter(object):
+    def __init__(self):
+        super(RestaurantImporter, self).__init__()
+
+
 class IEATTADemo(object):
     def __init__(self):
         super(IEATTADemo, self).__init__()
@@ -11,6 +16,7 @@ class IEATTADemo(object):
             self.data = json.load(data_file)
 
         self.users = self.data['users']
+        self.restaurants = self.data['restaurants']
 
     def signup(self):
         #  Step1: sign up all terms.
@@ -19,6 +25,7 @@ class IEATTADemo(object):
 
         # Step2: restaurants with events
 
+        x = 0
 
 
 def main():
