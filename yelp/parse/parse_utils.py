@@ -66,39 +66,34 @@ class Profile(Object):
 # =============================================
 #  Python scrapy
 # =============================================
-class Cache(Object):
+class Event(Object):
     pass
 
 
-class ParseCacheUtils(object):
+class ParseEventUtils(object):
     @classmethod
     def save(cls, item):
-        instance = Cache()
-        instance.url = item['url']
-        instance.sourceFrom = item['url_from']
-        instance.thumbnailUrl = item['thumbnail_url']
-        # instance.post = ""
+        _exist = ParseEventUtils.event_exist('')
+        if not _exist:
+            instance = Event()
 
-        instance.save()
+            instance.url = item['url']
+
+            instance.displayname = item['displayname']
+            instance.want = item['want']
+
+            instance.start = item['start']
+            instance.end = item['end']
+
+            instance.save()
+            _exist = instance
+
+        return _exist
 
     @classmethod
-    def get_last_cache(self, _last, url_from):
-        logging.debug("Get the oldest row")
-        if _last:
-            cache_count = Cache.Query.filter(url=_last).count()
-            logging.debug(
-                "  1. query the last cache length: {},[{}]".format(_last.encode('utf-8'), cache_count))
-            if cache_count:
-                Cache.Query.get(url=_last).delete()
-
-            check_exist_count = Cache.Query.filter(url=_last).count()
-            logging.debug(
-                "  2. after delete the last cache: {},[{}]-[{}]".format(
-                    _last.encode('utf-8'), cache_count, check_exist_count))
-
-        item = Cache.Query.all().order_by("createdAt").limit(1).get()
-
-        return {"url": item.url, 'url_from': item.sourceFrom, 'thumbnail_url': item.thumbnailUrl}
+    def event_exist(cls, href):
+        _exist = Event.Query.filter(url=href).get()
+        return _exist
 
 
 # =============================================

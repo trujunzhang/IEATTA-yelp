@@ -230,8 +230,10 @@
         {
           "url": "https://www.yelp.com.sg/events/burbank-outdoor-skating-and-holiday-festivities-in-downtown-burbank",
           "displayname": "Outdoor Skating and Holiday Festivities in Downtown Burbank",
-          "want/why": "Downtown Burbank Announces 2015 Return of Outdoor Skating and Holiday Festivities Downtown Burbank's most festive holiday tradition returns for outdoor ice skating, fundraising events, and special performances at The Rink in Downtown Burbank. The fun begins December 10, 2015 and runs through January 3, 2016.",
+          "want": "Downtown Burbank Announces 2015 Return of Outdoor Skating and Holiday Festivities Downtown Burbank's most festive holiday tradition returns for outdoor ice skating, fundraising events, and special performances at The Rink in Downtown Burbank. The fun begins December 10, 2015 and runs through January 3, 2016.",
           "terms": [],
+          "start": "",
+          "end": "",
           "test": {
             "Whoin": [
               {

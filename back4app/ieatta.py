@@ -12,6 +12,9 @@ class EventImporter(object):
         self.recipes = recipes
 
     def save_event(self):
+        self.event_instance = ParseEventUtils.save(self.event)
+
+        return self
         pass
 
 
