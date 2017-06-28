@@ -8,6 +8,7 @@ os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
 from parse_rest.user import User
 from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.connection import register
+from parse_rest.datatypes import GeoPoint, Object, Function, Pointer
 
 # register( < application_id >, < rest_api_key > [, master_key = None])
 
@@ -19,8 +20,6 @@ PARSE_REGISTER = {
 
 register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
          master_key=PARSE_REGISTER["MASTER_KEY"])
-
-from parse_rest.datatypes import Object
 
 
 # =============================================
@@ -158,12 +157,12 @@ class Post(Object):
 class ParsePostUtils(object):
     @classmethod
     def save(cls, item, photos):
-        location = item['geoLocation']
+        _location = item['geoLocation']
 
         instance = Post()
         instance.url = item['url']
 
-        instance.geoLocation = ''
+        instance.geoLocation = GeoPoint(_location[0], _location[1])
         instance.address = item['address']
 
         instance.photos = photos
