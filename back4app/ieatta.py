@@ -12,11 +12,10 @@ class EventImporter(object):
         self.recipes = recipes
 
     def save_event(self, restaurant_url):
-        self.event_instance = ParseEventUtils.save(self.event)
-        _restaurant_instance = ParsePostUtils.add_event(restaurant_url, self.event_instance)
+        self.point_event = ParseEventUtils.save(self.event)
+        point_restaurant = ParsePostUtils.add_event(restaurant_url, self.point_event)
 
-        ParseEventUtils.add_restaurant(self.event_instance,_restaurant_instance)
-
+        ParseEventUtils.add_restaurant(self.point_event, point_restaurant)
 
         return self
 
@@ -43,7 +42,7 @@ class RestaurantImporter(object):
         x = 0
 
     def save_restaurant(self):
-        self.restaurant_instance = ParsePostUtils.save(self.restaurant)
+        self.point_restaurant = ParsePostUtils.save(self.restaurant)
         return self
 
     def save_event(self):
@@ -52,7 +51,7 @@ class RestaurantImporter(object):
 
         for event in self.restaurant['events']:
             eventImporter = EventImporter(event, self.users, self.recipes)
-            eventImporter.save_event(self.restaurant_instance.url).save_users()
+            eventImporter.save_event(self.point_restaurant.url).save_users()
 
 
 class IEATTADemo(object):

@@ -73,8 +73,8 @@ class Event(Object):
 class ParseEventUtils(object):
     @classmethod
     def save(cls, item):
-        _exist = ParseEventUtils.event_exist('')
-        if not _exist:
+        _point = ParseEventUtils.event_exist('')
+        if not _point:
             instance = Event()
 
             instance.url = item['url']
@@ -86,13 +86,13 @@ class ParseEventUtils(object):
             instance.end = item['end']
 
             instance.save()
-            _exist = instance
+            _point = instance
 
-        return _exist
+        return _point
 
     @classmethod
-    def add_restaurant(cls, event, restaurant):
-        event.add('restaurants', restaurant)
+    def add_restaurant(cls, event, point_restaurant):
+        event.add('restaurants', point_restaurant)
 
         return event
 
@@ -112,8 +112,8 @@ class Photo(Object):
 class ParsePhotoUtils(object):
     @classmethod
     def save(cls, url):
-        _exist = ParsePhotoUtils.photo_exist(url)
-        if not _exist:
+        _point = ParsePhotoUtils.photo_exist(url)
+        if not _point:
             instance = Photo()
 
             instance.original = ''
@@ -121,14 +121,14 @@ class ParsePhotoUtils(object):
             instance.url = url
 
             instance.save()
-            _exist = instance
+            _point = instance
 
-        return _exist
+        return _point
 
     @classmethod
     def photo_exist(cls, href):
-        _exist = Photo.Query.filter(url=href).get()
-        return _exist
+        _point = Photo.Query.filter(url=href).get()
+        return _point
 
 
 # Post is Restaurant
@@ -139,8 +139,8 @@ class Post(Object):
 class ParsePostUtils(object):
     @classmethod
     def save(cls, item, photos):
-        _exist = ParsePostUtils.post_exist(item['url'])
-        if not _exist:
+        _point = ParsePostUtils.post_exist(item['url'])
+        if not _point:
             _location = item['geoLocation']
 
             instance = Post()
@@ -153,18 +153,18 @@ class ParsePostUtils(object):
 
             instance.save()
 
-            _exist = instance
-        return _exist
+            _point = instance
+        return _point
 
     @classmethod
     def add_event(cls, href, event):
-        _exist = ParsePostUtils.post_exist(href=href)
-        if not _exist:
+        _point = ParsePostUtils.post_exist(href=href)
+        if not _point:
             raise Exception('Not found the restaurant!')
 
-        _exist.add('events', event)
+        _point.add('events', event)
 
-        return _exist
+        return _point
 
     @classmethod
     def post_exist(cls, href):
