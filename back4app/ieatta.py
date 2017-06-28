@@ -1,6 +1,6 @@
 import json
 
-from yelp.parse.parse_utils import ParseUserUtils, ParsePostUtils
+from yelp.parse.parse_utils import ParseUserUtils, ParsePostUtils, ParseEventUtils
 
 
 class EventImporter(object):
@@ -13,9 +13,7 @@ class EventImporter(object):
 
     def save_event(self):
         self.event_instance = ParseEventUtils.save(self.event)
-
         return self
-        pass
 
 
 class RestaurantImporter(object):
@@ -30,7 +28,6 @@ class RestaurantImporter(object):
 
     def save_restaurant(self):
         self.restaurant_instance = ParsePostUtils.save(self.restaurant)
-
         return self
 
     def save_event(self):
