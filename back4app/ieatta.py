@@ -4,10 +4,14 @@ from yelp.parse.parse_utils import ParseUserUtils, ParsePostUtils
 
 
 class EventImporter(object):
-    def __init__(self, restaurant, users, recipes):
+    def __init__(self, event, users, recipes):
         super(EventImporter, self).__init__()
 
-    def save(self):
+        self.event = event
+        self.users = users
+        self.recipes = recipes
+
+    def save_event(self):
         pass
 
 
@@ -30,7 +34,9 @@ class RestaurantImporter(object):
         if not 'events' in self.restaurant.keys():
             return self
 
-        self._events = self.restaurant['events']
+        for event in self.restaurant['events']:
+            eventImporter = EventImporter(event, self.users, self.recipes)
+            eventImporter.save_event()
 
 
 class IEATTADemo(object):
