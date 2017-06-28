@@ -15,6 +15,17 @@ class EventImporter(object):
         self.event_instance = ParseEventUtils.save(self.event)
         return self
 
+    def save_users(self):
+        if not 'test' in self.event.keys():
+            return
+
+        if not 'Whoin' in self.event['test'].keys():
+            return
+
+        _data = self.event['test']['Whoin']
+        for user in _data:
+            pass
+
 
 class RestaurantImporter(object):
     def __init__(self, restaurant, users, recipes):
@@ -36,7 +47,7 @@ class RestaurantImporter(object):
 
         for event in self.restaurant['events']:
             eventImporter = EventImporter(event, self.users, self.recipes)
-            eventImporter.save_event()
+            eventImporter.save_event().save_users()
 
 
 class IEATTADemo(object):
