@@ -101,25 +101,6 @@ class ParseCacheUtils(object):
         return {"url": item.url, 'url_from': item.sourceFrom, 'thumbnail_url': item.thumbnailUrl}
 
 
-class History(Object):
-    pass
-
-
-class ParseHistoryUtils(object):
-    @classmethod
-    def save(cls, item):
-        instance = History()
-        instance.url = item['url']
-        # instance.post = ""
-
-        instance.save()
-
-    @classmethod
-    def history_exist(cls, href):
-        history_count = History.Query.filter(url=href).count()
-        return history_count > 0
-
-
 # =============================================
 #  Web app
 # =============================================
@@ -142,8 +123,8 @@ class ParsePhotoUtils(object):
 
     @classmethod
     def photo_exist(cls, href):
-        _count = Photo.Query.filter(url=href).count()
-        return _count > 0
+        _exist = Photo.Query.filter(url=href).get()
+        return _exist
 
 
 # Post is Restaurant

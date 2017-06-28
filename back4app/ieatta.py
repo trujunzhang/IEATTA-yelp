@@ -41,13 +41,13 @@ class IEATTADemo(object):
 
     def signup(self):
         #  Step1: sign up all terms.
-        # for user in self.users:
-        #     ParseUserUtils.signup(user)
+        for user in self.users:
+            ParseUserUtils.signup(user)
 
         # Step2: restaurants with events
         for restaurant in self.restaurants:
             restaurantImporter = RestaurantImporter(restaurant, self.users, self.recipes)
-            restaurantImporter.save()
+            # restaurantImporter.save()
 
 
 def main():
