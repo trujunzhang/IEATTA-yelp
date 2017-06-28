@@ -150,33 +150,23 @@ class ParseTopicUtils(object):
             return Topic.Query.filter(name=name).get()
 
 
+# Post is Restaurant
 class Post(Object):
     pass
 
 
 class ParsePostUtils(object):
     @classmethod
-    def save(cls, item):
+    def save(cls, item, photos):
+        location = item['geoLocation']
+
         instance = Post()
         instance.url = item['url']
 
-        instance.author = item['author']
-        instance.title = item['title']
-        instance.slug = item['slug']
-        instance.body = item['body']
+        instance.geoLocation = ''
+        instance.address = item['address']
 
-        instance.sourceFrom = item['sourceFrom']
-        instance.thumbnailUrl = item['thumbnailUrl']
-
-        instance.topics = item['topics']
-        instance.postAuthor = item['postAuthor']
-
-        instance.cloudinaryId = item['cloudinaryId'],
-        instance.cloudinaryVersion = item['cloudinaryVersion'],
-        instance.cloudinaryUrls = item['cloudinaryUrls']
-
-        instance.status = item['status']
-        instance.postedAt = item['postedAt']
+        instance.photos = photos
 
         instance.save()
 

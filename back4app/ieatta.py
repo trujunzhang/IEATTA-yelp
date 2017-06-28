@@ -2,6 +2,14 @@ import json
 
 from yelp.parse.parse_utils import ParseUserUtils
 
+class EventImporter(object):
+    def __init__(self, restaurant, users, recipes):
+        super(EventImporter, self).__init__()
+
+
+    def save(self):
+        pass
+
 
 class RestaurantImporter(object):
     def __init__(self, restaurant, users, recipes):
@@ -17,6 +25,7 @@ class RestaurantImporter(object):
         x = 0
 
     def save(self):
+
         pass
 
 
