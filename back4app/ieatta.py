@@ -4,8 +4,20 @@ from yelp.parse.parse_utils import ParseUserUtils
 
 
 class RestaurantImporter(object):
-    def __init__(self):
+    def __init__(self, restaurant, users, recipes):
         super(RestaurantImporter, self).__init__()
+
+        self.restaurant = restaurant
+        self.users = users
+        self.recipes = recipes
+
+        if 'events' in restaurant.keys():
+            self._events = restaurant['events']
+
+        x = 0
+
+    def save(self):
+        pass
 
 
 class IEATTADemo(object):
@@ -21,12 +33,13 @@ class IEATTADemo(object):
 
     def signup(self):
         #  Step1: sign up all terms.
-        for user in self.users:
-            ParseUserUtils.signup(user)
+        # for user in self.users:
+        #     ParseUserUtils.signup(user)
 
         # Step2: restaurants with events
-
-        x = 0
+        for restaurant in self.restaurants:
+            restaurantImporter = RestaurantImporter(restaurant, self.users, self.recipes)
+            restaurantImporter.save()
 
 
 def main():
