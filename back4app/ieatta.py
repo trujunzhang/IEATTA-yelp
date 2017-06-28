@@ -50,8 +50,8 @@ class RestaurantImporter(object):
             return self
 
         for event in self.restaurant['events']:
-            eventImporter = EventImporter(event, self.users, self.recipes)
-            eventImporter.save_event(self.point_restaurant.url).save_users()
+            event_importer = EventImporter(event, self.users, self.recipes)
+            event_importer.save_event(self.point_restaurant.url).save_users()
 
 
 class IEATTADemo(object):
@@ -72,8 +72,8 @@ class IEATTADemo(object):
 
         # Step2: restaurants with events
         for restaurant in self.restaurants:
-            restaurantImporter = RestaurantImporter(restaurant, self.users, self.recipes)
-            restaurantImporter.save_restaurant().save_event()
+            restaurant_importer = RestaurantImporter(restaurant, self.users, self.recipes)
+            restaurant_importer.save_restaurant().save_event()
 
 
 def main():
