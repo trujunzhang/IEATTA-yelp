@@ -17,6 +17,7 @@ class IEATTADemo(object):
 
         self.users = self.data['users']
         self.restaurants = self.data['restaurants']
+        self.recipes = self.data['recipes']
 
     def signup(self):
         #  Step1: sign up all terms.
