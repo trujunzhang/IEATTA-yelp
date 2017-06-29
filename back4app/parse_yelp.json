@@ -353,7 +353,7 @@
       ]
     },
     {
-      "url": "https://maps.google.com",
+      "url": "https://maps.google.com/la_cita",
       "displayname": "La Cita",
       "geoLocation": [
         34.050796,
@@ -368,7 +368,7 @@
     },
     {
       "__url": "https://www.yelp.com.sg/biz_photos/bossa-nova-brazilian-cuisine-los-angeles-4",
-      "url": "https://maps.google.com",
+      "url": "https://maps.google.com/pez_cantina",
       "displayname": "Pez Cantina",
       "geoLocation": [
         34.051525,
@@ -383,7 +383,7 @@
       ]
     },
     {
-      "url": "https://maps.google.com",
+      "url": "https://maps.google.com/water_grill",
       "displayname": "Water Grill",
       "geoLocation": [
         34.049107,
