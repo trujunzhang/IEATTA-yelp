@@ -1,6 +1,6 @@
 import json
 
-from yelp.parse.parse_utils import ParseUserUtils, ParsePostUtils, ParseEventUtils, ParseRecipeUtils
+from yelp.parse.parse_utils import ParseUserUtils, ParsePostUtils, ParseEventUtils, ParseRecipeUtils, ParsePhotoUtils
 
 
 class UserImporter(object):
@@ -60,10 +60,18 @@ class RestaurantImporter(object):
         self.users = users
         self.recipes = recipes
 
+        self.pointers_photos = []
+
         x = 0
 
+    def save_photos_for_restaurant(self, images):
+        for image in images:
+            point_photo = ParsePhotoUtils.save_photo(image)
+            self.pointers_photos.append(point_photo)
+        return self
+
     def save_restaurant(self):
-        self.point_restaurant = ParsePostUtils.save(self.restaurant)
+        self.point_restaurant = ParsePostUtils.save(self.restaurant, self.pointers_photos)
         return self
 
     def save_event(self):
@@ -71,8 +79,10 @@ class RestaurantImporter(object):
             return self
 
         for event in self.restaurant['events']:
-            event_importer = EventImporter(self.point_restaurant, event, self.users, self.recipes)
-            event_importer.save_event(self.point_restaurant.url).save_users()
+            EventImporter(self.point_restaurant,
+                          event,
+                          self.users,
+                          self.recipes).save_event(self.point_restaurant.url).save_users()
 
 
 class IEATTADemo(object):
@@ -93,8 +103,11 @@ class IEATTADemo(object):
 
         # Step2: restaurants with events
         for restaurant in self.restaurants:
-            restaurant_importer = RestaurantImporter(restaurant, self.users, self.recipes)
-            restaurant_importer.save_restaurant().save_event()
+            images = restaurant['images']
+            RestaurantImporter(
+                restaurant,
+                self.users,
+                self.recipes).save_photos_for_restaurant(images).save_restaurant().save_event()
 
 
 def main():
