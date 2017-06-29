@@ -3,16 +3,17 @@ import json
 from yelp.parse.parse_utils import ParseUserUtils, ParsePostUtils, ParseEventUtils, ParseRecipeUtils, ParsePhotoUtils
 
 
-class OrderedUserImporter(object):
-    def __init__(self, point_restaurant, point_event):
-        super(OrderedUserImporter, self).__init__()
+class OrderedRecipeImporter(object):
+    def __init__(self, point_restaurant, point_event, point_user):
+        super(OrderedRecipeImporter, self).__init__()
 
         self.point_restaurant = point_restaurant
         self.point_event = point_event
+        self.point_user = point_user
 
         self.pointers_photos = []
 
-    def __save_photos_for_ordered_uses(self, images):
+    def __save_photos_for_ordered_recipe(self, images):
         for image in images:
             point_photo = ParsePhotoUtils.save_photo(image)
             self.pointers_photos.append(point_photo)
@@ -22,13 +23,43 @@ class OrderedUserImporter(object):
         self.point_user = ParseUserUtils.user_exist(user_in_event)
         return self
 
+    def save_recipe(self, ordered_recipe):
+        self.point_recipe = ParseRecipeUtils.save_recipe(self.point_restaurant,
+                                                         self.point_event,
+                                                         self.point_user,
+                                                         ordered_recipe,
+                                                         self.pointers_photos)
+        return self
+
+    def get_point_recipe(self):
+        return self.point_recipe
+
+
+class OrderedRecipesUserImporter(object):
+    def __init__(self, point_restaurant, point_event):
+        super(OrderedRecipesUserImporter, self).__init__()
+
+        self.point_restaurant = point_restaurant
+        self.point_event = point_event
+
+        self.pointers_recipes = []
+
+    def get_user(self, user_in_event):
+        self.point_user = ParseUserUtils.user_exist(user_in_event)
+        return self
+
     def save_recipes(self, ordered_recipes):
         for ordered_recipe in ordered_recipes:
-            self.point_recipe = ParseRecipeUtils.save_recipe(self.point_restaurant,
-                                                             self.point_event,
-                                                             self.point_user,
-                                                             ordered_recipe,
-                                                             self.pointers_photos)
+            _point_recipe = OrderedRecipeImporter(
+                self.point_restaurant,
+                self.point_event,
+                self.point_user).save_recipe(ordered_recipe).get_point_recipe()
+
+            self.pointers_recipes.append(_point_recipe)
+        return self
+
+    def add_recipes_for_ordered_user(self):
+        pass
 
 
 class EventImporter(object):
@@ -58,10 +89,10 @@ class EventImporter(object):
         _data = self.event['test']['Whoin']
         for user_in_event in _data:
             ordered_recipes = user_in_event['recipes']
-            OrderedUserImporter(
+            OrderedRecipesUserImporter(
                 self.point_restaurant,
                 self.point_event
-            ).get_user(user_in_event).save_recipes(ordered_recipes)
+            ).get_user(user_in_event).save_recipes(ordered_recipes).add_recipes_for_ordered_user()
 
 
 class RestaurantImporter(object):

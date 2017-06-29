@@ -26,6 +26,12 @@ register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
 #  App Users
 # =============================================
 
+class ParseHelp(object):
+    @classmethod
+    def save(cls, instance):
+        # instance.save()
+        pass
+
 
 class ParseUserUtils(object):
     @classmethod
@@ -87,7 +93,7 @@ class ParseEventUtils(object):
             instance.start = item['start']
             instance.end = item['end']
 
-            instance.save()
+            ParseHelp.save(instance)
             _point = instance
 
         return _point
@@ -119,7 +125,8 @@ class Photo(Object):
 
 class ParsePhotoUtils(object):
     @classmethod
-    def save_photo(cls, url, point_restaurant, point_event=None, point_user=None, point_recipe=None, photo_type='restaurant'):
+    def save_photo(cls, url, point_restaurant, point_event=None, point_user=None, point_recipe=None,
+                   photo_type='restaurant'):
         _point = ParsePhotoUtils.photo_exist(url)
         if not _point:
             instance = Photo()
@@ -135,7 +142,7 @@ class ParsePhotoUtils(object):
 
             instance.photoType = photo_type
 
-            instance.save()
+            ParseHelp.save(instance)
             _point = instance
 
         return _point
@@ -166,8 +173,7 @@ class ParsePostUtils(object):
 
             instance.photos = pointers_photos
 
-            instance.save()
-
+            ParseHelp.save(instance)
             _point = instance
         return _point
 
@@ -192,7 +198,7 @@ class Recipe(Object):
 
 class ParseRecipeUtils(object):
     @classmethod
-    def save_recipe(cls, point_restaurant, point_event, point_user, item, photos):
+    def save_recipe(cls, point_restaurant, point_event, point_user, item, photos=None):
         _point = ParseRecipeUtils.recipe_exist(item['url'])
         if not _point:
             instance = Recipe()
@@ -206,8 +212,7 @@ class ParseRecipeUtils(object):
 
             instance.photos = photos
 
-            instance.save()
-
+            ParseHelp.save(instance)
             _point = instance
         return _point
 
