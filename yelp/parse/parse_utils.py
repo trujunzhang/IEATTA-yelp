@@ -30,7 +30,7 @@ class ParseHelp(object):
     @classmethod
     def save(cls, instance):
         # instance.save()
-        pass
+        return instance
 
 
 class ParseUserUtils(object):
@@ -93,8 +93,7 @@ class ParseEventUtils(object):
             instance.start = item['start']
             instance.end = item['end']
 
-            ParseHelp.save(instance)
-            _point = instance
+            _point = ParseHelp.save(instance)
 
         return _point
 
@@ -142,8 +141,7 @@ class ParsePhotoUtils(object):
 
             instance.photoType = photo_type
 
-            ParseHelp.save(instance)
-            _point = instance
+            _point = ParseHelp.save(instance)
 
         return _point
 
@@ -173,8 +171,8 @@ class ParsePostUtils(object):
 
             instance.photos = pointers_photos
 
-            ParseHelp.save(instance)
-            _point = instance
+            _point = ParseHelp.save(instance)
+
         return _point
 
     @classmethod
@@ -185,7 +183,7 @@ class ParsePostUtils(object):
 
         _point.add('events', event)
 
-        return _point
+        return ParseHelp.save(_point)
 
     @classmethod
     def post_exist(cls, href):
@@ -212,8 +210,7 @@ class ParseRecipeUtils(object):
 
             instance.photos = photos
 
-            ParseHelp.save(instance)
-            _point = instance
+            _point = ParseHelp.save(instance)
         return _point
 
     @classmethod
