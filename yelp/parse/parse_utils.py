@@ -29,7 +29,7 @@ register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
 class ParseHelp(object):
     @classmethod
     def save(cls, instance):
-        # instance.save()
+        instance.save()
         return instance
 
 

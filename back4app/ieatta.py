@@ -15,9 +15,10 @@ class OrderedRecipeImporter(object):
 
     def __save_photos_for_ordered_recipe(self, images):
         for image in images:
-            point_photo = ParsePhotoUtils.save_photo(image,
-                                                     self.point_restaurant, self.point_event, self.point_recipe,
-                                                     photo_type='recipe')
+            point_photo = ParsePhotoUtils.save_photo(
+                image,
+                self.point_restaurant, self.point_event, self.point_recipe,
+                photo_type='recipe')
             self.pointers_photos.append(point_photo)
         return self
 
@@ -153,10 +154,10 @@ class IEATTADemo(object):
         # Step2: restaurants with events
         for restaurant in self.restaurants:
             images = restaurant['images']
-            RestaurantImporter(
-                restaurant,
-                self.users,
-                self.recipes).save_restaurant().save_photos_for_restaurant(images).save_event()
+            _import = RestaurantImporter(restaurant, self.users, self.recipes)
+            _import.save_restaurant()
+            # _import.save_photos_for_restaurant(images)
+            # _import.save_event()
 
 
 def main():
