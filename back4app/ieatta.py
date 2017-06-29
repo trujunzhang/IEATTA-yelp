@@ -15,7 +15,9 @@ class OrderedRecipeImporter(object):
 
     def __save_photos_for_ordered_recipe(self, images):
         for image in images:
-            point_photo = ParsePhotoUtils.save_photo(image)
+            point_photo = ParsePhotoUtils.save_photo(image,
+                                                     self.point_restaurant, self.point_event, self.point_recipe,
+                                                     photo_type='recipe')
             self.pointers_photos.append(point_photo)
         return self
 
@@ -29,6 +31,8 @@ class OrderedRecipeImporter(object):
                                                          self.point_user,
                                                          ordered_recipe,
                                                          self.pointers_photos)
+        images = ordered_recipe['test']['images']
+        self.__save_photos_for_ordered_recipe(images)
         return self
 
     def get_point_recipe(self):
