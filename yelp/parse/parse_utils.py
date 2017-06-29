@@ -177,6 +177,36 @@ class ParsePostUtils(object):
         return Post.Query.filter(url=href).get()
 
 
+class Recipe(Object):
+    pass
+
+
+class ParseRecipeUtils(object):
+    @classmethod
+    def save(cls, point_restaurant, point_event, point_user, item, photos):
+        _point = ParseRecipeUtils.recipe_exist(item['url'])
+        if not _point:
+            instance = Recipe()
+
+            instance.restaurant = point_restaurant
+            instance.event = point_event
+            instance.user = point_user
+
+            instance.displayname = item['displayname']
+            instance.price = item['price']
+
+            instance.photos = photos
+
+            instance.save()
+
+            _point = instance
+        return _point
+
+    @classmethod
+    def recipe_exist(cls, href):
+        return Recipe.Query.filter(url=href).get()
+
+
 class Comment(Object):
     pass
 
