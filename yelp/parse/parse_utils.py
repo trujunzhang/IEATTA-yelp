@@ -214,6 +214,12 @@ class ParseRecipeUtils(object):
         return _point
 
     @classmethod
+    def add_photo_for_recipe(cls, point_recipe, pointers_recipes):
+        point_recipe.add('recipes', point_recipe)
+
+        return ParseHelp.save(point_recipe)
+
+    @classmethod
     def recipe_exist(cls, href):
         return Recipe.Query.filter(url=href).get()
 
