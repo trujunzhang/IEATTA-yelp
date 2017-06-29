@@ -19,9 +19,6 @@ class UserImporter(object):
         return self
 
     def save_recipes(self):
-        if not 'events' in self.restaurant.keys():
-            return self
-
         for recipe in self.recipes:
             self.point_recipe = ParseRecipeUtils.save(self.point_restaurant, self.point_event, self.point_user, recipe)
 
