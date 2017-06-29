@@ -48,8 +48,10 @@ class OrderedRecipesUserImporter(object):
         self.point_user = ParseUserUtils.user_exist(user_in_event)
         return self
 
-    def save_recipes(self, ordered_recipes):
-        for ordered_recipe in ordered_recipes:
+    def save_recipes(self, recipes, ordered_recipes_indexs):
+        for ordered_recipe_index in ordered_recipes_indexs:
+            position = ordered_recipe_index['position']
+            ordered_recipe = recipes[position]
             _point_recipe = OrderedRecipeImporter(
                 self.point_restaurant,
                 self.point_event,
@@ -88,11 +90,11 @@ class EventImporter(object):
 
         _data = self.event['test']['Whoin']
         for user_in_event in _data:
-            ordered_recipes = user_in_event['recipes']
+            ordered_recipes_indexs = user_in_event['recipes']
             OrderedRecipesUserImporter(
                 self.point_restaurant,
                 self.point_event
-            ).get_user(user_in_event).save_recipes(ordered_recipes).add_recipes_for_ordered_user()
+            ).get_user(user_in_event).save_recipes(recipes, ordered_recipes_indexs).add_recipes_for_ordered_user()
 
 
 class RestaurantImporter(object):
