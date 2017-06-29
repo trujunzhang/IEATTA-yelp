@@ -40,7 +40,7 @@ class EventImporter(object):
 
         return self
 
-    def save_users(self):
+    def save_users_in_event(self):
         if not 'test' in self.event.keys():
             return
 
@@ -49,7 +49,7 @@ class EventImporter(object):
 
         _data = self.event['test']['Whoin']
         for user in _data:
-            user_importer = UserImporter(self.point_restaurant, self.point_event, self.users, self.recipes)
+            UserImporter(self.point_restaurant, self.point_event, self.users, self.recipes)
 
 
 class RestaurantImporter(object):
@@ -82,7 +82,7 @@ class RestaurantImporter(object):
             EventImporter(self.point_restaurant,
                           event,
                           self.users,
-                          self.recipes).save_event(self.point_restaurant.url).save_users()
+                          self.recipes).save_event(self.point_restaurant.url).save_users_in_event()
 
 
 class IEATTADemo(object):
