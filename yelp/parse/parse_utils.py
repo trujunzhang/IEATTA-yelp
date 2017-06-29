@@ -119,7 +119,7 @@ class Photo(Object):
 
 class ParsePhotoUtils(object):
     @classmethod
-    def save_photo(cls, url):
+    def save_photo(cls, url, point_restaurant, point_event=None, point_user=None, point_recipe=None, photo_type='restaurant'):
         _point = ParsePhotoUtils.photo_exist(url)
         if not _point:
             instance = Photo()
@@ -127,6 +127,13 @@ class ParsePhotoUtils(object):
             instance.original = ''
             instance.thumbnail = ''
             instance.url = url
+
+            instance.restaurant = point_restaurant
+            instance.event = point_event
+            instance.user = point_user
+            instance.recipe = point_recipe
+
+            instance.photoType = photo_type
 
             instance.save()
             _point = instance
