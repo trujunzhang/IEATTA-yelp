@@ -33,7 +33,7 @@ class EventImporter(object):
         self.recipes = recipes
 
     def save_event(self, restaurant_url):
-        self.point_event = ParseEventUtils.save(self.event)
+        self.point_event = ParseEventUtils.save_event(self.event)
         point_restaurant = ParsePostUtils.add_event(restaurant_url, self.point_event)
 
         ParseEventUtils.add_restaurant(self.point_event, point_restaurant)
@@ -71,7 +71,7 @@ class RestaurantImporter(object):
         return self
 
     def save_restaurant(self):
-        self.point_restaurant = ParsePostUtils.save(self.restaurant, self.pointers_photos)
+        self.point_restaurant = ParsePostUtils.save_post(self.restaurant, self.pointers_photos)
         return self
 
     def save_event(self):

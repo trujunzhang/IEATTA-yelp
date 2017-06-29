@@ -72,7 +72,7 @@ class Event(Object):
 
 class ParseEventUtils(object):
     @classmethod
-    def save(cls, item):
+    def save_event(cls, item):
         _point = ParseEventUtils.event_exist('')
         if not _point:
             instance = Event()
@@ -144,7 +144,7 @@ class Post(Object):
 
 class ParsePostUtils(object):
     @classmethod
-    def save(cls, item, photos):
+    def save_post(cls, item, pointers_photos):
         _point = ParsePostUtils.post_exist(item['url'])
         if not _point:
             _location = item['geoLocation']
@@ -155,7 +155,7 @@ class ParsePostUtils(object):
             instance.geoLocation = GeoPoint(_location[0], _location[1])
             instance.address = item['address']
 
-            instance.photos = photos
+            instance.photos = pointers_photos
 
             instance.save()
 
