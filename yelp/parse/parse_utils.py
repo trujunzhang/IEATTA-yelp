@@ -151,19 +151,18 @@ class ParsePhotoUtils(object):
         return _point
 
 
-# Post is Restaurant
-class Post(Object):
+class Restaurant(Object):
     pass
 
 
-class ParsePostUtils(object):
+class ParseRestaurantUtils(object):
     @classmethod
-    def save_post(cls, item, pointers_photos):
-        _point = ParsePostUtils.post_exist(item['url'])
+    def save_restaurant(cls, item, pointers_photos):
+        _point = ParseRestaurantUtils.restaurant_exist(item['url'])
         if not _point:
             _location = item['geoLocation']
 
-            instance = Post()
+            instance = Restaurant()
             instance.url = item['url']
 
             instance.geoLocation = GeoPoint(_location[0], _location[1])
@@ -177,7 +176,7 @@ class ParsePostUtils(object):
 
     @classmethod
     def add_event(cls, href, event):
-        _point = ParsePostUtils.post_exist(href=href)
+        _point = ParseRestaurantUtils.restaurant_exist(href=href)
         if not _point:
             raise Exception('Not found the restaurant!')
 
@@ -186,9 +185,9 @@ class ParsePostUtils(object):
         return ParseHelp.save(_point)
 
     @classmethod
-    def post_exist(cls, href):
-        if Post.Query.filter(url=href).count() > 0:
-            return Post.Query.filter(url=href).get()
+    def restaurant_exist(cls, href):
+        if Restaurant.Query.filter(url=href).count() > 0:
+            return Restaurant.Query.filter(url=href).get()
 
 
 class Recipe(Object):
