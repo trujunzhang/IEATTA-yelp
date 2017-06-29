@@ -35,18 +35,20 @@ class ParseUserUtils(object):
 
     @classmethod
     def signup(cls, user):
-        if not ParseUserUtils.user_exist(user):
+        point_user = ParseUserUtils.user_exist(user)
+        if not point_user:
             user = User.signup(
                 user['displayname'], user['password'],
                 email=user['email'], slug=slugify(user['displayname']),
                 loginType='email'
             )
-            return user
+            point_user = user
+
+        return point_user
 
     @classmethod
     def user_exist(cls, user):
-        count = User.Query.filter(email=user['email']).count()
-        return count > 0
+        return User.Query.filter(username=user['displayname']).get()
 
 
 # =============================================
@@ -183,7 +185,7 @@ class Recipe(Object):
 
 class ParseRecipeUtils(object):
     @classmethod
-    def save(cls, point_restaurant, point_event, point_user, item, photos):
+    def save_recipe(cls, point_restaurant, point_event, point_user, item, photos):
         _point = ParseRecipeUtils.recipe_exist(item['url'])
         if not _point:
             instance = Recipe()

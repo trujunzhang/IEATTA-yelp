@@ -4,23 +4,31 @@ from yelp.parse.parse_utils import ParseUserUtils, ParsePostUtils, ParseEventUti
 
 
 class UserImporter(object):
-    def __init__(self, point_restaurant, point_event, users, recipes):
+    def __init__(self, point_restaurant, point_event):
         super(UserImporter, self).__init__()
 
         self.point_restaurant = point_restaurant
         self.point_event = point_event
-        self.users = users
-        self.recipes = recipes
 
-        x = 0
+        self.pointers_photos = []
 
-    def get_user(self):
-        self.point_user = ParseUserUtils.save(self.restaurant)
+    def save_photos_for_ordered_uses(self, images):
+        for image in images:
+            point_photo = ParsePhotoUtils.save_photo(image)
+            self.pointers_photos.append(point_photo)
         return self
 
-    def save_recipes(self):
-        for recipe in self.recipes:
-            self.point_recipe = ParseRecipeUtils.save(self.point_restaurant, self.point_event, self.point_user, recipe)
+    def get_user(self, user_in_event):
+        self.point_user = ParseUserUtils.user_exist(user_in_event)
+        return self
+
+    def save_recipes(self, ordered_recipes):
+        for ordered_recipe in ordered_recipes:
+            self.point_recipe = ParseRecipeUtils.save_recipe(self.point_restaurant,
+                                                             self.point_event,
+                                                             self.point_user,
+                                                             ordered_recipe,
+                                                             self.pointers_photos)
 
 
 class EventImporter(object):
@@ -48,8 +56,12 @@ class EventImporter(object):
             return
 
         _data = self.event['test']['Whoin']
-        for user in _data:
-            UserImporter(self.point_restaurant, self.point_event, self.users, self.recipes)
+        for user_in_event in _data:
+            ordered_recipes = user_in_event['recipes']
+            UserImporter(
+                self.point_restaurant,
+                self.point_event
+            ).get_user(user_in_event).save_recipes(ordered_recipes)
 
 
 class RestaurantImporter(object):
