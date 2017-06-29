@@ -187,7 +187,8 @@ class ParsePostUtils(object):
 
     @classmethod
     def post_exist(cls, href):
-        return Post.Query.filter(url=href).get()
+        if Post.Query.filter(url=href).count() > 0:
+            return Post.Query.filter(url=href).get()
 
 
 class Recipe(Object):
