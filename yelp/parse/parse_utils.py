@@ -147,8 +147,8 @@ class ParsePhotoUtils(object):
 
     @classmethod
     def photo_exist(cls, href):
-        _point = Photo.Query.filter(url=href).get()
-        return _point
+        if Photo.Query.filter(url=href).count() > 0:
+            return Photo.Query.filter(url=href).get()
 
 
 class Restaurant(Object):
@@ -177,7 +177,7 @@ class ParseRestaurantUtils(object):
 
     @classmethod
     def add_photos_for_restaurant(cls, point_restaurant, pointers_photos):
-        point_restaurant.add('photos', pointers_photos)
+        point_restaurant.photos = pointers_photos
 
         return ParseHelp.save(point_restaurant)
 
