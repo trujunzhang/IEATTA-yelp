@@ -163,6 +163,7 @@ class ParseRestaurantUtils(object):
             _location = item['geoLocation']
 
             instance = Restaurant()
+            instance.displayName = item['displayname']
             instance.url = item['url']
 
             instance.geoLocation = GeoPoint(_location[0], _location[1])
