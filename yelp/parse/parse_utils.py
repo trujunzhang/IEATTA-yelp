@@ -176,6 +176,12 @@ class ParseRestaurantUtils(object):
         return _point
 
     @classmethod
+    def add_photos_for_restaurant(cls, point_restaurant, pointers_photos):
+        point_restaurant.add('photos', pointers_photos)
+
+        return ParseHelp.save(point_restaurant)
+
+    @classmethod
     def add_event(cls, href, event):
         _point = ParseRestaurantUtils.restaurant_exist(href=href)
         if not _point:
