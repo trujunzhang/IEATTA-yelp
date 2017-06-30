@@ -1,6 +1,7 @@
 import json
 
-from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, ParsePhotoUtils
+from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
+    ParsePhotoUtils
 
 
 class OrderedRecipeImporter(object):
@@ -115,9 +116,13 @@ class RestaurantImporter(object):
         x = 0
 
     def save_photos_for_restaurant(self, images):
+        # Step1: save all photos for the restaurant
         for image in images:
             point_photo = ParsePhotoUtils.save_photo(image, self.point_restaurant)
             self.pointers_photos.append(point_photo)
+
+        # Step2: update the restaurant's photo field.
+        ParseRestaurantUtils.add_photos_for_restaurant(self.point_restaurant, self.pointers_photos)
         return self
 
     def save_restaurant(self):
