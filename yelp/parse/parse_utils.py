@@ -44,8 +44,8 @@ class ParseUserUtils(object):
         point_user = ParseUserUtils.user_exist(user)
         if not point_user:
             user = User.signup(
-                user['displayname'], user['password'],
-                email=user['email'], slug=slugify(user['displayname']),
+                user['displayName'], user['password'],
+                email=user['email'], slug=slugify(user['displayName']),
                 loginType='email'
             )
             point_user = user
@@ -54,7 +54,7 @@ class ParseUserUtils(object):
 
     @classmethod
     def user_exist(cls, user):
-        return User.Query.filter(username=user['displayname']).get()
+        return User.Query.filter(username=user['displayName']).get()
 
 
 # =============================================
@@ -87,7 +87,7 @@ class ParseEventUtils(object):
 
             instance.url = item['url']
 
-            instance.displayname = item['displayname']
+            instance.displayName = item['displayName']
             instance.want = item['want']
 
             instance.start = item['start']
@@ -163,7 +163,7 @@ class ParseRestaurantUtils(object):
             _location = item['geoLocation']
 
             instance = Restaurant()
-            instance.displayName = item['displayname']
+            instance.displayName = item['displayName']
             instance.url = item['url']
 
             instance.geoLocation = GeoPoint(_location[0], _location[1])
@@ -206,7 +206,7 @@ class ParseRecipeUtils(object):
             instance.event = point_event
             instance.user = point_user
 
-            instance.displayname = item['displayname']
+            instance.displayName = item['displayName']
             instance.price = item['price']
 
             instance.photos = photos
