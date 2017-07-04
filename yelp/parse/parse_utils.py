@@ -34,7 +34,7 @@ class ParseRecordUtil(object):
     def save_record(cls, item):
         _point = ParseRecordUtil.record_exist(item['recordId'])
         if not _point:
-            instance = Event()
+            instance = Record()
 
             instance.recordId = item['recordId']
             instance.recordType = item['recordType']
