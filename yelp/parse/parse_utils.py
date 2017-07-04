@@ -23,13 +23,45 @@ register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
 
 
 # =============================================
+#  App Records
+# =============================================
+class Record(Object):
+    pass
+
+
+class ParseRecordUtil(object):
+    @classmethod
+    def save_record(cls, item):
+        _point = ParseRecordUtil.record_exist(item['recordId'])
+        if not _point:
+            instance = Event()
+
+            instance.recordId = item['recordId']
+            instance.recordType = item['recordType']
+
+            _point = instance.save()
+
+        return _point
+
+    @classmethod
+    def record_exist(cls, recordId):
+        if Record.Query.filter(recordId=recordId).count() > 0:
+            _exist = Record.Query.filter(recordId=recordId).get()
+            return _exist
+
+
+# =============================================
 #  App Users
 # =============================================
 
 class ParseHelp(object):
     @classmethod
-    def save(cls, instance):
+    def save(cls, instance, recordType):
         instance.save()
+        ParseRecordUtil.save_record({
+            "recordId": instance.objectId,
+            "recordType": recordType
+        })
         return instance
 
 
@@ -93,7 +125,7 @@ class ParseEventUtils(object):
             instance.start = item['start']
             instance.end = item['end']
 
-            _point = ParseHelp.save(instance)
+            _point = ParseHelp.save(instance, 'event')
 
         return _point
 
@@ -141,7 +173,7 @@ class ParsePhotoUtils(object):
 
             instance.photoType = photo_type
 
-            _point = ParseHelp.save(instance)
+            _point = ParseHelp.save(instance, 'photo')
 
         return _point
 
@@ -171,7 +203,7 @@ class ParseRestaurantUtils(object):
 
             instance.photos = pointers_photos
 
-            _point = ParseHelp.save(instance)
+            _point = ParseHelp.save(instance, 'restaurant')
 
         return _point
 
@@ -179,7 +211,7 @@ class ParseRestaurantUtils(object):
     def add_photos_for_restaurant(cls, point_restaurant, pointers_photos):
         point_restaurant.photos = pointers_photos
 
-        return ParseHelp.save(point_restaurant)
+        return ParseHelp.save(point_restaurant, 'restaurant')
 
     @classmethod
     def add_event(cls, href, event):
@@ -189,7 +221,7 @@ class ParseRestaurantUtils(object):
 
         _point.add('events', event)
 
-        return ParseHelp.save(_point)
+        return ParseHelp.save(_point, 'event')
 
     @classmethod
     def restaurant_exist(cls, href):
