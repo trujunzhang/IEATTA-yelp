@@ -56,11 +56,11 @@ class ParseRecordUtil(object):
 
 class ParseHelp(object):
     @classmethod
-    def save(cls, instance, recordType):
+    def save(cls, instance, record_type):
         instance.save()
         ParseRecordUtil.save_record({
             "recordId": instance.objectId,
-            "recordType": recordType
+            "recordType": record_type
         })
         return instance
 
