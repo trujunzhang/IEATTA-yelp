@@ -32,12 +32,26 @@ class Record(Object):
 class ParseRecordUtil(object):
     @classmethod
     def save_record(cls, item):
+        _record_type = item['recordType']
         _point = ParseRecordUtil.record_exist(item['recordId'])
         if not _point:
             instance = Record()
 
+            if _record_type == 'restaurant':
+                instance.restaurant = item
+            elif _record_type == 'photo':
+                instance.photo = item
+            elif _record_type == 'event':
+                instance.event = item
+            elif _record_type == 'recipe':
+                instance.recipe = item
+            elif _record_type == 'user':
+                instance.user = item
+            else:
+                raise Exception('Not found the record type!')
+
             instance.recordId = item['recordId']
-            instance.recordType = item['recordType']
+            instance.recordType = _record_type
 
             _point = instance.save()
 
@@ -258,14 +272,14 @@ class ParseRecipeUtils(object):
 
             instance.photos = photos
 
-            _point = ParseHelp.save(instance)
+            _point = ParseHelp.save(instance, 'recipe')
         return _point
 
     @classmethod
     def add_photo_for_recipe(cls, point_recipe, pointers_recipes):
         point_recipe.add('recipes', point_recipe)
 
-        return ParseHelp.save(point_recipe)
+        return ParseHelp.save(point_recipe, 'recipe')
 
     @classmethod
     def recipe_exist(cls, href):
