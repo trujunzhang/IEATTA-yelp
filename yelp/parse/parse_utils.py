@@ -43,11 +43,11 @@ class ParseRecordUtil(object):
             instance.save()
             _point = instance
 
-        ParseRecordUtil.set_related(_point, point_instance, _record_type)
+        ParseRecordUtil.__set_related(_point, point_instance, _record_type)
         return _point
 
     @classmethod
-    def set_related(cls, point_record, point_instance, _record_type):
+    def __set_related(cls, point_record, point_instance, _record_type):
 
         if _record_type == 'restaurant':
             point_record.restaurant = point_instance
