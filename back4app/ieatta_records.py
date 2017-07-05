@@ -1,7 +1,7 @@
 import json
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
-    ParsePhotoUtils
+    ParsePhotoUtils, ParseRecordUtil
 
 
 class IEATTARecord(object):
@@ -9,6 +9,7 @@ class IEATTARecord(object):
         super(IEATTARecord, self).__init__()
 
     def list_records(self):
+        ParseRecordUtil.get_list()
         pass
 
 

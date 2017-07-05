@@ -44,6 +44,15 @@ class ParseRecordUtil(object):
         return _point
 
     @classmethod
+    def get_list(cls):
+        _q = Record.Query.all()
+        _first = _q[0]
+        _last_updated_data = _first.updatedAt
+        _first.save()
+        _current_updated_data = _first.updatedAt
+        x = 0
+
+    @classmethod
     def record_exist(cls, recordId):
         if Record.Query.filter(recordId=recordId).count() > 0:
             _exist = Record.Query.filter(recordId=recordId).get()
