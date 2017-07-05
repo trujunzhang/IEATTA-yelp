@@ -212,7 +212,6 @@ class ParsePhotoUtils(object):
             _point = instance
 
         _point = ParseHelp.save(_point, 'photo')
-
         return _point
 
     @classmethod
@@ -240,8 +239,7 @@ class ParseRestaurantUtils(object):
             instance.photos = pointers_photos
             _point = instance
 
-        ParseHelp.save(_point, 'restaurant')
-
+        _point = ParseHelp.save(_point, 'restaurant')
         return _point
 
     @classmethod
