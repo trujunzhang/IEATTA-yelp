@@ -53,10 +53,12 @@ class ParseRecordUtil(object):
             instance.recordId = item['recordId']
             instance.recordType = _record_type
 
-            _point = instance.save()
+            instance.save()
+            _point = instance
 
-            rel = _point.relation('restaurant')
-            rel.add(point_instance)
+            if _record_type == 'restaurant':
+                rel = instance.relation('restaurant')
+                rel.add(point_instance)
 
         return _point
 
