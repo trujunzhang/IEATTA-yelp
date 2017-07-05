@@ -37,23 +37,26 @@ class ParseRecordUtil(object):
         if not _point:
             instance = Record()
 
-            if _record_type == 'restaurant':
-                instance.restaurant = point_instance
-            elif _record_type == 'photo':
-                instance.photo = point_instance
-            elif _record_type == 'event':
-                instance.event = point_instance
-            elif _record_type == 'recipe':
-                instance.recipe = point_instance
-            elif _record_type == 'user':
-                instance.user = point_instance
-            else:
-                raise Exception('Not found the record type!')
+            # if _record_type == 'restaurant':
+            #     instance.restaurant = point_instance.as_pointer
+            # elif _record_type == 'photo':
+            #     instance.photo = point_instance
+            # elif _record_type == 'event':
+            #     instance.event = point_instance
+            # elif _record_type == 'recipe':
+            #     instance.recipe = point_instance
+            # elif _record_type == 'user':
+            #     instance.user = point_instance
+            # else:
+            #     raise Exception('Not found the record type!')
 
             instance.recordId = item['recordId']
             instance.recordType = _record_type
 
             _point = instance.save()
+
+            rel = _point.relation('restaurant')
+            rel.add(point_instance)
 
         return _point
 
@@ -215,18 +218,18 @@ class ParseRestaurantUtils(object):
     def save_restaurant(cls, item, pointers_photos):
         _point = ParseRestaurantUtils.restaurant_exist(item['url'])
         if not _point:
-            _location = item['geoLocation']
-
             instance = Restaurant()
             instance.displayName = item['displayName']
             instance.url = item['url']
 
-            instance.geoLocation = GeoPoint(_location[0], _location[1])
+            instance.geoLocation = GeoPoint(item['geoLocation'][0], item['geoLocation'][1])
             instance.address = item['address']
 
             instance.photos = pointers_photos
 
-            _point = ParseHelp.save(instance, 'restaurant')
+            _point = instance
+
+        ParseHelp.save(_point, 'restaurant')
 
         return _point
 
