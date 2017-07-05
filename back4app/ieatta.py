@@ -161,7 +161,7 @@ class IEATTADemo(object):
             images = restaurant['images']
             _import = RestaurantImporter(restaurant, self.users, self.recipes)
             _import.save_restaurant()
-            # _import.save_photos_for_restaurant(images)
+            _import.save_photos_for_restaurant(images)
             # _import.save_event()
 
 
