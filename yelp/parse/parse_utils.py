@@ -44,30 +44,25 @@ class ParseRecordUtil(object):
             _point = instance
 
         ParseRecordUtil.set_related(_point, point_instance, _record_type)
-
         return _point
 
     @classmethod
     def set_related(cls, point_record, point_instance, _record_type):
-        rel = None
 
         if _record_type == 'restaurant':
-            rel = point_record.relation('restaurants')
+            point_record.restaurant = point_instance
         elif _record_type == 'photo':
-            rel = point_record.relation('photos')
+            point_record.photo = point_instance
         elif _record_type == 'event':
-            rel = point_record.relation('events')
+            point_record.event = point_instance
         elif _record_type == 'recipe':
-            rel = point_record.relation('recipes')
+            point_record.recipe = point_instance
         elif _record_type == 'user':
-            rel = point_record.relation('users')
+            point_record.user = point_instance
         else:
             raise Exception('Not found the record type!')
 
-        if rel:
-            rel.add([point_instance])
-        else:
-            raise Exception('Not found the record relation reference!')
+        point_record.save()
 
         x = 0
 
@@ -95,6 +90,7 @@ class ParseHelp(object):
     @classmethod
     def save(cls, instance, record_type):
         instance.save()
+
         ParseRecordUtil.save_record(instance, {
             "recordId": instance.objectId,
             "recordType": record_type
