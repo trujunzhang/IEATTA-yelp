@@ -37,19 +37,6 @@ class ParseRecordUtil(object):
         if not _point:
             instance = Record()
 
-            # if _record_type == 'restaurant':
-            #     instance.restaurant = point_instance.as_pointer
-            # elif _record_type == 'photo':
-            #     instance.photo = point_instance
-            # elif _record_type == 'event':
-            #     instance.event = point_instance
-            # elif _record_type == 'recipe':
-            #     instance.recipe = point_instance
-            # elif _record_type == 'user':
-            #     instance.user = point_instance
-            # else:
-            #     raise Exception('Not found the record type!')
-
             instance.recordId = item['recordId']
             instance.recordType = _record_type
 
@@ -222,8 +209,9 @@ class ParsePhotoUtils(object):
             instance.recipe = point_recipe
 
             instance.photoType = photo_type
+            _point = instance
 
-            _point = ParseHelp.save(instance, 'photo')
+        _point = ParseHelp.save(_point, 'photo')
 
         return _point
 
@@ -250,7 +238,6 @@ class ParseRestaurantUtils(object):
             instance.address = item['address']
 
             instance.photos = pointers_photos
-
             _point = instance
 
         ParseHelp.save(_point, 'restaurant')
