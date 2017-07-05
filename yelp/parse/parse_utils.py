@@ -45,12 +45,11 @@ class ParseRecordUtil(object):
 
     @classmethod
     def get_list(cls):
-        _q = Record.Query.all()
-        _first = _q[0]
+        _list = Record.Query.all()
+        for item in _list:
+            item.flag = 1
+            item.save()
 
-        _last_updated_data = _first.updatedAt
-        _first.save()
-        _current_updated_data = _first.updatedAt
         x = 0
 
     @classmethod
