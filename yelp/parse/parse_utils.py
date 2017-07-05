@@ -47,6 +47,7 @@ class ParseRecordUtil(object):
     def get_list(cls):
         _q = Record.Query.all()
         _first = _q[0]
+
         _last_updated_data = _first.updatedAt
         _first.save()
         _current_updated_data = _first.updatedAt
