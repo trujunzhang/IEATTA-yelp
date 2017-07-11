@@ -165,7 +165,7 @@ class PeopleInEvent(Object):
 class ParsePeopleInEventUtils(object):
     @classmethod
     def save_people_in_event(cls, p_restaurant, p_event, p_user, p_recipes, item):
-        instance = ParsePeopleInEventUtils.people_in_event_exist('')
+        instance = ParsePeopleInEventUtils.people_in_event_exist(item['testId'])
 
         instance.testId = item['testId']
 
@@ -179,9 +179,9 @@ class ParsePeopleInEventUtils(object):
         return instance
 
     @classmethod
-    def people_in_event_exist(cls, href):
-        if PeopleInEvent.Query.filter(url=href).count() > 0:
-            return PeopleInEvent.Query.filter(url=href).get()
+    def people_in_event_exist(cls, testId):
+        if PeopleInEvent.Query.filter(testId=testId).count() > 0:
+            return PeopleInEvent.Query.filter(testId=testId).get()
         return PeopleInEvent()
 
 
