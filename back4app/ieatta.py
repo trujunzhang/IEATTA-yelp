@@ -111,8 +111,8 @@ class EventImporter(object):
 class RestaurantImporter(object):
     def __init__(self, restaurant, users, recipes):
         super(RestaurantImporter, self).__init__()
-
-        self.point_restaurant = ParseRestaurantUtils.restaurant_exist(self.restaurant[], self.pointers_photos)
+        # Check whether exist.
+        self.point_restaurant = ParseRestaurantUtils.restaurant_exist(restaurant['url'])
 
         self.restaurant = restaurant
         self.users = users
@@ -134,8 +134,11 @@ class RestaurantImporter(object):
         return self
 
     def save_restaurant(self):
-        logging.info("     {} ".format('save @Restaurant'))
-        self.point_restaurant = ParseRestaurantUtils.save_restaurant(self.restaurant, self.pointers_photos)
+        if self.point_restaurant:
+            logging.info("     {} ".format('exist @Restaurant'))
+        else:
+            logging.info("     {} ".format('save @Restaurant'))
+            self.point_restaurant = ParseRestaurantUtils.save_restaurant(self.restaurant, self.pointers_photos)
         return self
 
     def save_event(self):
