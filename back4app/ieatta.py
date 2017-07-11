@@ -79,16 +79,19 @@ class EventImporter(object):
     def __init__(self, point_restaurant, event, users, recipes):
         super(EventImporter, self).__init__()
 
+        self.point_event = ParseEventUtils.event_exist(event['url'])
+
         self.point_restaurant = point_restaurant
         self.event = event
         self.users = users
         self.recipes = recipes
 
     def save_event(self, restaurant_url):
-        self.point_event = ParseEventUtils.save_event(self.event)
-        point_restaurant = ParseRestaurantUtils.add_event(restaurant_url, self.point_event)
+        if not self.point_event:
+            self.point_event = ParseEventUtils.save_event(self.event)
+            point_restaurant = ParseRestaurantUtils.add_event(restaurant_url, self.point_event)
 
-        ParseEventUtils.add_restaurant(self.point_event, point_restaurant)
+            ParseEventUtils.add_restaurant(self.point_event, point_restaurant)
 
         return self
 
@@ -148,14 +151,16 @@ class RestaurantImporter(object):
         return self
 
     def save_event(self):
-        if not 'events' in self.restaurant.keys():
-            return self
+        if 'events' in self.restaurant.keys():
+            for event in self.restaurant['events']:
+                _importer_event = EventImporter(self.point_restaurant,
+                                                event,
+                                                self.users,
+                                                self.recipes)
+                # _importer_event.save_event(self.point_restaurant.url)
+                # _importer_event.save_users_in_event()
 
-        for event in self.restaurant['events']:
-            EventImporter(self.point_restaurant,
-                          event,
-                          self.users,
-                          self.recipes).save_event(self.point_restaurant.url).save_users_in_event()
+        return self
 
 
 class IEATTADemo(object):
@@ -176,14 +181,17 @@ class IEATTADemo(object):
 
         # Step2: restaurants with events
         for index, restaurant in enumerate(self.restaurants):
+            if index > 0:
+                break
+
             logging.info("     ")
             logging.info("  ** {} ".format('restaurant'))
             logging.info("     {} ".format(index + 1))
 
-            _import = RestaurantImporter(restaurant, self.users, self.recipes)
-            _import.save_restaurant()
-            _import.save_photos_for_restaurant()
-            # _import.save_event()
+            _importer_restaurant = RestaurantImporter(restaurant, self.users, self.recipes)
+            # _importer_restaurant.save_restaurant()
+            # _importer_restaurant.save_photos_for_restaurant()
+            _importer_restaurant.save_event()
 
 
 def main():

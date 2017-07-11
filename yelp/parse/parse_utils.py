@@ -176,8 +176,8 @@ class ParseEventUtils(object):
 
     @classmethod
     def event_exist(cls, href):
-        _exist = Event.Query.filter(url=href).get()
-        return _exist
+        if Event.Query.filter(url=href).count() > 0:
+            return Event.Query.filter(url=href).get()
 
 
 # =============================================
