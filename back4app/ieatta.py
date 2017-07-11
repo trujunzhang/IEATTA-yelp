@@ -157,7 +157,7 @@ class RestaurantImporter(object):
                                                 event,
                                                 self.users,
                                                 self.recipes)
-                # _importer_event.save_event(self.point_restaurant.url)
+                _importer_event.save_event(self.point_restaurant.url)
                 # _importer_event.save_users_in_event()
 
         return self
@@ -167,20 +167,34 @@ class IEATTADemo(object):
     def __init__(self):
         super(IEATTADemo, self).__init__()
 
+        self.pointer_users = []
+        self.pointer_recipes = []
+
         with open('parse_yelp.json') as data_file:
             self.data = json.load(data_file)
 
-        self.users = self.data['users']
-        self.restaurants = self.data['restaurants']
-        self.recipes = self.data['recipes']
+    def ready(self):
+        self.__import_users()
+        self.__import_recipes()
+        return self
 
-    def import_all(self):
+    def __import_users(self):
+        _users = self.data['users']
+        pass
+
+    def __import_recipes(self):
+        _recipes = self.data['recipes']
+        pass
+
+    def import_restaurants(self):
+        _restaurants = self.data['restaurants']
+
         #  Step1: sign up all terms.
         # for user in self.users:
         #     ParseUserUtils.signup(user)
 
         # Step2: restaurants with events
-        for index, restaurant in enumerate(self.restaurants):
+        for index, restaurant in enumerate(_restaurants):
             if index > 0:
                 break
 
@@ -188,17 +202,18 @@ class IEATTADemo(object):
             logging.info("  ** {} ".format('restaurant'))
             logging.info("     {} ".format(index + 1))
 
-            _importer_restaurant = RestaurantImporter(restaurant, self.users, self.recipes)
+            # _importer_restaurant = RestaurantImporter(restaurant, self.users, self.recipes)
             # _importer_restaurant.save_restaurant()
             # _importer_restaurant.save_photos_for_restaurant()
-            _importer_restaurant.save_event()
+            # _importer_restaurant.save_event()
 
 
 def main():
     logging.info("  Start Import IEATTA class rows! ")
     utils = IEATTADemo()
 
-    utils.import_all()
+    utils.ready()
+    utils.import_restaurants()
 
 
 if __name__ == '__main__':
