@@ -250,7 +250,9 @@ class ParsePhotoUtils(object):
             # Step1: save all photos for the restaurant
             _pointers_photos = []
             for image in images:
-                point_photo = ParsePhotoUtils.save_photo(image['url'], point_instance, photo_type=record_type)
+                point_photo = ParsePhotoUtils.save_photo(url=image['url'],
+                                                         point_restaurant=point_instance,
+                                                         photo_type=record_type)
                 _pointers_photos.append(point_photo)
 
             # Step2: update the instance's photo field.
@@ -261,8 +263,8 @@ class ParsePhotoUtils(object):
         return self
 
     @classmethod
-    def save_photo(cls, url, point_restaurant,
-                   point_event=None, point_user=None, point_recipe=None,
+    def save_photo(cls, url,
+                   point_restaurant=None, point_event=None, point_user=None, point_recipe=None,
                    photo_type='restaurant'):
         _point = ParsePhotoUtils.photo_exist(url)
         if not _point:
