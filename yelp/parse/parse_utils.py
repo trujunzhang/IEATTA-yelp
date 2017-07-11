@@ -280,8 +280,8 @@ class ParseRecipeUtils(object):
             instance.event = None
             instance.user = None
 
-            instance['displayName'] = item['displayName']
-            instance['price'] = item['price']
+            instance.displayName = item['displayName']
+            instance.price = item['price']
 
             instance.photos = photos
 
