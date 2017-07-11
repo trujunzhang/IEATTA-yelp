@@ -8,6 +8,7 @@
           "peopleInEvent": [
             {
               "userTestId": "u001",
+              "testId": "i001",
               "recipeIds": [
                 "r001",
                 "r002",
@@ -16,6 +17,7 @@
             },
             {
               "userTestId": "u002",
+              "testId": "i002",
               "recipeIds": [
                 "r004",
                 "r005"
@@ -23,6 +25,7 @@
             },
             {
               "userTestId": "u003",
+              "testId": "i003",
               "recipeIds": [
                 "r006",
                 "r007",
@@ -31,6 +34,7 @@
             },
             {
               "userTestId": "u004",
+              "testId": "i004",
               "recipeIds": [
                 "r009",
                 "r010"

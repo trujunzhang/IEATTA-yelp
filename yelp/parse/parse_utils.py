@@ -159,23 +159,25 @@ class PeopleInEvent(Object):
 
 class ParsePeopleInEventUtils(object):
     @classmethod
-    def save_event(cls, item):
-        _point = ParsePeopleInEventUtils.people_in_event_exist('')
-        if not _point:
-            instance = PeopleInEvent()
+    def save_people_in_event(cls, p_restaurant, p_event, p_user, p_recipes, item):
+        instance = ParsePeopleInEventUtils.people_in_event_exist('')
 
-            instance.people = item['url']
+        instance.testId = item['testId']
 
-            instance.event = item['displayName']
+        instance.restaurant = p_restaurant
+        instance.event = p_event
+        instance.user = p_user
+        instance.recipes = p_recipes
 
-            _point = ParseHelp.save_and_update_record(instance, 'peopleinevent')
+        # instance = ParseHelp.save_and_update_record(instance, 'peopleinevent')
 
-        return _point
+        return instance
 
     @classmethod
     def people_in_event_exist(cls, href):
         if PeopleInEvent.Query.filter(url=href).count() > 0:
             return PeopleInEvent.Query.filter(url=href).get()
+        return PeopleInEvent()
 
 
 class Event(Object):

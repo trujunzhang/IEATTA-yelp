@@ -6,7 +6,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
-    ParsePhotoUtils, get_object_by_type, Restaurant, Event, Recipe
+    ParsePhotoUtils, get_object_by_type, Restaurant, Event, Recipe, ParsePeopleInEventUtils
 
 
 class RelationData(object):
@@ -32,6 +32,10 @@ class IEATTARelation(object):
 
         return p_recipes
 
+    def __save_people_in_event(self, data, p_user, p_recipes, people_in_event):
+        ParsePeopleInEventUtils.save_people_in_event(data.point_restaurant, data.point_event, p_user, p_recipes,
+                                                     people_in_event)
+
     def import_relation(self):
         # Step01: restaurants
         for r_index, restaurant in enumerate(self.data['restaurants']):
@@ -48,10 +52,7 @@ class IEATTARelation(object):
                         'point_user': _p_user,
                         'point_recipes': _p_recipes
                     })
-
-                    # data.point_event = get_object_by_type(Event.Query, event)
-                    x = 0
-                    pass
+                    self.__save_people_in_event(data, _p_user, _p_recipes, people_in_event)
 
 
 def main():
