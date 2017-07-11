@@ -205,7 +205,6 @@ class ParsePhotoUtils(object):
         :param record_type: Only two types: 'restaurant' or 'recipe'
         :return:
         '''
-        _pointers_photos = []
 
         _photos_count = 0
         if point_instance and point_instance.photos:
@@ -215,6 +214,7 @@ class ParsePhotoUtils(object):
             logging.info("     {} ".format('exist @Array[Photos]'))
         else:
             # Step1: save all photos for the restaurant
+            _pointers_photos = []
             for image in images:
                 point_photo = ParsePhotoUtils.save_photo(image, point_instance)
                 _pointers_photos.append(point_photo)
