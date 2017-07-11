@@ -112,6 +112,8 @@ class RestaurantImporter(object):
     def __init__(self, restaurant, users, recipes):
         super(RestaurantImporter, self).__init__()
 
+        self.point_restaurant = ParseRestaurantUtils.restaurant_exist(self.restaurant[], self.pointers_photos)
+
         self.restaurant = restaurant
         self.users = users
         self.recipes = recipes
@@ -128,9 +130,11 @@ class RestaurantImporter(object):
 
         # Step2: update the restaurant's photo field.
         ParseRestaurantUtils.add_photos_for_restaurant(self.point_restaurant, self.pointers_photos)
+        logging.info("     {} ".format('save @Array[Photos]'))
         return self
 
     def save_restaurant(self):
+        logging.info("     {} ".format('save @Restaurant'))
         self.point_restaurant = ParseRestaurantUtils.save_restaurant(self.restaurant, self.pointers_photos)
         return self
 
@@ -156,17 +160,21 @@ class IEATTADemo(object):
         self.restaurants = self.data['restaurants']
         self.recipes = self.data['recipes']
 
-    def signup(self):
+    def import_all(self):
         #  Step1: sign up all terms.
         # for user in self.users:
         #     ParseUserUtils.signup(user)
 
         # Step2: restaurants with events
-        for restaurant in self.restaurants:
+        for index, restaurant in enumerate(self.restaurants):
+            logging.info("     ")
+            logging.info("  ** {} ".format('restaurant'))
+            logging.info("     {} ".format(index + 1))
+
             images = restaurant['images']
             _import = RestaurantImporter(restaurant, self.users, self.recipes)
             _import.save_restaurant()
-            _import.save_photos_for_restaurant(images)
+            # _import.save_photos_for_restaurant(images)
             # _import.save_event()
 
 
@@ -174,7 +182,7 @@ def main():
     logging.info("  Start Import IEATTA class rows! ")
     utils = IEATTADemo()
 
-    # utils.signup()
+    utils.import_all()
 
 
 if __name__ == '__main__':

@@ -245,14 +245,10 @@ class ParseRestaurantUtils(object):
         return ParseHelp.save(point_restaurant, 'restaurant')
 
     @classmethod
-    def add_event(cls, href, event):
-        _point = ParseRestaurantUtils.restaurant_exist(href=href)
-        if not _point:
-            raise Exception('Not found the restaurant!')
+    def add_event(cls, point_restaurant, event):
+        point_restaurant.add('events', event)
 
-        _point.add('events', event)
-
-        return ParseHelp.save(_point, 'event')
+        return ParseHelp.save(point_restaurant, 'event')
 
     @classmethod
     def restaurant_exist(cls, href):
