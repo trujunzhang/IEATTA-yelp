@@ -179,14 +179,14 @@ class IEATTADemo(object):
 
     def ready(self):
         self.__import_users()
-        # self.__import_recipes()
+        self.__import_recipes()
         return self
 
     def __import_users(self):
         _users = self.data['users']
         for index, user in enumerate(_users):
-            if index > 0:
-                break
+            # if index > 0:
+            #     break
 
             logging.info("     ")
             logging.info("  ** {} ".format('user'))
