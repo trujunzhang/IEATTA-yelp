@@ -6,7 +6,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
-    ParsePhotoUtils, get_object_by_type, Restaurant, Event
+    ParsePhotoUtils, get_object_by_type, Restaurant, Event, Recipe
 
 
 class RelationData(object):
@@ -28,7 +28,7 @@ class IEATTARelation(object):
     def __get_recipes(self, recipeIds):
         p_recipes = []
         for recipeId in recipeIds:
-            p_recipes.append(get_object_by_type(Event.Query, {'testId': recipeId}))
+            p_recipes.append(get_object_by_type(Recipe.Query, {'testId': recipeId}))
 
         return p_recipes
 
