@@ -210,7 +210,7 @@ class ParsePhotoUtils(object):
         if point_instance and point_instance.photos:
             _photos_count = len(point_instance.photos)
 
-        if _photos_count == len(images) + 1:
+        if _photos_count == len(images):
             logging.info("     {} ".format('exist @Array[Photos]'))
         else:
             # Step1: save all photos for the restaurant

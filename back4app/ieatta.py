@@ -130,22 +130,6 @@ class RestaurantImporter(object):
         self.users = users
         self.recipes = recipes
 
-    # def save_photos_for_restaurant(self):
-    #     images = self.restaurant['images']
-    #     if self.photos_count == len(images):
-    #         logging.info("     {} ".format('exist @Array[Photos]'))
-    #     else:
-    #         # Step1: save all photos for the restaurant
-    #         for image in images:
-    #             point_photo = ParsePhotoUtils.save_photo(image, self.point_restaurant)
-    #             self.pointers_photos.append(point_photo)
-    #
-    #         # Step2: update the restaurant's photo field.
-    #         ParseRestaurantUtils.add_photos_for_restaurant(self.point_restaurant, self.pointers_photos)
-    #         logging.info("     {} ".format('update @Array[Photos]'))
-    #
-    #     return self
-
     def save_restaurant(self):
         if self.point_restaurant:
             logging.info("     {} ".format('exist @Restaurant'))
@@ -214,10 +198,6 @@ class IEATTADemo(object):
     def import_restaurants(self):
         # if len(self.pointer_users) == 0:
         #     raise AttributeError("Import Users and Recipes firstly.")
-
-        #  Step1: sign up all terms.
-        # for user in self.users:
-        #     ParseUserUtils.signup(user)
 
         # Step2: restaurants with events
         for index, restaurant in enumerate(self.data['restaurants']):
