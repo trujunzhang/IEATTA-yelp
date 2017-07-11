@@ -178,7 +178,7 @@ class IEATTADemo(object):
             self.data = json.load(data_file)
 
     def ready(self):
-        self.__import_users()
+        # self.__import_users()
         self.__import_recipes()
         return self
 
@@ -197,7 +197,16 @@ class IEATTADemo(object):
 
     def __import_recipes(self):
         _recipes = self.data['recipes']
-        pass
+        for index, recipe in enumerate(_recipes):
+            if index > 0:
+                break
+
+            logging.info("     ")
+            logging.info("  ** {} ".format('recipe'))
+            logging.info("     {} ".format(index + 1))
+
+            _point_recipe = ParseRecipeUtils.save_recipe(recipe)
+            self.pointer_recipes.append(_point_recipe)
 
     def import_restaurants(self):
         if len(self.pointer_users) == 0:

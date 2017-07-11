@@ -264,14 +264,14 @@ class Recipe(Object):
 
 class ParseRecipeUtils(object):
     @classmethod
-    def save_recipe(cls, point_restaurant, point_event, point_user, item, photos=None):
+    def save_recipe(cls, item, photos=None):
         _point = ParseRecipeUtils.recipe_exist(item['url'])
         if not _point:
             instance = Recipe()
 
-            instance.restaurant = point_restaurant
-            instance.event = point_event
-            instance.user = point_user
+            instance.restaurant = None
+            instance.event = None
+            instance.user = None
 
             instance.displayName = item['displayName']
             instance.price = item['price']
