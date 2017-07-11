@@ -113,21 +113,29 @@ class RestaurantImporter(object):
         super(RestaurantImporter, self).__init__()
         # Check whether exist.
         self.point_restaurant = ParseRestaurantUtils.restaurant_exist(restaurant['url'])
+        self.photos_count = 0
+        if self.point_restaurant:
+            self.photos_count = len(self.point_restaurant.photos)
         self.pointers_photos = []
 
         self.restaurant = restaurant
         self.users = users
         self.recipes = recipes
 
-    def save_photos_for_restaurant(self, images):
-        # Step1: save all photos for the restaurant
-        for image in images:
-            point_photo = ParsePhotoUtils.save_photo(image, self.point_restaurant)
-            self.pointers_photos.append(point_photo)
+    def save_photos_for_restaurant(self):
+        images = self.restaurant['images']
+        if self.photos_count == len(images):
+            logging.info("     {} ".format('save @Array[Photos]'))
+        else:
+            # Step1: save all photos for the restaurant
+            for image in images:
+                point_photo = ParsePhotoUtils.save_photo(image, self.point_restaurant)
+                self.pointers_photos.append(point_photo)
 
-        # Step2: update the restaurant's photo field.
-        ParseRestaurantUtils.add_photos_for_restaurant(self.point_restaurant, self.pointers_photos)
-        logging.info("     {} ".format('save @Array[Photos]'))
+            # Step2: update the restaurant's photo field.
+            ParseRestaurantUtils.add_photos_for_restaurant(self.point_restaurant, self.pointers_photos)
+            logging.info("     {} ".format('save @Array[Photos]'))
+
         return self
 
     def save_restaurant(self):
@@ -171,10 +179,9 @@ class IEATTADemo(object):
             logging.info("  ** {} ".format('restaurant'))
             logging.info("     {} ".format(index + 1))
 
-            images = restaurant['images']
             _import = RestaurantImporter(restaurant, self.users, self.recipes)
             _import.save_restaurant()
-            _import.save_photos_for_restaurant(images)
+            _import.save_photos_for_restaurant()
             # _import.save_event()
 
 
