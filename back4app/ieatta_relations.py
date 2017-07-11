@@ -19,41 +19,7 @@ class IEATTARelation(object):
         with open('parse_yelp.json') as data_file:
             self.data = json.load(data_file)
 
-    def ready(self):
-        # self.__import_users()
-        self.__import_recipes()
-        return self
-
-    def __import_users(self):
-        _users = self.data['users']
-        for index, user in enumerate(_users):
-            # if index > 0:
-            #     break
-
-            logging.info("     ")
-            logging.info("  ** {} ".format('user'))
-            logging.info("     {} ".format(index + 1))
-
-            _point_user = ParseUserUtils.signup(user)
-            self.pointer_users.append(_point_user)
-
-    def __import_recipes(self):
-        _recipes = self.data['recipes']
-        for index, recipe in enumerate(_recipes):
-            if index > 0:
-                break
-
-            logging.info("     ")
-            logging.info("  ** {} ".format('recipe'))
-            logging.info("     {} ".format(index + 1))
-
-            _point_recipe = ParseRecipeUtils.save_recipe(recipe)
-            self.pointer_recipes.append(_point_recipe)
-
-    def import_restaurants(self):
-        # if len(self.pointer_users) == 0:
-        #     raise AttributeError("Import Users and Recipes firstly.")
-
+    def import_relation(self):
         # Step2: restaurants with events
         for index, restaurant in enumerate(self.data['restaurants']):
             if index > 0:
@@ -67,9 +33,7 @@ def main():
     logging.info("     ")
     logging.info("  * {} ".format('Ready'))
 
-    utils.ready()
-
-    # utils.import_restaurants()
+    utils.import_relation()
 
 
 if __name__ == '__main__':
