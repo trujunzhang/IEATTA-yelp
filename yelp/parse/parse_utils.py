@@ -22,9 +22,9 @@ register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
          master_key=PARSE_REGISTER["MASTER_KEY"])
 
 
-def get_object_by_type(query, item):
-    if query.filter(testId=item['testId']).count() > 0:
-        return query.filter(testId=item['testId']).get()
+def get_object_by_type(query, item, field='testId'):
+    if query.filter(testId=item[field]).count() > 0:
+        return query.filter(testId=item[field]).get()
 
 
 class ParseRelationUtil(object):
