@@ -113,14 +113,11 @@ class RestaurantImporter(object):
         super(RestaurantImporter, self).__init__()
         # Check whether exist.
         self.point_restaurant = ParseRestaurantUtils.restaurant_exist(restaurant['url'])
+        self.pointers_photos = []
 
         self.restaurant = restaurant
         self.users = users
         self.recipes = recipes
-
-        self.pointers_photos = []
-
-        x = 0
 
     def save_photos_for_restaurant(self, images):
         # Step1: save all photos for the restaurant
@@ -177,7 +174,7 @@ class IEATTADemo(object):
             images = restaurant['images']
             _import = RestaurantImporter(restaurant, self.users, self.recipes)
             _import.save_restaurant()
-            # _import.save_photos_for_restaurant(images)
+            _import.save_photos_for_restaurant(images)
             # _import.save_event()
 
 
