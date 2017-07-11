@@ -25,7 +25,7 @@ register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
 class ParseRelationUtil(object):
     @classmethod
     def update_as_pointer(cls, point_instance, field, value):
-        point_instance[field] = value
+        point_instance.add(field, value)
         _point = ParseHelp.save(point_instance, 'event')
 
 
