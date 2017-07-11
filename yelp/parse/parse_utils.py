@@ -249,8 +249,8 @@ class ParsePhotoUtils(object):
         else:
             # Step1: save all photos for the restaurant
             _pointers_photos = []
-            for image in images:
-                point_photo = ParsePhotoUtils.save_photo(url=image['url'],
+            for url in images:
+                point_photo = ParsePhotoUtils.save_photo(url=url,
                                                          point_restaurant=point_instance,
                                                          photo_type=record_type)
                 _pointers_photos.append(point_photo)
