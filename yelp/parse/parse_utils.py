@@ -222,7 +222,7 @@ class ParsePhotoUtils(object):
             # Step2: update the instance's photo field.
             point_instance.photos = _pointers_photos
             ParseHelp.save_and_update_record(point_instance, record_type)
-            logging.info("     {} for {} ".format('update @Array[Photos]', record_type))
+            logging.info("     {} for {} ".format('update @Array[photos]', record_type))
 
         return self
 
