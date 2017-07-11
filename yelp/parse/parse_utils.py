@@ -26,7 +26,7 @@ class ParseRelationUtil(object):
     @classmethod
     def update_as_pointer(cls, point_instance, field, value):
         point_instance.add(field, value)
-        _point = ParseHelp.save(point_instance, 'event')
+        _point = ParseHelp.save_and_update_record(point_instance, 'event')
 
 
 # =============================================
@@ -95,7 +95,7 @@ class ParseRecordUtil(object):
 
 class ParseHelp(object):
     @classmethod
-    def save(cls, instance, record_type):
+    def save_and_update_record(cls, instance, record_type):
         instance.save()
 
         ParseRecordUtil.save_record(instance, {
@@ -166,7 +166,7 @@ class ParseEventUtils(object):
             instance.start = item['start']
             instance.end = item['end']
 
-            _point = ParseHelp.save(instance, 'event')
+            _point = ParseHelp.save_and_update_record(instance, 'event')
 
         return _point
 
@@ -197,7 +197,7 @@ class Photo(Object):
 
 class ParsePhotoUtils(object):
     @classmethod
-    def save_photos_for_instance(self, point_instance, images):
+    def save_photos_for_instance(self, point_instance, images, record_type):
         _pointers_photos = []
 
         _photos_count = 0
@@ -212,8 +212,9 @@ class ParsePhotoUtils(object):
                 point_photo = ParsePhotoUtils.save_photo(image, point_instance)
                 _pointers_photos.append(point_photo)
 
-            # Step2: update the restaurant's photo field.
-            ParseRelationUtil.update_as_pointer(point_instance, 'photos', _pointers_photos)
+            # Step2: update the instance's photo field.
+            point_instance.photos = _pointers_photos
+            ParseHelp.save_and_update_record(point_instance, record_type)
             logging.info("     {} ".format('update @Array[Photos]'))
 
         return self
@@ -238,7 +239,7 @@ class ParsePhotoUtils(object):
             instance.photoType = photo_type
             _point = instance
 
-        _point = ParseHelp.save(_point, 'photo')
+        _point = ParseHelp.save_and_update_record(_point, 'photo')
         return _point
 
     @classmethod
@@ -266,20 +267,20 @@ class ParseRestaurantUtils(object):
             instance.photos = pointers_photos
             _point = instance
 
-        _point = ParseHelp.save(_point, 'restaurant')
+        _point = ParseHelp.save_and_update_record(_point, 'restaurant')
         return _point
 
     @classmethod
     def add_photos_for_restaurant(cls, point_restaurant, pointers_photos):
         point_restaurant.photos = pointers_photos
 
-        return ParseHelp.save(point_restaurant, 'restaurant')
+        return ParseHelp.save_and_update_record(point_restaurant, 'restaurant')
 
     @classmethod
     def add_event(cls, point_restaurant, event):
         point_restaurant.add('events', event)
 
-        return ParseHelp.save(point_restaurant, 'event')
+        return ParseHelp.save_and_update_record(point_restaurant, 'event')
 
     @classmethod
     def restaurant_exist(cls, href):
@@ -307,14 +308,14 @@ class ParseRecipeUtils(object):
 
             instance.photos = photos
 
-            _point = ParseHelp.save(instance, 'recipe')
+            _point = ParseHelp.save_and_update_record(instance, 'recipe')
         return _point
 
     @classmethod
     def add_photo_for_recipe(cls, point_recipe, pointers_recipes):
         point_recipe.add('recipes', point_recipe)
 
-        return ParseHelp.save(point_recipe, 'recipe')
+        return ParseHelp.save_and_update_record(point_recipe, 'recipe')
 
     @classmethod
     def recipe_exist(cls, href):

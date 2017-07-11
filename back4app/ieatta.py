@@ -153,7 +153,7 @@ class RestaurantImporter(object):
             logging.info("     {} ".format('save @Restaurant'))
             self.point_restaurant = ParseRestaurantUtils.save_restaurant(self.restaurant, [])
 
-        ParsePhotoUtils.save_photos_for_instance(self.point_restaurant, self.restaurant['images'])
+        ParsePhotoUtils.save_photos_for_instance(self.point_restaurant, self.restaurant['images'], 'restaurant')
         return self
 
     def save_event(self):
