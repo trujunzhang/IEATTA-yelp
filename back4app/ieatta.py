@@ -152,6 +152,8 @@ class RestaurantImporter(object):
         else:
             logging.info("     {} ".format('save @Restaurant'))
             self.point_restaurant = ParseRestaurantUtils.save_restaurant(self.restaurant, [])
+
+        ParsePhotoUtils.save_photos_for_instance(self.point_restaurant, self.restaurant['images'])
         return self
 
     def save_event(self):
@@ -209,17 +211,15 @@ class IEATTADemo(object):
             self.pointer_recipes.append(_point_recipe)
 
     def import_restaurants(self):
-        if len(self.pointer_users) == 0:
-            raise AttributeError("Import Users and Recipes firstly.")
-
-        _restaurants = self.data['restaurants']
+        # if len(self.pointer_users) == 0:
+        #     raise AttributeError("Import Users and Recipes firstly.")
 
         #  Step1: sign up all terms.
         # for user in self.users:
         #     ParseUserUtils.signup(user)
 
         # Step2: restaurants with events
-        for index, restaurant in enumerate(_restaurants):
+        for index, restaurant in enumerate(self.data['restaurants']):
             if index > 0:
                 break
 
@@ -227,9 +227,8 @@ class IEATTADemo(object):
             logging.info("  ** {} ".format('restaurant'))
             logging.info("     {} ".format(index + 1))
 
-            # _importer_restaurant = RestaurantImporter(restaurant, self.users, self.recipes)
-            # _importer_restaurant.save_restaurant()
-            # _importer_restaurant.save_photos_for_restaurant()
+            _importer_restaurant = RestaurantImporter(restaurant, self.pointer_users, self.pointer_recipes)
+            _importer_restaurant.save_restaurant()
             # _importer_restaurant.save_event()
 
 
@@ -240,9 +239,9 @@ def main():
     logging.info("     ")
     logging.info("  * {} ".format('Ready'))
 
-    utils.ready()
+    # utils.ready()
 
-    # utils.import_restaurants()
+    utils.import_restaurants()
 
 
 if __name__ == '__main__':

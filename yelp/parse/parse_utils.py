@@ -197,6 +197,28 @@ class Photo(Object):
 
 class ParsePhotoUtils(object):
     @classmethod
+    def save_photos_for_instance(self, point_instance, images):
+        _pointers_photos = []
+
+        _photos_count = 0
+        if point_instance and point_instance.photos:
+            _photos_count = len(point_instance.photos)
+
+        if _photos_count == len(images) + 1:
+            logging.info("     {} ".format('exist @Array[Photos]'))
+        else:
+            # Step1: save all photos for the restaurant
+            for image in images:
+                point_photo = ParsePhotoUtils.save_photo(image, point_instance)
+                _pointers_photos.append(point_photo)
+
+            # Step2: update the restaurant's photo field.
+            ParseRelationUtil.update_as_pointer(point_instance, 'photos', _pointers_photos)
+            logging.info("     {} ".format('update @Array[Photos]'))
+
+        return self
+
+    @classmethod
     def save_photo(cls, url, point_restaurant,
                    point_event=None, point_user=None, point_recipe=None,
                    photo_type='restaurant'):
