@@ -198,6 +198,13 @@ class Photo(Object):
 class ParsePhotoUtils(object):
     @classmethod
     def save_photos_for_instance(self, point_instance, images, record_type):
+        '''
+
+        :param point_instance:
+        :param images:
+        :param record_type: Only two types: 'restaurant' or 'recipe'
+        :return:
+        '''
         _pointers_photos = []
 
         _photos_count = 0
