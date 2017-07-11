@@ -114,8 +114,9 @@ class RestaurantImporter(object):
         # Check whether exist.
         self.point_restaurant = ParseRestaurantUtils.restaurant_exist(restaurant['url'])
         self.photos_count = 0
-        if self.point_restaurant:
+        if self.point_restaurant and self.point_restaurant.photos:
             self.photos_count = len(self.point_restaurant.photos)
+
         self.pointers_photos = []
 
         self.restaurant = restaurant
@@ -125,7 +126,7 @@ class RestaurantImporter(object):
     def save_photos_for_restaurant(self):
         images = self.restaurant['images']
         if self.photos_count == len(images):
-            logging.info("     {} ".format('save @Array[Photos]'))
+            logging.info("     {} ".format('exist @Array[Photos]'))
         else:
             # Step1: save all photos for the restaurant
             for image in images:
@@ -134,7 +135,7 @@ class RestaurantImporter(object):
 
             # Step2: update the restaurant's photo field.
             ParseRestaurantUtils.add_photos_for_restaurant(self.point_restaurant, self.pointers_photos)
-            logging.info("     {} ".format('save @Array[Photos]'))
+            logging.info("     {} ".format('update @Array[Photos]'))
 
         return self
 
@@ -143,7 +144,7 @@ class RestaurantImporter(object):
             logging.info("     {} ".format('exist @Restaurant'))
         else:
             logging.info("     {} ".format('save @Restaurant'))
-            self.point_restaurant = ParseRestaurantUtils.save_restaurant(self.restaurant, self.pointers_photos)
+            self.point_restaurant = ParseRestaurantUtils.save_restaurant(self.restaurant, [])
         return self
 
     def save_event(self):
