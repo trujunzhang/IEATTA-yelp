@@ -193,7 +193,9 @@ class ParseEventUtils(object):
             instance.start = item['start']
             instance.end = item['end']
 
-            _point = ParseHelp.save_and_update_record(instance, 'event')
+            _point = instance
+
+        _point = ParseHelp.save_and_update_record(_point, 'event')
 
         return _point
 
@@ -288,7 +290,7 @@ class Restaurant(Object):
 
 class ParseRestaurantUtils(object):
     @classmethod
-    def save_restaurant(cls, item, pointers_photos):
+    def save_restaurant(cls, item):
         _point = ParseRestaurantUtils.restaurant_exist(item['url'])
         if not _point:
             instance = Restaurant()
@@ -298,7 +300,6 @@ class ParseRestaurantUtils(object):
             instance.geoLocation = GeoPoint(item['geoLocation'][0], item['geoLocation'][1])
             instance.address = item['address']
 
-            instance.photos = pointers_photos
             _point = instance
 
         _point = ParseHelp.save_and_update_record(_point, 'restaurant')
@@ -328,19 +329,15 @@ class Recipe(Object):
 
 class ParseRecipeUtils(object):
     @classmethod
-    def save_recipe(cls, item, photos=None):
+    def save_recipe(cls, item):
         _point = ParseRecipeUtils.recipe_exist(item['url'])
         if not _point:
             instance = Recipe()
 
-            instance.restaurant = None
-            instance.event = None
-            instance.user = None
-
             instance.displayName = item['displayName']
             instance.price = item['price']
 
-            instance.photos = photos
+            _point = instance
 
             _point = ParseHelp.save_and_update_record(instance, 'recipe')
         return _point
