@@ -66,6 +66,8 @@ class ParseRecordUtil(object):
             point_record.recipe = point_instance
         elif _record_type == 'user':
             point_record.user = point_instance
+        elif _record_type == 'peopleinevent':
+            point_record.peopleInEvent = point_instance
         else:
             raise Exception('Not found the record type!')
 
@@ -145,8 +147,33 @@ class Profile(Object):
 
 
 # =============================================
-#  Python scrapy
+#  Event
 # =============================================
+class PeopleInEvent(Object):
+    pass
+
+
+class ParsePeopleInEventUtils(object):
+    @classmethod
+    def save_event(cls, item):
+        _point = ParsePeopleInEventUtils.people_in_event_exist('')
+        if not _point:
+            instance = PeopleInEvent()
+
+            instance.people = item['url']
+
+            instance.event = item['displayName']
+
+            _point = ParseHelp.save_and_update_record(instance, 'peopleinevent')
+
+        return _point
+
+    @classmethod
+    def people_in_event_exist(cls, href):
+        if PeopleInEvent.Query.filter(url=href).count() > 0:
+            return PeopleInEvent.Query.filter(url=href).get()
+
+
 class Event(Object):
     pass
 
@@ -177,8 +204,8 @@ class ParseEventUtils(object):
         return event
 
     @classmethod
-    def add_user(cls, event, point_user):
-        event.add('users', point_user)
+    def add_user(cls, event, point_people_in_event):
+        event.add('peopleInEvent', point_people_in_event)
 
         return event
 

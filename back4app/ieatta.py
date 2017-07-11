@@ -220,9 +220,9 @@ def main():
     logging.info("     ")
     logging.info("  * {} ".format('Ready'))
 
-    # utils.ready()
+    utils.ready()
 
-    utils.import_restaurants()
+    # utils.import_restaurants()
 
 
 if __name__ == '__main__':
