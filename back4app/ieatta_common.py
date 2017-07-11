@@ -28,7 +28,10 @@ class IEATTACommonImporter(object):
         :return:
         '''
 
-        type_array = ["events", "recipes", "restaurants", "users"]
+        type_array = [
+            "restaurants",
+            # "events", "users", "recipes"
+        ]
         for type_key in type_array:
             logging.info("     ")
             logging.info("  ** {} ".format(type_key))

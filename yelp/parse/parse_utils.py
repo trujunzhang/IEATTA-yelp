@@ -22,6 +22,11 @@ register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
          master_key=PARSE_REGISTER["MASTER_KEY"])
 
 
+def get_object_by_type(query, testId):
+    if query.filter(testId=testId).count() > 0:
+        return query.filter(testId=testId).get()
+
+
 class ParseRelationUtil(object):
     @classmethod
     def update_as_pointer(cls, point_instance, field, value):
@@ -87,8 +92,7 @@ class ParseRecordUtil(object):
     @classmethod
     def record_exist(cls, recordId):
         if Record.Query.filter(recordId=recordId).count() > 0:
-            _exist = Record.Query.filter(recordId=recordId).get()
-            return _exist
+            return Record.Query.filter(recordId=recordId).get()
 
 
 # =============================================
@@ -120,7 +124,7 @@ class ParseUserUtils(object):
             user = User.signup(
                 user['displayName'], user['password'],
                 email=user['email'], slug=slugify(user['displayName']),
-                loginType='email'
+                loginType='email', testId=user['testId']
             )
             point_user = user
 
@@ -184,6 +188,7 @@ class ParseEventUtils(object):
         _point = ParseEventUtils.event_exist('')
         if not _point:
             instance = Event()
+            instance.testId = item['testId']
 
             instance.url = item['url']
 
@@ -291,9 +296,12 @@ class Restaurant(Object):
 class ParseRestaurantUtils(object):
     @classmethod
     def save_restaurant(cls, item):
-        _point = ParseRestaurantUtils.restaurant_exist(item['url'])
+        _point = get_object_by_type(Restaurant.Query, item['testId'])
         if not _point:
             instance = Restaurant()
+
+            instance.testId = item['testId']
+
             instance.displayName = item['displayName']
             instance.url = item['url']
 
@@ -334,12 +342,14 @@ class ParseRecipeUtils(object):
         if not _point:
             instance = Recipe()
 
+            instance.testId = item['testId']
+
             instance.displayName = item['displayName']
             instance.price = item['price']
 
             _point = instance
 
-            _point = ParseHelp.save_and_update_record(instance, 'recipe')
+        _point = ParseHelp.save_and_update_record(_point, 'recipe')
         return _point
 
     @classmethod
