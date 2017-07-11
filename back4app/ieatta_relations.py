@@ -12,7 +12,7 @@ from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEv
 class RelationData(object):
     point_restaurant = None
     point_event = None
-    point_people_in_event = None
+    dict_people_in_event = []
 
     def __init__(self):
         super(RelationData, self).__init__()
@@ -25,6 +25,13 @@ class IEATTARelation(object):
         with open('parse_yelp_relations.json') as data_file:
             self.data = json.load(data_file)
 
+    def __get_recipes(self, recipeIds):
+        p_recipes = []
+        for recipeId in recipeIds:
+            p_recipes.append(get_object_by_type(Event.Query, {'testId': recipeId}))
+
+        return p_recipes
+
     def import_relation(self):
         # Step01: restaurants
         for r_index, restaurant in enumerate(self.data['restaurants']):
@@ -32,9 +39,17 @@ class IEATTARelation(object):
             data.point_restaurant = get_object_by_type(Restaurant.Query, restaurant)
             # Step02: Events
             for e_index, event in enumerate(restaurant['events']):
-                data.point_event = get_object_by_type(Event.Query, event)
+                data.point_event = get_object_by_type(Event.Query, event, 'eventTestId')
                 # Step03: People in the event
                 for p_index, people_in_event in enumerate(event['peopleInEvent']):
+                    _p_user = get_object_by_type(Event.Query, people_in_event, 'userTestId')
+                    _p_recipes = self.__get_recipes(people_in_event['recipeIds'])
+                    data.dict_people_in_event.append({
+                        'point_user': _p_user,
+                        'point_recipes': _p_recipes
+                    })
+
+                    # data.point_event = get_object_by_type(Event.Query, event)
                     x = 0
                     pass
 

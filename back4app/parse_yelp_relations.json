@@ -4,7 +4,7 @@
       "testId": "s001",
       "events": [
         {
-          "testId": "e001",
+          "eventTestId": "e001",
           "peopleInEvent": [
             {
               "userTestId": "u001",
