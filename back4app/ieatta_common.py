@@ -40,7 +40,7 @@ class IEATTACommonImporter(object):
 
             _point_instance = None
 
-            items = self.data[type_key]
+            items = self.data["{}s".format(type_key)]
             for index, item in enumerate(items):
                 logging.info("     {} ".format(index + 1))
                 if type_key == 'event':
