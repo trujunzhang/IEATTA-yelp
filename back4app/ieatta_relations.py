@@ -2,6 +2,8 @@ import json
 
 import logging
 
+from parse_rest.user import User
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -42,12 +44,13 @@ class IEATTARelation(object):
                 data.point_event = get_object_by_type(Event.Query, event, 'eventTestId')
                 # Step03: People in the event
                 for p_index, people_in_event in enumerate(event['peopleInEvent']):
-                    _p_user = get_object_by_type(Event.Query, people_in_event, 'userTestId')
+                    _p_user = get_object_by_type(User.Query, people_in_event, 'userTestId')
                     _p_recipes = self.__get_recipes(people_in_event['recipeIds'])
                     data.dict_people_in_event.append({
                         'point_user': _p_user,
                         'point_recipes': _p_recipes
                     })
+                    # then save it.
                     ParsePeopleInEventUtils.save_people_in_event(data.point_restaurant, data.point_event,
                                                                  _p_user, _p_recipes,
                                                                  people_in_event)
