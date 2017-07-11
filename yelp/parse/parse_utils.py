@@ -241,8 +241,8 @@ class ParsePhotoUtils(object):
         '''
 
         _photos_count = 0
-        if point_instance and point_instance.photos:
-            _photos_count = len(point_instance.photos)
+        # if point_instance and point_instance.photos:
+        #     _photos_count = len(point_instance.photos)
 
         if _photos_count == len(images):
             logging.info("     {} ".format('exist @Array[photos]'))
