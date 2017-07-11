@@ -174,7 +174,7 @@ class ParsePeopleInEventUtils(object):
         instance.user = p_user
         instance.recipes = p_recipes
 
-        # instance = ParseHelp.save_and_update_record(instance, 'peopleinevent')
+        instance = ParseHelp.save_and_update_record(instance, 'peopleinevent')
 
         return instance
 
