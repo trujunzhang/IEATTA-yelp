@@ -1,4 +1,5 @@
 import json
+import logging
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
     ParsePhotoUtils, ParseRecordUtil
