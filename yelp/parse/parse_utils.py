@@ -22,6 +22,13 @@ register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
          master_key=PARSE_REGISTER["MASTER_KEY"])
 
 
+class ParseRelationUtil(object):
+    @classmethod
+    def update_as_pointer(cls, point_instance, field, value):
+        point_instance[field] = value
+        _point = ParseHelp.save(point_instance, 'event')
+
+
 # =============================================
 #  App Records
 # =============================================
@@ -273,8 +280,8 @@ class ParseRecipeUtils(object):
             instance.event = None
             instance.user = None
 
-            instance.displayName = item['displayName']
-            instance.price = item['price']
+            instance['displayName'] = item['displayName']
+            instance['price'] = item['price']
 
             instance.photos = photos
 
@@ -289,7 +296,8 @@ class ParseRecipeUtils(object):
 
     @classmethod
     def recipe_exist(cls, href):
-        return Recipe.Query.filter(url=href).get()
+        if Recipe.Query.filter(url=href).count() > 0:
+            return Recipe.Query.filter(url=href).get()
 
 
 class Comment(Object):
