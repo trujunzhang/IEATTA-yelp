@@ -29,10 +29,10 @@ class IEATTACommonImporter(object):
         '''
 
         type_array = [
-            "restaurants",
-            "events",
-             "users",
-            "recipes"
+            "restaurant",
+            "event",
+            "user",
+            "recipe"
         ]
         for type_key in type_array:
             logging.info("     ")
@@ -43,15 +43,15 @@ class IEATTACommonImporter(object):
             items = self.data[type_key]
             for index, item in enumerate(items):
                 logging.info("     {} ".format(index + 1))
-                if type_key == 'events':
+                if type_key == 'event':
                     _point_instance = ParseEventUtils.save_event(item)
-                elif type_key == 'recipes':
+                elif type_key == 'recipe':
                     _point_instance = ParseRecipeUtils.save_recipe(item)
                     ParsePhotoUtils.save_photos_for_instance(_point_instance, item, type_key)
-                elif type_key == 'restaurants':
+                elif type_key == 'restaurant':
                     _point_instance = ParseRestaurantUtils.save_restaurant(item)
                     ParsePhotoUtils.save_photos_for_instance(_point_instance, item, type_key)
-                elif type_key == 'users':
+                elif type_key == 'user':
                     _point_instance = ParseUserUtils.signup(item)
 
 
