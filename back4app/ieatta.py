@@ -171,8 +171,8 @@ class IEATTADemo(object):
     def __init__(self):
         super(IEATTADemo, self).__init__()
 
-        self.pointer_users = None
-        self.pointer_recipes = None
+        self.pointer_users = []
+        self.pointer_recipes = []
 
         with open('parse_yelp.json') as data_file:
             self.data = json.load(data_file)
@@ -183,17 +183,15 @@ class IEATTADemo(object):
         return self
 
     def __import_users(self):
-        self.pointer_users = []
         _users = self.data['users']
         pass
 
     def __import_recipes(self):
-        self.pointer_recipes = []
         _recipes = self.data['recipes']
         pass
 
     def import_restaurants(self):
-        if not self.pointer_users:
+        if len(self.pointer_users) == 0:
             raise AttributeError("Import Users and Recipes firstly.")
 
         _restaurants = self.data['restaurants']
