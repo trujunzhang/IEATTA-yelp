@@ -34,7 +34,7 @@ class IEATTARelation(object):
             for e_index, event in enumerate(restaurant['events']):
                 data.point_event = get_object_by_type(Event.Query, event)
                 # Step03: People in the event
-                for p_index, people_in_event in enumerate(restaurant['peopleInEvent']):
+                for p_index, people_in_event in enumerate(event['peopleInEvent']):
                     x = 0
                     pass
 
