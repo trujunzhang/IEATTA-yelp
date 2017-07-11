@@ -32,10 +32,6 @@ class IEATTARelation(object):
 
         return p_recipes
 
-    def __save_people_in_event(self, data, p_user, p_recipes, people_in_event):
-        ParsePeopleInEventUtils.save_people_in_event(data.point_restaurant, data.point_event, p_user, p_recipes,
-                                                     people_in_event)
-
     def import_relation(self):
         # Step01: restaurants
         for r_index, restaurant in enumerate(self.data['restaurants']):
@@ -52,7 +48,9 @@ class IEATTARelation(object):
                         'point_user': _p_user,
                         'point_recipes': _p_recipes
                     })
-                    self.__save_people_in_event(data, _p_user, _p_recipes, people_in_event)
+                    ParsePeopleInEventUtils.save_people_in_event(data.point_restaurant, data.point_event,
+                                                                 _p_user, _p_recipes,
+                                                                 people_in_event)
 
 
 def main():
