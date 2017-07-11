@@ -231,7 +231,7 @@ class Photo(Object):
 
 class ParsePhotoUtils(object):
     @classmethod
-    def save_photos_for_instance(self, point_instance, images, record_type):
+    def save_photos_for_instance(self, point_instance, images, record_type, point_restaurant=None, point_recipe=None):
         '''
 
         :param point_instance:
@@ -251,7 +251,8 @@ class ParsePhotoUtils(object):
             _pointers_photos = []
             for url in images:
                 point_photo = ParsePhotoUtils.save_photo(url=url,
-                                                         point_restaurant=point_instance,
+                                                         point_restaurant=point_restaurant,
+                                                         point_recipe=point_recipe,
                                                          photo_type=record_type)
                 _pointers_photos.append(point_photo)
 
@@ -264,7 +265,7 @@ class ParsePhotoUtils(object):
 
     @classmethod
     def save_photo(cls, url,
-                   point_restaurant=None, point_event=None, point_user=None, point_recipe=None,
+                   point_restaurant=None, point_recipe=None,
                    photo_type='restaurant'):
         _point = ParsePhotoUtils.photo_exist(url)
         if not _point:
@@ -275,8 +276,6 @@ class ParsePhotoUtils(object):
             instance.url = url
 
             instance.restaurant = point_restaurant
-            instance.event = point_event
-            instance.user = point_user
             instance.recipe = point_recipe
 
             instance.photoType = photo_type
