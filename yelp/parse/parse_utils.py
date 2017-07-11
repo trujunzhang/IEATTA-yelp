@@ -119,7 +119,8 @@ class ParseUserUtils(object):
 
     @classmethod
     def user_exist(cls, user):
-        return User.Query.filter(username=user['displayName']).get()
+        if User.Query.filter(username=user['displayName']).count() > 0:
+            return User.Query.filter(username=user['displayName']).get()
 
 
 # =============================================

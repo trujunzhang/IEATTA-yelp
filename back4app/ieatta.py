@@ -179,12 +179,21 @@ class IEATTADemo(object):
 
     def ready(self):
         self.__import_users()
-        self.__import_recipes()
+        # self.__import_recipes()
         return self
 
     def __import_users(self):
         _users = self.data['users']
-        pass
+        for index, user in enumerate(_users):
+            if index > 0:
+                break
+
+            logging.info("     ")
+            logging.info("  ** {} ".format('user'))
+            logging.info("     {} ".format(index + 1))
+
+            _point_user = ParseUserUtils.signup(user)
+            self.pointer_users.append(_point_user)
 
     def __import_recipes(self):
         _recipes = self.data['recipes']
@@ -219,8 +228,12 @@ def main():
     logging.info("  Start Import IEATTA class rows! ")
     utils = IEATTADemo()
 
+    logging.info("     ")
+    logging.info("  * {} ".format('Ready'))
+
     utils.ready()
-    utils.import_restaurants()
+
+    # utils.import_restaurants()
 
 
 if __name__ == '__main__':
