@@ -16,11 +16,10 @@ class IEATTARelation(object):
         self.pointer_users = []
         self.pointer_recipes = []
 
-        with open('parse_yelp.json') as data_file:
+        with open('parse_yelp_relations.json') as data_file:
             self.data = json.load(data_file)
 
     def import_relation(self):
-        # Step2: restaurants with events
         for index, restaurant in enumerate(self.data['restaurants']):
             if index > 0:
                 break
