@@ -74,7 +74,7 @@ class ParseRecordUtil(object):
         elif _record_type == 'peopleinevent':
             point_record.peopleInEvent = point_instance
         else:
-            raise Exception('Not found the record type!')
+            raise Exception('Not found the record type,{}!'.format(_record_type))
 
         point_record.save()
 
