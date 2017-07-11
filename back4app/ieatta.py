@@ -130,21 +130,21 @@ class RestaurantImporter(object):
         self.users = users
         self.recipes = recipes
 
-    def save_photos_for_restaurant(self):
-        images = self.restaurant['images']
-        if self.photos_count == len(images):
-            logging.info("     {} ".format('exist @Array[Photos]'))
-        else:
-            # Step1: save all photos for the restaurant
-            for image in images:
-                point_photo = ParsePhotoUtils.save_photo(image, self.point_restaurant)
-                self.pointers_photos.append(point_photo)
-
-            # Step2: update the restaurant's photo field.
-            ParseRestaurantUtils.add_photos_for_restaurant(self.point_restaurant, self.pointers_photos)
-            logging.info("     {} ".format('update @Array[Photos]'))
-
-        return self
+    # def save_photos_for_restaurant(self):
+    #     images = self.restaurant['images']
+    #     if self.photos_count == len(images):
+    #         logging.info("     {} ".format('exist @Array[Photos]'))
+    #     else:
+    #         # Step1: save all photos for the restaurant
+    #         for image in images:
+    #             point_photo = ParsePhotoUtils.save_photo(image, self.point_restaurant)
+    #             self.pointers_photos.append(point_photo)
+    #
+    #         # Step2: update the restaurant's photo field.
+    #         ParseRestaurantUtils.add_photos_for_restaurant(self.point_restaurant, self.pointers_photos)
+    #         logging.info("     {} ".format('update @Array[Photos]'))
+    #
+    #     return self
 
     def save_restaurant(self):
         if self.point_restaurant:
@@ -153,6 +153,7 @@ class RestaurantImporter(object):
             logging.info("     {} ".format('save @Restaurant'))
             self.point_restaurant = ParseRestaurantUtils.save_restaurant(self.restaurant, [])
 
+        # Then save or update the restaurant's photos.
         ParsePhotoUtils.save_photos_for_instance(self.point_restaurant, self.restaurant['images'], 'restaurant')
         return self
 
