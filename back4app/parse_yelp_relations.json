@@ -1,135 +1,42 @@
 {
-  "orderedRecipes": [
-    {
-      "position": 0,
-      "displayName": "Jaron Lawrence",
-      "recipes": [
-        {
-          "position": 0,
-          "displayName": "Chicken Tacos"
-        },
-        {
-          "position": 1,
-          "displayName": "KOMODO 2.0 Seared top sirloin steak"
-        },
-        {
-          "position": 2,
-          "displayName": "Spicy Salmon Rice Bowl"
-        },
-        {
-          "position": 3,
-          "displayName": "Brutis Salad"
-        }
-      ]
-    },
-    {
-      "position": 1,
-      "displayName": "Derek Hele",
-      "recipes": [
-        {
-          "position": 4,
-          "displayName": "Lobster roll"
-        },
-        {
-          "position": 5,
-          "displayName": "Breakfast burrito"
-        },
-        {
-          "position": 6,
-          "displayName": "Lobster roll"
-        },
-        {
-          "position": 7,
-          "displayName": "Grilled chicken salad"
-        },
-        {
-          "position": 8,
-          "displayName": "Oatmeal crumble"
-        },
-        {
-          "position": 9,
-          "displayName": "Chicken koobideh for 2nd visit"
-        }
-      ]
-    },
-    {
-      "position": 2,
-      "displayName": "Sarah Holl",
-      "recipes": [
-        {
-          "position": 10,
-          "displayName": "House salad with salmon"
-        },
-        {
-          "position": 11,
-          "displayName": "Cobb Salad"
-        },
-        {
-          "position": 12,
-          "displayName": "Pecan pie"
-        },
-        {
-          "position": 13,
-          "displayName": "Mac n cheese"
-        },
-        {
-          "position": 14,
-          "displayName": "Meatball pie"
-        }
-      ]
-    },
-    {
-      "position": 3,
-      "displayName": "Cheryl Philly",
-      "recipes": [
-        {
-          "position": 15,
-          "displayName": "Caprese salad"
-        },
-        {
-          "position": 16,
-          "displayName": "Pizza with chicken and garlic cloves"
-        },
-        {
-          "position": 17,
-          "displayName": "My Mongolian creation"
-        },
-        {
-          "position": 18,
-          "displayName": "Rose"
-        }
-      ]
-    }
-  ],
-  "events": [
-    {
-      "testId": "e001",
-      "Whoin": [
-        {
-          "position": 0,
-          "displayName": "Jaron Lawrence"
-        },
-        {
-          "position": 1,
-          "displayName": "Derek Hele"
-        },
-        {
-          "position": 2,
-          "displayName": "Sarah Holl"
-        },
-        {
-          "position": 3,
-          "displayName": "Cheryl Philly"
-        }
-      ]
-    }
-  ],
   "restaurants": [
     {
       "testId": "s001",
       "events": [
         {
-          "testId": "e001"
+          "testId": "e001",
+          "peopleInEvent": [
+            {
+              "userTestId": "u001",
+              "recipeIds": [
+                "r001",
+                "r002",
+                "r003"
+              ]
+            },
+            {
+              "userTestId": "u002",
+              "recipeIds": [
+                "r004",
+                "r005"
+              ]
+            },
+            {
+              "userTestId": "u003",
+              "recipeIds": [
+                "r006",
+                "r007",
+                "r008"
+              ]
+            },
+            {
+              "userTestId": "u004",
+              "recipeIds": [
+                "r009",
+                "r010"
+              ]
+            }
+          ]
         }
       ]
     }

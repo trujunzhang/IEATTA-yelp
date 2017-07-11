@@ -22,9 +22,9 @@ register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
          master_key=PARSE_REGISTER["MASTER_KEY"])
 
 
-def get_object_by_type(query, testId):
-    if query.filter(testId=testId).count() > 0:
-        return query.filter(testId=testId).get()
+def get_object_by_type(query, item):
+    if query.filter(testId=item['testId']).count() > 0:
+        return query.filter(testId=item['testId']).get()
 
 
 class ParseRelationUtil(object):
@@ -119,7 +119,7 @@ class ParseUserUtils(object):
 
     @classmethod
     def signup(cls, user):
-        point_user = ParseUserUtils.user_exist(user)
+        point_user = get_object_by_type(User.Query, user)
         if not point_user:
             user = User.signup(
                 user['displayName'], user['password'],
@@ -185,7 +185,7 @@ class Event(Object):
 class ParseEventUtils(object):
     @classmethod
     def save_event(cls, item):
-        _point = ParseEventUtils.event_exist('')
+        _point = get_object_by_type(Event.Query, item)
         if not _point:
             instance = Event()
             instance.testId = item['testId']
@@ -298,7 +298,7 @@ class Restaurant(Object):
 class ParseRestaurantUtils(object):
     @classmethod
     def save_restaurant(cls, item):
-        _point = get_object_by_type(Restaurant.Query, item['testId'])
+        _point = get_object_by_type(Restaurant.Query, item)
         if not _point:
             instance = Restaurant()
 
@@ -340,7 +340,7 @@ class Recipe(Object):
 class ParseRecipeUtils(object):
     @classmethod
     def save_recipe(cls, item):
-        _point = ParseRecipeUtils.recipe_exist(item['url'])
+        _point = get_object_by_type(Recipe.Query, item)
         if not _point:
             instance = Recipe()
 
