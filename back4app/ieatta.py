@@ -194,7 +194,7 @@ class IEATTADemo(object):
 
     def import_restaurants(self):
         if not self.pointer_users:
-            pass
+            raise AttributeError("Import Users and Recipes firstly.")
 
         _restaurants = self.data['restaurants']
 
