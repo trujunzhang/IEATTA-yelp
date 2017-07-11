@@ -131,6 +131,11 @@ class ParseUserUtils(object):
         return point_user
 
     @classmethod
+    def get_user(cls, testId):
+        if User.Query.filter(testId=testId).count() > 0:
+            return User.Query.filter(testId=testId).get()
+
+    @classmethod
     def user_exist(cls, user):
         if User.Query.filter(username=user['displayName']).count() > 0:
             return User.Query.filter(username=user['displayName']).get()
