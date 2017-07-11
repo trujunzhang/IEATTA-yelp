@@ -105,10 +105,14 @@ class EventImporter(object):
         _data = self.event['test']['Whoin']
         for user_in_event in _data:
             ordered_recipes_indexs = user_in_event['recipes']
-            OrderedRecipesUserImporter(
+
+            _importer_recipesUser = OrderedRecipesUserImporter(
                 self.point_restaurant,
                 self.point_event
-            ).get_user(user_in_event).save_recipes(recipes, ordered_recipes_indexs).add_recipes_for_ordered_user()
+            )
+            # _importer_recipesUser.get_user(user_in_event)
+            # _importer_recipesUser.save_recipes(recipes, ordered_recipes_indexs)
+            # _importer_recipesUser.add_recipes_for_ordered_user()
 
 
 class RestaurantImporter(object):
@@ -167,8 +171,8 @@ class IEATTADemo(object):
     def __init__(self):
         super(IEATTADemo, self).__init__()
 
-        self.pointer_users = []
-        self.pointer_recipes = []
+        self.pointer_users = None
+        self.pointer_recipes = None
 
         with open('parse_yelp.json') as data_file:
             self.data = json.load(data_file)
@@ -179,14 +183,19 @@ class IEATTADemo(object):
         return self
 
     def __import_users(self):
+        self.pointer_users = []
         _users = self.data['users']
         pass
 
     def __import_recipes(self):
+        self.pointer_recipes = []
         _recipes = self.data['recipes']
         pass
 
     def import_restaurants(self):
+        if not self.pointer_users:
+            pass
+
         _restaurants = self.data['restaurants']
 
         #  Step1: sign up all terms.

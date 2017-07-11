@@ -189,7 +189,8 @@ class Photo(Object):
 
 class ParsePhotoUtils(object):
     @classmethod
-    def save_photo(cls, url, point_restaurant, point_event=None, point_user=None, point_recipe=None,
+    def save_photo(cls, url, point_restaurant,
+                   point_event=None, point_user=None, point_recipe=None,
                    photo_type='restaurant'):
         _point = ParsePhotoUtils.photo_exist(url)
         if not _point:
