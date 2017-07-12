@@ -38,13 +38,18 @@ class ParseRelationUtil(object):
         if not ParseRelationUtil.__check_in_array(p_event.users, p_user):
             p_event.users.append(p_event)
             p_event = ParseHelp.save_and_update_record(p_event, 'event')
-        pass
+            logging.info("  *** {} ".format('saved @relatation[Event|User]'))
+        else:
+            logging.info("  *** {} ".format('exist @relatation[Event|User]'))
 
     @classmethod
     def save_relation_between_restaurant_and_event(cls, p_restaurant, p_event):
         if not ParseRelationUtil.__check_in_array(p_restaurant.events, p_event):
             p_restaurant.events.append(p_event)
             p_restaurant = ParseHelp.save_and_update_record(p_restaurant, 'restaurant')
+            logging.info("  *** {} ".format('exist @relatation[Restaurant|Event]'))
+        else:
+            logging.info("  *** {} ".format('exist @relatation[Restaurant|Event]'))
 
         p_event.restaurant = p_restaurant
         p_event = ParseHelp.save_and_update_record(p_event, 'event')
