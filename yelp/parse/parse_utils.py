@@ -36,7 +36,7 @@ class ParseRelationUtil(object):
     @classmethod
     def save_relation_between_event_and_users(cls, p_event, p_user):
         if not ParseRelationUtil.__check_in_array(p_event.users, p_user):
-            p_event.events.append(p_event)
+            p_event.users.append(p_event)
             p_event = ParseHelp.save_and_update_record(p_event, 'event')
         pass
 
@@ -219,6 +219,7 @@ class ParseEventUtils(object):
         instance = get_object_by_type(Event.Query, item)
         if not instance:
             instance = Event()
+            instance.restaurant = None
             instance.users = []
 
         instance.testId = item['testId']
@@ -234,18 +235,6 @@ class ParseEventUtils(object):
         instance = ParseHelp.save_and_update_record(instance, 'event')
 
         return instance
-
-    @classmethod
-    def add_restaurant(cls, event, point_restaurant):
-        event.add('restaurants', point_restaurant)
-
-        return event
-
-    @classmethod
-    def add_user(cls, event, point_people_in_event):
-        event.add('peopleInEvent', point_people_in_event)
-
-        return event
 
     @classmethod
     def event_exist(cls, href):
