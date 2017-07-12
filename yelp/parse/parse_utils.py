@@ -36,7 +36,7 @@ class ParseRelationUtil(object):
     @classmethod
     def save_relation_between_event_and_users(cls, p_event, p_user):
         if not ParseRelationUtil.__check_in_array(p_event.users, p_user):
-            p_event.users.append(p_event)
+            p_event.users.append(p_user)
             p_event = ParseHelp.save_and_update_record(p_event, 'event')
             logging.info("  *** {} ".format('saved @relatation[Event|User]'))
         else:
