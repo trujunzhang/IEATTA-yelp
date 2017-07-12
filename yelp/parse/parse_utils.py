@@ -312,6 +312,8 @@ class ParseRestaurantUtils(object):
         instance = get_object_by_type(Restaurant.Query, item)
         if not instance:
             instance = Restaurant()
+            instance.events = []
+            instance.photos = []
 
         instance.testId = item['testId']
 
@@ -320,22 +322,9 @@ class ParseRestaurantUtils(object):
 
         instance.geoLocation = GeoPoint(item['geoLocation'][0], item['geoLocation'][1])
         instance.address = item['address']
-        instance.events = []
 
         instance = ParseHelp.save_and_update_record(instance, 'restaurant')
         return instance
-
-    @classmethod
-    def add_photos_for_restaurant(cls, point_restaurant, pointers_photos):
-        point_restaurant.photos = pointers_photos
-
-        return ParseHelp.save_and_update_record(point_restaurant, 'restaurant')
-
-    @classmethod
-    def add_event(cls, point_restaurant, event):
-        point_restaurant.add('events', event)
-
-        return ParseHelp.save_and_update_record(point_restaurant, 'event')
 
     @classmethod
     def restaurant_exist(cls, href):
