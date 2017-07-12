@@ -34,8 +34,28 @@ class ParseRelationUtil(object):
         _point = ParseHelp.save_and_update_record(point_instance, 'event')
 
     @classmethod
-    def save_relation_between_restaurant_and_event(cls, p_restaurant, p_event):
+    def save_relation_between_event_and_users(cls, p_event, p_user):
+        if not ParseRelationUtil.__check_in_array(p_event.users, p_user):
+            p_event.events.append(p_event)
+            p_event = ParseHelp.save_and_update_record(p_event, 'event')
         pass
+
+    @classmethod
+    def save_relation_between_restaurant_and_event(cls, p_restaurant, p_event):
+        if not ParseRelationUtil.__check_in_array(p_restaurant.events, p_event):
+            p_restaurant.events.append(p_event)
+            p_restaurant = ParseHelp.save_and_update_record(p_restaurant, 'restaurant')
+
+        p_event.restaurant = p_restaurant
+        p_event = ParseHelp.save_and_update_record(p_event, 'event')
+
+    @classmethod
+    def __check_in_array(cls, array, item):
+        for object in array:
+            if object.testId == item.testId:
+                return True
+
+        return False
 
 
 # =============================================
@@ -196,24 +216,24 @@ class Event(Object):
 class ParseEventUtils(object):
     @classmethod
     def save_event(cls, item):
-        _point = get_object_by_type(Event.Query, item)
-        if not _point:
+        instance = get_object_by_type(Event.Query, item)
+        if not instance:
             instance = Event()
-            instance.testId = item['testId']
+            instance.users = []
 
-            instance.url = item['url']
+        instance.testId = item['testId']
 
-            instance.displayName = item['displayName']
-            instance.want = item['want']
+        instance.url = item['url']
 
-            instance.start = item['start']
-            instance.end = item['end']
+        instance.displayName = item['displayName']
+        instance.want = item['want']
 
-            _point = instance
+        instance.start = item['start']
+        instance.end = item['end']
 
-        _point = ParseHelp.save_and_update_record(_point, 'event')
+        instance = ParseHelp.save_and_update_record(instance, 'event')
 
-        return _point
+        return instance
 
     @classmethod
     def add_restaurant(cls, event, point_restaurant):
