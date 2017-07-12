@@ -33,6 +33,10 @@ class ParseRelationUtil(object):
         point_instance.add(field, value)
         _point = ParseHelp.save_and_update_record(point_instance, 'event')
 
+    @classmethod
+    def save_relation_between_restaurant_and_event(cls, p_restaurant, p_event):
+        pass
+
 
 # =============================================
 #  App Records
@@ -305,22 +309,21 @@ class Restaurant(Object):
 class ParseRestaurantUtils(object):
     @classmethod
     def save_restaurant(cls, item):
-        _point = get_object_by_type(Restaurant.Query, item)
-        if not _point:
+        instance = get_object_by_type(Restaurant.Query, item)
+        if not instance:
             instance = Restaurant()
 
-            instance.testId = item['testId']
+        instance.testId = item['testId']
 
-            instance.displayName = item['displayName']
-            instance.url = item['url']
+        instance.displayName = item['displayName']
+        instance.url = item['url']
 
-            instance.geoLocation = GeoPoint(item['geoLocation'][0], item['geoLocation'][1])
-            instance.address = item['address']
+        instance.geoLocation = GeoPoint(item['geoLocation'][0], item['geoLocation'][1])
+        instance.address = item['address']
+        instance.events = []
 
-            _point = instance
-
-        _point = ParseHelp.save_and_update_record(_point, 'restaurant')
-        return _point
+        instance = ParseHelp.save_and_update_record(instance, 'restaurant')
+        return instance
 
     @classmethod
     def add_photos_for_restaurant(cls, point_restaurant, pointers_photos):
