@@ -7,6 +7,12 @@ class CloudinaryImages(object):
         self.original_path = original_path
         super(CloudinaryImages, self).__init__()
 
+    def __get_crop_size(self, width, height):
+        if width > height:
+            return height
+
+        return width
+
     def get_all_images(self):
         images_schemes = [
             {
@@ -22,7 +28,9 @@ class CloudinaryImages(object):
             print('width =', img.width)
             print('height =', img.height)
 
-            img.crop(width=348, height=348, gravity='center')
+            c_w_h = self.__get_crop_size(img.width, img.height)
+
+            img.crop(width=c_w_h, height=c_w_h, gravity='center')
             img.save(filename=thumbnail_path)
 
         return {

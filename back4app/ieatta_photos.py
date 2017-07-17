@@ -2,6 +2,7 @@ import json
 
 import logging
 
+from yelp.parse.cloudinary_images import CloudinaryImages
 from yelp.parse.images_downloader import ImagesDownload
 
 logging.basicConfig(level=logging.INFO)
@@ -31,7 +32,9 @@ class IEATTAPhotos(object):
         for r_index, photo in enumerate(self.instance_photos):
             _url = photo.url
             _local_path = ImagesDownload().write_image_cache(_url)
-            pass
+            if _local_path:
+                object = CloudinaryImages(_local_path).get_all_images()
+                pass
 
 
 def main():
