@@ -23,11 +23,10 @@ class IEATTAPhotos(object):
         super(IEATTAPhotos, self).__init__()
 
         self.instance_photos = ParsePhotoUtils.get_photos()
-        x = 0
 
     def upload_photos(self):
-        # Step01: restaurants
-        for r_index, restaurant in enumerate(self.instance_photos):
+        # Step01: photos
+        for r_index, photo in enumerate(self.instance_photos):
             pass
 
 
