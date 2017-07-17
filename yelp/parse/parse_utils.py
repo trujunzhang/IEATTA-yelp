@@ -267,8 +267,8 @@ class ParsePhotoUtils(object):
         '''
         images = item['images']
         _photos_count = 0
-        # if point_instance and point_instance.photos:
-        #     _photos_count = len(point_instance.photos)
+        if point_instance and point_instance.photos:
+            _photos_count = len(point_instance.photos)
 
         if _photos_count == len(images):
             logging.info("     {} ".format('exist @Array[photos]'))
@@ -353,19 +353,18 @@ class Recipe(Object):
 class ParseRecipeUtils(object):
     @classmethod
     def save_recipe(cls, item):
-        _point = get_object_by_type(Recipe.Query, item)
-        if not _point:
+        instance = get_object_by_type(Recipe.Query, item)
+        if not instance:
             instance = Recipe()
+            instance.photos = []
 
-            instance.testId = item['testId']
+        instance.testId = item['testId']
 
-            instance.displayName = item['displayName']
-            instance.price = item['price']
+        instance.displayName = item['displayName']
+        instance.price = item['price']
 
-            _point = instance
-
-        _point = ParseHelp.save_and_update_record(_point, 'recipe')
-        return _point
+        instance = ParseHelp.save_and_update_record(instance, 'recipe')
+        return instance
 
     @classmethod
     def add_photo_for_recipe(cls, point_recipe, pointers_recipes):
