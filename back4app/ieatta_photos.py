@@ -9,9 +9,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
-    ParsePhotoUtils, get_object_by_type, Restaurant, Event, Recipe, ParsePeopleInEventUtils, ParseRelationUtil
-
-from parse_rest.datatypes import Object, File
+    ParsePhotoUtils, get_object_by_type, Restaurant, Event, Recipe, ParsePeopleInEventUtils, ParseRelationUtil, \
+    ParseFileUploadUtil
 
 
 class RelationData(object):
@@ -29,22 +28,13 @@ class IEATTAPhotos(object):
 
         self.instance_photos = ParsePhotoUtils.get_photos()
 
-    def __upload_image_as_file(self, local_path, image_type):
-        with open(local_path, 'rb') as fh:
-            rawdata = fh.read()
-
-        imageFile = File(name=image_type, content=rawdata, mimetype='image/png')
-        imageFile.save()
-
-        return imageFile
-
     def __update_photos_with_images(self, pointer_photo, cloudinary_objects):
         # Step1: Get the local images path.
         thumbnail_path = cloudinary_objects['thumbnail']
         original_path = cloudinary_objects['original']
         # Step2: Upload the local images as parse's files.
-        pointer_thumbnail = self.__upload_image_as_file(thumbnail_path, 'thumbnail')
-        pointer_original = self.__upload_image_as_file(original_path, 'original')
+        pointer_thumbnail = ParseFileUploadUtil.upload_image_as_file(thumbnail_path, 'thumbnail')
+        pointer_original = ParseFileUploadUtil.upload_image_as_file(original_path, 'original')
         # Step3: Update the photo instance with the uploaded image files.
         ParsePhotoUtils.upload_with_uploaded_files(pointer_photo, pointer_thumbnail, pointer_original)
 

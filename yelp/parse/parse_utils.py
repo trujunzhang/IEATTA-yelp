@@ -9,6 +9,7 @@ from parse_rest.user import User
 from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.connection import register
 from parse_rest.datatypes import GeoPoint, Object, Function, Pointer
+from parse_rest.datatypes import Object, File
 
 # register( < application_id >, < rest_api_key > [, master_key = None])
 
@@ -25,6 +26,18 @@ register(PARSE_REGISTER["APPLICATION_ID"], PARSE_REGISTER["REST_API_KEY"],
 def get_object_by_type(query, item, field='testId'):
     if query.filter(testId=item[field]).count() > 0:
         return query.filter(testId=item[field]).get()
+
+
+class ParseFileUploadUtil(object):
+    @classmethod
+    def upload_image_as_file(self, local_path, image_type):
+        with open(local_path, 'rb') as fh:
+            rawdata = fh.read()
+
+        imageFile = File(name=image_type, content=rawdata, mimetype='image/png')
+        imageFile.save()
+
+        return imageFile
 
 
 class ParseRelationUtil(object):
