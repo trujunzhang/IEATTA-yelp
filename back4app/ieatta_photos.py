@@ -8,9 +8,7 @@ from yelp.parse.images_downloader import ImagesDownload
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
-    ParsePhotoUtils, get_object_by_type, Restaurant, Event, Recipe, ParsePeopleInEventUtils, ParseRelationUtil, \
-    ParseFileUploadUtil
+from yelp.parse.parse_utils import ParsePhotoUtils, ParseFileUploadUtil, ParseCloudUtil
 
 
 class RelationData(object):
@@ -47,6 +45,10 @@ class IEATTAPhotos(object):
                 cloudinary_objects = CloudinaryImages(_local_path).get_all_images()
                 self.__update_photos_with_images(photo, cloudinary_objects)
 
+    def invoke_cloud_images(self):
+        ParseCloudUtil.crop_image_on_cloud()
+        pass
+
 
 def main():
     logging.info("  Start Upload IEATTA photos! ")
@@ -55,7 +57,8 @@ def main():
     logging.info("     ")
     logging.info("  * {} ".format('Ready'))
 
-    utils.upload_photos()
+    # utils.upload_photos()
+    utils.invoke_cloud_images()
 
 
 if __name__ == '__main__':

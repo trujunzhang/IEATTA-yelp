@@ -27,13 +27,21 @@ def get_object_by_type(query, item, field='testId'):
         return query.filter(testId=item[field]).get()
 
 
+class ParseCloudUtil(object):
+    @classmethod
+    def crop_image_on_cloud(self):
+        hello_func = Function("hello")
+        result = hello_func()
+        return result
+
+
 class ParseFileUploadUtil(object):
     @classmethod
     def upload_image_as_file(self, local_path, image_type):
         with open(local_path, 'rb') as fh:
             rawdata = fh.read()
 
-        imageFile = File(name=image_type, content=rawdata, mimetype='image/jpg')
+        imageFile = File(name=image_type, content=rawdata, mimetype='image/jpeg')
         imageFile.save()
 
         return imageFile
