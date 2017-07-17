@@ -8,8 +8,7 @@ os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
 from parse_rest.user import User
 from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.connection import register
-from parse_rest.datatypes import GeoPoint, Object, Function, Pointer
-from parse_rest.datatypes import Object, File
+from parse_rest.datatypes import GeoPoint, Object, Function, Pointer, File
 
 # register( < application_id >, < rest_api_key > [, master_key = None])
 
@@ -34,7 +33,7 @@ class ParseFileUploadUtil(object):
         with open(local_path, 'rb') as fh:
             rawdata = fh.read()
 
-        imageFile = File(name=image_type, content=rawdata, mimetype='image/png')
+        imageFile = File(name=image_type, content=rawdata, mimetype='image/jpg')
         imageFile.save()
 
         return imageFile
