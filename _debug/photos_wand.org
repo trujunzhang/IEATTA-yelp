@@ -1,0 +1,8 @@
+* serial photos for a recipe
+
+    1. original:
+      https://s3-media2.fl.yelpcdn.com/bphoto/E0iRmQXbk2mNfuYlJe0m_w/o.jpg
+    2. ParallaxHeader:
+      https://s3-media3.fl.yelpcdn.com/bphoto/E0iRmQXbk2mNfuYlJe0m_w/348s.jpg
+    3. List thumbnail
+      https://s3-media3.fl.yelpcdn.com/bphoto/E0iRmQXbk2mNfuYlJe0m_w/90s.jpg
