@@ -5,9 +5,7 @@ from yelp.utils.crawl_utils import CrawlUtils
 
 
 class ImagesDownload(object):
-    def __init__(self, logs_db=None):
-        self.logs_db = logs_db
-        self.gif_downloader = None
+    def __init__(self):
         super(ImagesDownload, self).__init__()
 
     @classmethod

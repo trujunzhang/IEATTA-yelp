@@ -2,6 +2,8 @@ import json
 
 import logging
 
+from yelp.parse.images_downloader import ImagesDownload
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -27,6 +29,8 @@ class IEATTAPhotos(object):
     def upload_photos(self):
         # Step01: photos
         for r_index, photo in enumerate(self.instance_photos):
+            _url = photo.url
+            _local_path = ImagesDownload().write_image_cache(_url)
             pass
 
 
