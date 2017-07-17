@@ -44,13 +44,25 @@ Parse.Cloud.define("crop_multiple_sizes_image", function (request, response) {
                 if (arrayElement["type"] == "original") {
                     return image
                 }
-                const imageWidth = image.width()
-                const imageHeight = image.height()
+                const scaleWidth = arrayElement["width"]
 
+                // Crop the image to the smaller of width or height.
+                var minSize = Math.min(image.width(), image.height());
+                if (minSize === image.width()) {
+                    return image.scale({
+                        width: scaleWidth,
+                        height: scaleWidth * image.height() / image.width()
+                    });
+                }
                 return image.scale({
-                    width: arrayElement["width"],
-                    height: arrayElement["height"]
+                    width: scaleWidth * image.width() / image.height(),
+                    height: scaleWidth
                 });
+
+                // return image.scale({
+                //     width: arrayElement["width"],
+                //     height: arrayElement["height"]
+                // });
             }).then(function (image) {
                 // Convert Image to JPEG
                 return image.setFormat("JPEG");
