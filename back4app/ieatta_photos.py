@@ -46,8 +46,9 @@ class IEATTAPhotos(object):
                 self.__update_photos_with_images(photo, cloudinary_objects)
 
     def invoke_cloud_images(self):
-        ParseCloudUtil.crop_image_on_cloud()
-        pass
+        for r_index, photo in enumerate(self.instance_photos):
+            result = ParseCloudUtil.crop_image_on_cloud(photo)
+            pass
 
 
 def main():
