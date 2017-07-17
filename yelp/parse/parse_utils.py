@@ -290,25 +290,32 @@ class ParsePhotoUtils(object):
         return self
 
     @classmethod
+    def upload_with_uploaded_files(cls, pointer_photo, pointer_thumbnail, pointer_original):
+        pointer_photo.original = pointer_original
+        pointer_photo.thumbnail = pointer_thumbnail
+
+        instance = ParseHelp.save_and_update_record(pointer_photo, 'photo')
+        return instance
+
+    @classmethod
     def save_photo(cls, url,
                    point_restaurant=None, point_recipe=None,
                    photo_type='restaurant'):
-        _point = ParsePhotoUtils.photo_exist(url)
-        if not _point:
+        instance = ParsePhotoUtils.photo_exist(url)
+        if not instance:
             instance = Photo()
+            instance.original = None
+            instance.thumbnail = None
 
-            instance.original = ''
-            instance.thumbnail = ''
-            instance.url = url
+        instance.url = url
 
-            instance.restaurant = point_restaurant
-            instance.recipe = point_recipe
+        instance.restaurant = point_restaurant
+        instance.recipe = point_recipe
 
-            instance.photoType = photo_type
-            _point = instance
+        instance.photoType = photo_type
 
-        _point = ParseHelp.save_and_update_record(_point, 'photo')
-        return _point
+        instance = ParseHelp.save_and_update_record(instance, 'photo')
+        return instance
 
     @classmethod
     def photo_exist(cls, href):
