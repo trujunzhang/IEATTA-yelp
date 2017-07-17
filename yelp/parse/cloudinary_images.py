@@ -31,6 +31,7 @@ class CloudinaryImages(object):
             c_w_h = self.__get_crop_size(img.width, img.height)
 
             img.crop(width=c_w_h, height=c_w_h, gravity='center')
+            img.resize(width=348, height=348)
             img.save(filename=thumbnail_path)
 
         return {
