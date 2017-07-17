@@ -42,29 +42,7 @@ class ImagesDownload(object):
                 self.__download_photo(image_link, local_file)
 
             if os.path.exists(local_file):
-                return self.__adjust_extensition(path=local_file)
-
-    def __adjust_extensition(self, path):
-        """
-        add extension to the path.
-        for example: path: XXXXXX
-                     extension: jpg
-        new file name: XXXXXX.jpg
-        :param path:
-        :return:
-        """
-        file_extension = ImagesDownload.get_image_extension(path)
-        new_file = "{}.{}".format(path, file_extension)
-        new_file = new_file.replace('png.png', 'jpg')
-
-        from wand.image import Image
-
-        with Image(filename=path) as img:
-            img.format = 'jpeg'
-            img.save(filename=new_file)
-
-        if os.path.exists(new_file):
-            return new_file
+                return local_file
 
     def __download_photo(self, image_link, image_location):
         import urllib.request
