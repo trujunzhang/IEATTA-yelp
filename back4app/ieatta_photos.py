@@ -33,7 +33,7 @@ class IEATTAPhotos(object):
         with open(local_path, 'rb') as fh:
             rawdata = fh.read()
 
-        imageFile = File(image_type, rawdata, 'image/png')
+        imageFile = File(name=image_type, content=rawdata, mimetype='image/png')
         imageFile.save()
 
         return imageFile
