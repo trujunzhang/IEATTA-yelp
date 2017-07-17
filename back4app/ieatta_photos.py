@@ -44,9 +44,8 @@ class IEATTAPhotos(object):
         original_path = cloudinary_objects['original']
         # Step2: Upload the local images as parse's files.
         pointer_thumbnail = self.__upload_image_as_file(thumbnail_path, 'thumbnail')
-        # Step3: Update the photo instance with the uploaded image files.
         pointer_original = self.__upload_image_as_file(original_path, 'original')
-
+        # Step3: Update the photo instance with the uploaded image files.
         ParsePhotoUtils.upload_with_uploaded_files(pointer_photo, pointer_thumbnail, pointer_original)
 
     def upload_photos(self):
