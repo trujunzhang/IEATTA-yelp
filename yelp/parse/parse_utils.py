@@ -315,6 +315,10 @@ class ParsePhotoUtils(object):
         if Photo.Query.filter(url=href).count() > 0:
             return Photo.Query.filter(url=href).get()
 
+    @classmethod
+    def get_photos(cls):
+        return Photo.Query.all()
+
 
 class Restaurant(Object):
     pass
