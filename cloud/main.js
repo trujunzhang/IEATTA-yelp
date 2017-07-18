@@ -11,18 +11,18 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
     const photoId = photo.id;
     const url = photo.url;
 
-    console.log('*** log after saving photo ***', photo);
-    console.log('photoId', photoId);
+    console.log('(1.) *** log after saving photo ***', photo);
+    console.log('(2.) photoId', photoId);
 
     const query = new Parse.Query("Photo");
     query.get(photoId)
         .then(function (object) {
-            object.set("photoType", "wanghao");
-            console.log('*** found the photo ***', photoId);
+            object.set("photoType", "trujunzhang-720");
+            console.log('(3.) *** found the photo ***', object);
             return object.save();
         })
         .catch(function (error) {
-            console.error("Got an error " + error.code + " : " + error.message);
+            console.error("(4.)Got an error " + error.code + " : " + error.message);
         });
 
 });
