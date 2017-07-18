@@ -28,11 +28,14 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
                     console.log(result);
 
                     console.log('(4.1.1) : List crop sizes Image result');
-                    console.log('(4.1.2) : original', result[0]);
-                    console.log('(4.1.3) : thumbnail', result[1]);
+                    console.log('(4.1.2) : original,', result[0]);
+                    console.log('(4.1.3) : thumbnail,', result[1]);
 
-                    // object.set("original", result[0]);
-                    // object.set("thumbnail", result[1]);
+                    object.set("original", result[0]);
+                    object.set("thumbnail", result[1]);
+                    object.save()
+
+                    response.success(object)
                 },
                 error: function (error) {
                     console.log('(4.2) callback: crop_multiple_sizes_image', error);
