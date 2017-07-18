@@ -56,6 +56,7 @@ class IEATTAPhotos(object):
     def save_photos_again(self):
         for r_index, photo in enumerate(self.instance_photos):
             photo.save()
+            logging.info("     {} ".format('saved @[photo] again!'))
             pass
 
 
