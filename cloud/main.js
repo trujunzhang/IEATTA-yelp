@@ -19,7 +19,13 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
 
             const url = object.get("url");
 
-            console.log('(3.) after query photo, url:', url);
+            console.log('(3.1) after query photo, url:', url);
+            console.log('(3.2) after query photo, original:', object.get('original'));
+            console.log('(3.3) after query photo, thumbnail:', object.get('thumbnail'));
+
+            if (!!object.get('original')) {
+                console.log('(3.4) after query photo, @Exist[original]:', object.get('original'));
+            }
 
             // const params = {"imageURL": url, "photoId": photoId};
             Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
