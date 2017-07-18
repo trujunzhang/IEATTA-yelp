@@ -44,6 +44,8 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
             });
 
             console.log('(5.) *** found the photo ***', object);
+
+            response.success(object)
         })
         .catch(function (error) {
             console.error("(8.)Got an error " + error.code + " : " + error.message);
