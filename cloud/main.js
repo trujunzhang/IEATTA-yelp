@@ -29,39 +29,38 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
                 console.log('(3.5)  generating the size images, @New[original]');
 
                 // const params = {"imageURL": url, "photoId": photoId};
-                Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
-                    success: function (result) {
-                        console.log('(4.1) callback: crop_multiple_sizes_image', result);
-                        console.log(result);
-
-                        console.log('(4.1.1) : List crop sizes Image result');
-                        console.log('(4.1.2) : original,', result[0]);
-                        console.log('(4.1.3) : thumbnail,', result[1]);
-
-                        object.set("original", result[0]);
-                        object.set("thumbnail", result[1]);
-
-                        return object.save();
-                    },
-                    error: function (error) {
-                        console.log('(4.2) callback: crop_multiple_sizes_image', error);
-                        console.log(error);
-                    }
-                });
+                // Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
+                //     success: function (result) {
+                //         console.log('(4.1) callback: crop_multiple_sizes_image', result);
+                //         console.log(result);
+                //
+                //         console.log('(4.1.1) : List crop sizes Image result');
+                //         console.log('(4.1.2) : original,', result[0]);
+                //         console.log('(4.1.3) : thumbnail,', result[1]);
+                //
+                //         object.set("original", result[0]);
+                //         object.set("thumbnail", result[1]);
+                //
+                //         return object.save();
+                //     },
+                //     error: function (error) {
+                //         console.log('(4.2) callback: crop_multiple_sizes_image', error);
+                //         console.log(error);
+                //     }
+                // });
             }
 
             console.log('(5.) *** found the photo ***', object);
 
-            return object
+            response.success(object);
         })
         .catch(function (error) {
             console.error("(8.)Got an error " + error.code + " : " + error.message);
         });
 
-
     console.log('(10.) invoke crop_multiple_sizes_image', result);
 
-    response.success();
+    response.success(photo);
 });
 
 Parse.Cloud.afterSave("Photoyyy", function (request, response) {
@@ -98,117 +97,6 @@ Parse.Cloud.afterSave("Photoyyy", function (request, response) {
 
 });
 
-
-Parse.Cloud.afterSave("Photoxxx", function (request, response) {
-    const photo = request.object;
-
-    const photoId = photo.id;
-    const url = photo.url;
-
-    console.log('*** log after saving photo ***', photo);
-    console.log('photoId', photoId);
-
-    // Requires two packages to make this happen.
-    var Image = require("parse-image");
-
-    // Default images sizes.
-    var image_featured = [{
-        "type": "original"
-    }, {
-        "type": "thumbnail",
-        "width": 348,
-        "height": 348
-    }];
-
-    // Throwing them all together to iterate through.
-    Parse.Cloud.httpRequest({
-        url: url
-    }).then(function (response) {
-
-        var promise = Parse.Promise.as();
-
-        // Each request becomes a promise, execute each promise and then call success.
-        image_featured.forEach(function (arrayElement) {
-            promise = promise.then(function () {
-                // Create an Image from the data.
-                var image = new Image();
-                return image.setData(response.buffer);
-            }).then(function (image) { // Crop
-                // Using some math, we maintain aspect ratio of the image but scale the width down.
-                if (arrayElement["type"] == "original") {
-                    return image
-                }
-                // Crop the image to the smaller of width or height.
-                var minSize = Math.min(image.width(), image.height());
-                if (minSize === image.width()) {
-                    const vertical = (image.height() - image.width()) / 2;
-                    return image.crop({
-                        left: 0,
-                        top: vertical,
-                        right: 0,
-                        bottom: vertical
-                    })
-                } else {
-                    const horizon = (image.width() - image.height()) / 2;
-                    return image.crop({
-                        left: horizon,
-                        top: 0,
-                        right: horizon,
-                        bottom: 0
-                    })
-                }
-            }).then(function (image) { // Resize
-                // Using some math, we maintain aspect ratio of the image but scale the width down.
-                if (arrayElement["type"] == "original") {
-                    return image
-                }
-                const scaleWidth = arrayElement["width"]
-
-                // Crop the image to the smaller of width or height.
-                var minSize = Math.min(image.width(), image.height());
-                if (minSize === image.width()) {
-                    return image.scale({
-                        width: scaleWidth,
-                        height: scaleWidth * image.height() / image.width()
-                    });
-                }
-                return image.scale({
-                    width: scaleWidth * image.width() / image.height(),
-                    height: scaleWidth
-                });
-            }).then(function (image) {
-                // Convert Image to JPEG
-                return image.setFormat("JPEG");
-            }).then(function (image) {
-                // Get Data of each image.
-                return image.data();
-            }).then(function (data) {
-                // Save the bytes to a new file.
-                var file = new Parse.File(photoId + arrayElement["type"] + ".jpg", {
-                    base64: data.toString("base64")
-                });
-                return file.save();
-            }).then(function (file) {
-                // Push the file to the return array.
-                if (arrayElement["type"] == "original") {
-                    photo.original = file
-                } else {
-                    photo.thumbnail = file
-                }
-                return file;
-            });
-        });
-
-        return promise;
-
-    }).then(function () {
-            photo.save();
-            response.success(photo);
-        },
-        function (error) {
-            response.error(error);
-        });
-});
 
 Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
     const url = request.params.imageURL;
