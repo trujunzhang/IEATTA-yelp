@@ -19,13 +19,20 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
 
             const url = object.get("url");
 
-            console.log('(3.) query photo, url:', url);
+            console.log('(3.) after query photo, url:', url);
 
             // const params = {"imageURL": url, "photoId": photoId};
             Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
                 success: function (result) {
                     console.log('(4.1) callback: crop_multiple_sizes_image', result);
                     console.log(result);
+
+                    console.log('(4.1.1) : List crop sizes Image result');
+                    console.log('(4.1.2) : original', result[0]);
+                    console.log('(4.1.3) : thumbnail', result[1]);
+
+                    // object.set("original", result[0]);
+                    // object.set("thumbnail", result[1]);
                 },
                 error: function (error) {
                     console.log('(4.2) callback: crop_multiple_sizes_image', error);
@@ -34,7 +41,6 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
             });
 
             console.log('(5.) *** found the photo ***', object);
-            return object;
         })
         .catch(function (error) {
             console.error("(8.)Got an error " + error.code + " : " + error.message);
