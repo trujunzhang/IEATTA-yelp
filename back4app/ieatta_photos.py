@@ -67,9 +67,9 @@ def main():
     logging.info("     ")
     logging.info("  * {} ".format('Ready'))
 
-    # utils.upload_photos()
+    utils.upload_photos_from_local()
     # utils.invoke_cloud_images()
-    utils.save_photos_again()
+    # utils.save_photos_again()
 
 
 if __name__ == '__main__':
