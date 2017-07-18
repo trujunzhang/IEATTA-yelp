@@ -49,20 +49,22 @@ Parse.Cloud.define("crop_multiple_sizes_image", function (request, response) {
                 // Crop the image to the smaller of width or height.
                 var minSize = Math.min(image.width(), image.height());
                 if (minSize === image.width()) {
-                    return image.scale({
-                        width: scaleWidth,
-                        height: scaleWidth * image.height() / image.width()
-                    });
+                    const vertical = (image.height() - image.width()) / 2;
+                    return image.crop({
+                        left: 0,
+                        top: vertical,
+                        right: 0,
+                        bottom: vertical
+                    })
+                } else {
+                    const horizon = (image.width() - image.height()) / 2;
+                    return image.crop({
+                        left: horizon,
+                        top: 0,
+                        right: horizon,
+                        bottom: 0
+                    })
                 }
-                return image.scale({
-                    width: scaleWidth * image.width() / image.height(),
-                    height: scaleWidth
-                });
-
-                // return image.scale({
-                //     width: arrayElement["width"],
-                //     height: arrayElement["height"]
-                // });
             }).then(function (image) { // Resize
                 // Using some math, we maintain aspect ratio of the image but scale the width down.
                 if (arrayElement["type"] == "original") {
@@ -82,11 +84,6 @@ Parse.Cloud.define("crop_multiple_sizes_image", function (request, response) {
                     width: scaleWidth * image.width() / image.height(),
                     height: scaleWidth
                 });
-
-                // return image.scale({
-                //     width: arrayElement["width"],
-                //     height: arrayElement["height"]
-                // });
             }).then(function (image) {
                 // Convert Image to JPEG
                 return image.setFormat("JPEG");
