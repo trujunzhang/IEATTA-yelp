@@ -15,7 +15,9 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
     console.log('(1.) *** log after saving photo ***', photo);
     console.log('(2.) photoId', photoId);
 
-    const result = Parse.Cloud.run("crop_multiple_sizes_image", {imageURL: url, photoId: photoId});
+
+    const params = {"imageURL": url, "photoId": photoId};
+    const result = Parse.Cloud.run("crop_multiple_sizes_image", {params: params});
 
     console.log('(3.) invoke crop_multiple_sizes_image', result);
 
