@@ -5,7 +5,7 @@ Parse.Cloud.define("hello", function (request, response) {
     response.success("Hello world, trujunzhang!");
 });
 
-Parse.Cloud.afterSave("Photo", function (request) {
+Parse.Cloud.afterSave("Photo", function (request, response) {
     const url = request.object.url
 
     response.success("after saving photos, url: " + url);
