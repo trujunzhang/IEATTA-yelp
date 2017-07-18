@@ -30,7 +30,7 @@ def get_object_by_type(query, item, field='testId'):
 class ParseCloudUtil(object):
     @classmethod
     def crop_image_on_cloud(self, pointer_photo):
-        crop_image_func = Function("crop_multiple_sizes_image")
+        crop_image_func = Function("cropMultipleSizesImage")
         # crop_image_func = Function("hello")
         result = crop_image_func(imageURL=pointer_photo.url,
                                  photoId=pointer_photo.objectId)

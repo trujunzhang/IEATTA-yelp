@@ -16,9 +16,42 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
     console.log('(2.) photoId', photoId);
 
 
-    const params = {"imageURL": url, "photoId": photoId};
-    const result = Parse.Cloud.run("crop_multiple_sizes_image", {params: params});
+    // const params = {"imageURL": url, "photoId": photoId};
+    Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
+        success: function (result) {
+            console.log('(3.1) callback: crop_multiple_sizes_image', result);
+            console.log(result);
+        },
+        error: function (error) {
+            console.log('(3.2) callback: crop_multiple_sizes_image', error);
+            console.log(error);
+        }
+    });
 
+    console.log('(3.) invoke crop_multiple_sizes_image', result);
+
+    response.success();
+});
+
+Parse.Cloud.afterSave("Photoyyy", function (request, response) {
+    const photo = request.object;
+
+    const photoId = photo.id;
+    const url = photo.url;
+
+    console.log('(1.) *** log after saving photo ***', photo);
+    console.log('(2.) photoId', photoId);
+
+
+    // const params = {"imageURL": url, "photoId": photoId};
+    Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
+        success: function (result) {
+            console.log(result);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
     console.log('(3.) invoke crop_multiple_sizes_image', result);
 
     new Parse.Query("Photo").get(photoId)
@@ -146,12 +179,14 @@ Parse.Cloud.afterSave("Photoxxx", function (request, response) {
         });
 });
 
-Parse.Cloud.define("crop_multiple_sizes_image", function (request, response) {
+Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
     const url = request.params.imageURL;
     const photoId = request.params.photoId;
     const returnImagesArray = [];
 
-    console.log('(101.) *** log crop multiple sizes image ***', url);
+    console.log('(101.1) *** log crop multiple sizes image ***', request.params);
+    console.log('(101.2) *** log crop multiple sizes image ***', url);
+    console.log('(101.3) *** log crop multiple sizes image ***', photoId);
 
     // Requires two packages to make this happen.
     var Image = require("parse-image");
