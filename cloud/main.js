@@ -288,7 +288,7 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
                 return image.data();
             }).then(function (data) {
                 // Save the bytes to a new file.
-                var file = new Parse.File(photoId + arrayElement["type"] + ".jpg", {
+                var file = new Parse.File(photoId + "-" + arrayElement["type"] + ".jpg", {
                     base64: data.toString("base64")
                 });
                 return file.save();
