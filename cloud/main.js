@@ -39,7 +39,31 @@ Parse.Cloud.define("crop_multiple_sizes_image", function (request, response) {
                 // Create an Image from the data.
                 var image = new Image();
                 return image.setData(response.buffer);
-            }).then(function (image) {
+            }).then(function (image) { // Crop
+                // Using some math, we maintain aspect ratio of the image but scale the width down.
+                if (arrayElement["type"] == "original") {
+                    return image
+                }
+                const scaleWidth = arrayElement["width"]
+
+                // Crop the image to the smaller of width or height.
+                var minSize = Math.min(image.width(), image.height());
+                if (minSize === image.width()) {
+                    return image.scale({
+                        width: scaleWidth,
+                        height: scaleWidth * image.height() / image.width()
+                    });
+                }
+                return image.scale({
+                    width: scaleWidth * image.width() / image.height(),
+                    height: scaleWidth
+                });
+
+                // return image.scale({
+                //     width: arrayElement["width"],
+                //     height: arrayElement["height"]
+                // });
+            }).then(function (image) { // Resize
                 // Using some math, we maintain aspect ratio of the image but scale the width down.
                 if (arrayElement["type"] == "original") {
                     return image

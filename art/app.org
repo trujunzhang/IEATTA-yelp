@@ -1,0 +1,3 @@
+* parse-image
+  [https://github.com/parse-server-modules/parse-image]
+  [https://github.com/parse-server-modules/parse-image/blob/master/test/test.js]
