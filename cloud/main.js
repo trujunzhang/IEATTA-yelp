@@ -25,33 +25,34 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
 
             if (!!object.get('original')) {
                 console.log('(3.4) after query photo, @Exist[original]:', object.get('original'));
+            } else if (!!url && url !== '') {
+                console.log('(3.5)  generating the size images, @New[original]');
+
+                // const params = {"imageURL": url, "photoId": photoId};
+                Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
+                    success: function (result) {
+                        console.log('(4.1) callback: crop_multiple_sizes_image', result);
+                        console.log(result);
+
+                        console.log('(4.1.1) : List crop sizes Image result');
+                        console.log('(4.1.2) : original,', result[0]);
+                        console.log('(4.1.3) : thumbnail,', result[1]);
+
+                        object.set("original", result[0]);
+                        object.set("thumbnail", result[1]);
+
+                        return object.save();
+                    },
+                    error: function (error) {
+                        console.log('(4.2) callback: crop_multiple_sizes_image', error);
+                        console.log(error);
+                    }
+                });
             }
-
-            // const params = {"imageURL": url, "photoId": photoId};
-            Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
-                success: function (result) {
-                    console.log('(4.1) callback: crop_multiple_sizes_image', result);
-                    console.log(result);
-
-                    console.log('(4.1.1) : List crop sizes Image result');
-                    console.log('(4.1.2) : original,', result[0]);
-                    console.log('(4.1.3) : thumbnail,', result[1]);
-
-                    object.set("original", result[0]);
-                    object.set("thumbnail", result[1]);
-                    object.save();
-
-                    response.success(object)
-                },
-                error: function (error) {
-                    console.log('(4.2) callback: crop_multiple_sizes_image', error);
-                    console.log(error);
-                }
-            });
 
             console.log('(5.) *** found the photo ***', object);
 
-            response.success(object)
+            return object
         })
         .catch(function (error) {
             console.error("(8.)Got an error " + error.code + " : " + error.message);
