@@ -6,9 +6,10 @@ Parse.Cloud.define("hello", function (request, response) {
 });
 
 Parse.Cloud.afterSave("Photo", function (request, response) {
-    const photo = request.object
-    const photoId = photo.id;
-    const url = photo.url
+    const photo = request.object;
+
+    const photoId = photo.objectId;
+    const url = photo.url;
 
     // Requires two packages to make this happen.
     var Image = require("parse-image");
