@@ -10,23 +10,34 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
     const photo = request.object;
 
     const photoId = photo.id;
-    const url = photo.url;
+
 
     console.log('(1.) *** log after saving photo ***', photo);
     console.log('(2.) photoId', photoId);
 
+    new Parse.Query("Photo").get(photoId)
+        .then(function (object) {
+            const url = object.url;
 
-    // const params = {"imageURL": url, "photoId": photoId};
-    Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
-        success: function (result) {
-            console.log('(3.1) callback: crop_multiple_sizes_image', result);
-            console.log(result);
-        },
-        error: function (error) {
-            console.log('(3.2) callback: crop_multiple_sizes_image', error);
-            console.log(error);
-        }
-    });
+            // const params = {"imageURL": url, "photoId": photoId};
+            Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
+                success: function (result) {
+                    console.log('(4.1) callback: crop_multiple_sizes_image', result);
+                    console.log(result);
+                },
+                error: function (error) {
+                    console.log('(4.2) callback: crop_multiple_sizes_image', error);
+                    console.log(error);
+                }
+            });
+
+            console.log('(5.) *** found the photo ***', object);
+            return object;
+        })
+        .catch(function (error) {
+            console.error("(8.)Got an error " + error.code + " : " + error.message);
+        });
+
 
     console.log('(3.) invoke crop_multiple_sizes_image', result);
 
