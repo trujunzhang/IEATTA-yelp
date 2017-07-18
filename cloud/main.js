@@ -11,6 +11,9 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
     const photoId = photo.objectId;
     const url = photo.url;
 
+    console.log('*** log after saving photo ***', photo);
+    console.log('photoId', photoId);
+
     // Requires two packages to make this happen.
     var Image = require("parse-image");
 
