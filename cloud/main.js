@@ -7,6 +7,7 @@ Parse.Cloud.define("hello", function (request, response) {
 
 Parse.Cloud.afterSave("Photo", function (request, response) {
     const photo = request.object
+    const photoId = photo.id;
     const url = photo.url
 
     // Requires two packages to make this happen.
@@ -114,9 +115,9 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
 });
 
 Parse.Cloud.define("crop_multiple_sizes_image", function (request, response) {
-    var url = request.params.imageURL;
-    var photoId = request.params.photoId;
-    var returnImagesArray = [];
+    const url = request.params.imageURL;
+    const photoId = request.params.photoId;
+    const returnImagesArray = [];
 
     // Requires two packages to make this happen.
     var Image = require("parse-image");
