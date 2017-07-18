@@ -34,6 +34,8 @@ class ParseCloudUtil(object):
         # crop_image_func = Function("hello")
         result = crop_image_func(imageURL=pointer_photo.url,
                                  photoId=pointer_photo.objectId)
+        # pointer_thumbnail = result['result'][0]
+        # pointer_original = result['result'][1]
         return result
 
 

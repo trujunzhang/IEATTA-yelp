@@ -5,8 +5,10 @@ Parse.Cloud.define("hello", function (request, response) {
     response.success("Hello world, trujunzhang!");
 });
 
-Parse.Cloud.afterSave("Photoxxx", function (request) {
+Parse.Cloud.afterSave("Photo", function (request) {
+    const url = request.object.url
 
+    response.success("after saving photos, url: " + url);
 });
 
 Parse.Cloud.define("crop_multiple_sizes_image", function (request, response) {
