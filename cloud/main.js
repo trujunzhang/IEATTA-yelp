@@ -16,7 +16,8 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
 
     new Parse.Query("Photo").get(photoId)
         .then(function (object) {
-            const url = object.url;
+
+            const url = object.get("url");
 
             // const params = {"imageURL": url, "photoId": photoId};
             Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
