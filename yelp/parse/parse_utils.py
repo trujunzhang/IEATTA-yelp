@@ -124,7 +124,7 @@ class ParseRecordUtil(object):
             point_record.recipe = point_instance
         elif _record_type == 'user':
             point_record.user = point_instance
-        elif _record_type == 'peopleinevent':
+        elif _record_type == 'peopleInEvent':
             point_record.peopleInEvent = point_instance
         else:
             raise Exception('Not found the record type,{}!'.format(_record_type))
@@ -227,7 +227,7 @@ class ParsePeopleInEventUtils(object):
         instance.user = p_user
         instance.recipes = p_recipes
 
-        instance = ParseHelp.save_and_update_record(instance, 'peopleinevent')
+        instance = ParseHelp.save_and_update_record(instance, 'peopleInEvent')
 
         return instance
 
