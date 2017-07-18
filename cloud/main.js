@@ -58,7 +58,7 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
             console.error("(8.)Got an error " + error.code + " : " + error.message);
         });
 
-    console.log('(10.) invoke crop_multiple_sizes_image', result);
+    console.log('(10.) invoke crop_multiple_sizes_image');
 
     response.success(photo);
 });
