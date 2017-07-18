@@ -8,7 +8,33 @@ Parse.Cloud.define("hello", function (request, response) {
 Parse.Cloud.afterSave("Photo", function (request, response) {
     const photo = request.object;
 
-    const photoId = photo.objectId;
+    const photoId = photo.id;
+    const url = photo.url;
+
+    console.log('*** log after saving photo ***', photo);
+    console.log('photoId', photoId);
+
+
+    var query = new Parse.Query("Photo");
+    query.equalTo("objectId", photoId);
+    query.first({useMasterKey: true}).then(function (object) {
+        console.log("query first photo");
+        if (object == null) {
+            console.log('*** not found the photo ***', photoId);
+        } else {
+            object.photoType = "wanghao";
+            object.save();
+            console.log('*** found the photo ***', photoId);
+        }
+    });
+
+
+});
+
+Parse.Cloud.afterSave("Photoxxx", function (request, response) {
+    const photo = request.object;
+
+    const photoId = photo.id;
     const url = photo.url;
 
     console.log('*** log after saving photo ***', photo);
