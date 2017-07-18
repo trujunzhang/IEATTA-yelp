@@ -33,7 +33,7 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
 
                     object.set("original", result[0]);
                     object.set("thumbnail", result[1]);
-                    object.save()
+                    object.save();
 
                     response.success(object)
                 },
