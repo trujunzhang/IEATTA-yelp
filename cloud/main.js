@@ -11,7 +11,6 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
 
     const photoId = photo.id;
 
-
     console.log('(1.) *** log after saving photo ***', photo);
     console.log('(2.) photoId', photoId);
 
