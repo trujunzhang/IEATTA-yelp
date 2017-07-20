@@ -37,6 +37,10 @@ class IEATTAPhotos(object):
         ParsePhotoUtils.upload_with_uploaded_files(pointer_photo, pointer_thumbnail, pointer_original)
 
     def upload_photos_from_local(self):
+        """
+        Pending, not used now
+        :return:
+        """
         # Step01: photos
         for r_index, photo in enumerate(self.instance_photos):
             _url = photo.url
@@ -46,6 +50,10 @@ class IEATTAPhotos(object):
                 self.__update_photos_with_local_images(photo, cloudinary_objects)
 
     def invoke_cloud_images(self):
+        """
+        Pending, not used now
+        :return:
+        """
         for r_index, photo in enumerate(self.instance_photos):
             result = ParseCloudUtil.crop_image_on_cloud(photo)
             # Step3: Update the photo instance with the uploaded image files.
