@@ -174,12 +174,16 @@ class ParseUserUtils(object):
     def signup(cls, user):
         point_user = get_object_by_type(User.Query, user)
         if not point_user:
-            user = User.signup(
+            point_user = User.signup(
                 user['displayName'], user['password'],
                 email=user['email'], slug=slugify(user['displayName']),
                 loginType='email', testId=user['testId']
             )
-            point_user = user
+
+        ParseRecordUtil.save_record(point_user, {
+            "recordId": point_user.objectId,
+            "recordType": 'user'
+        })
 
         return point_user
 
