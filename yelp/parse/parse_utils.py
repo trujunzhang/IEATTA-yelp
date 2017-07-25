@@ -71,7 +71,7 @@ class ParseRelationUtil(object):
         if not ParseRelationUtil.__check_in_array(p_restaurant.events, p_event):
             p_restaurant.events.append(p_event)
             p_restaurant = ParseHelp.save_and_update_record(p_restaurant, 'restaurant')
-            logging.info("  *** {} ".format('exist @relatation[Restaurant|Event]'))
+            logging.info("  *** {} ".format('saved @relatation[Restaurant|Event]'))
         else:
             logging.info("  *** {} ".format('exist @relatation[Restaurant|Event]'))
 
