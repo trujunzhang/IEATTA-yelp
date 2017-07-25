@@ -241,6 +241,10 @@ class ParsePeopleInEventUtils(object):
             return PeopleInEvent.Query.filter(testId=testId).get()
         return PeopleInEvent()
 
+    @classmethod
+    def get_people_in_event_list(cls):
+        return PeopleInEvent.Query.all()
+
 
 class Event(Object):
     pass

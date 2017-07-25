@@ -56,7 +56,7 @@ class IEATTARelation(object):
 
 
 def main():
-    logging.info("  Start Import IEATTA class rows! ")
+    logging.info("  Start relate IEATTA between events and users! ")
     utils = IEATTARelation()
 
     logging.info("     ")
