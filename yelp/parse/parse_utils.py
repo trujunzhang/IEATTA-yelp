@@ -428,11 +428,15 @@ class ParseRecipeUtils(object):
         pointer_user = relation_pointers['pointer_user']
 
         if pointer_recipe and pointer_restaurant and pointer_event and pointer_user:
-            pointer_recipe.restaurant = pointer_restaurant
-            pointer_recipe.event = pointer_event
-            pointer_recipe.user = pointer_user
+            if pointer_recipe.restaurant and pointer_recipe.event and pointer_recipe.user:
+                logging.info("  *** {} ".format('exist @relatation[Recipe|Relations]'))
+            else:
+                pointer_recipe.restaurant = pointer_restaurant
+                pointer_recipe.event = pointer_event
+                pointer_recipe.user = pointer_user
 
-            ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
+                ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
+                logging.info("  *** {}, {}".format('saved @relatation[Recipe|Relations]', pointer_recipe.objectId))
         else:
             raise Exception('Not found the instance on the peopleInEvent!')
 

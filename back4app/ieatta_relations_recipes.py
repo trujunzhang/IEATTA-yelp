@@ -15,10 +15,13 @@ class IEATTARelationRecipes(object):
 
         with open('parse_yelp_relations.json') as data_file:
             self.peopleInEvent = ParsePeopleInEventUtils.get_people_in_event_list()
+            logging.info("  *** {} ,{}".format('rebuild @relatation[Recipe|Relations]', len(self.peopleInEvent)))
 
     def import_relation(self):
         # Step01: get recipes from peopleInEvent
         for p_index, peopleInEvent in enumerate(self.peopleInEvent):
+            logging.info("  *** step{} ".format(p_index + 1))
+            logging.info("")
 
             _restaurant_id = peopleInEvent.restaurant.objectId
             _event_id = peopleInEvent.event.objectId
