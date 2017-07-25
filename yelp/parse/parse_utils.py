@@ -429,7 +429,7 @@ class ParseRecipeUtils(object):
 
         if pointer_recipe and pointer_restaurant and pointer_event and pointer_user:
             if pointer_recipe.restaurant and pointer_recipe.event and pointer_recipe.user:
-                logging.info("  *** {} ".format('exist @relatation[Recipe|Relations]'))
+                logging.info("  *** {}, {}".format('exist @relatation[Recipe|Relations]', pointer_recipe.objectId))
             else:
                 pointer_recipe.restaurant = pointer_restaurant
                 pointer_recipe.event = pointer_event
