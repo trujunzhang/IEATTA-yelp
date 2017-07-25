@@ -414,6 +414,10 @@ class ParseRecipeUtils(object):
 
     @classmethod
     def relate_recipe(cls, recipe_id, restaurant_id, event_id, user_id):
+        pointer_recipe = Recipe.Query.filter(objectId=recipe_id).get()
+        pointer_restaurant = Restaurant.Query.filter(objectId=restaurant_id).get()
+        pointer_event = Event.Query.filter(objectId=event_id).get()
+        pointer_user = User.Query.filter(objectId=user_id).get()
         pass
 
     @classmethod
