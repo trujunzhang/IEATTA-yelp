@@ -98,18 +98,17 @@ class ParseRecordUtil(object):
     @classmethod
     def save_record(cls, point_instance, item):
         _record_type = item['recordType']
-        _point = ParseRecordUtil.record_exist(item['recordId'])
-        if not _point:
+        instance = ParseRecordUtil.record_exist(item['recordId'])
+        if not instance:
             instance = Record()
 
-            instance.recordId = item['recordId']
-            instance.recordType = _record_type
+        instance.recordId = item['recordId']
+        instance.recordType = _record_type
 
-            instance.save()
-            _point = instance
+        instance.save()
 
-        ParseRecordUtil.__set_related(_point, point_instance, _record_type)
-        return _point
+        ParseRecordUtil.__set_related(instance, point_instance, _record_type)
+        return instance
 
     @classmethod
     def __set_related(cls, point_record, point_instance, _record_type):
@@ -131,16 +130,12 @@ class ParseRecordUtil(object):
 
         point_record.save()
 
-        x = 0
-
     @classmethod
     def get_list(cls):
         _list = Record.Query.all()
         for item in _list:
             item.flag = 1
             item.save()
-
-        x = 0
 
     @classmethod
     def record_exist(cls, recordId):
