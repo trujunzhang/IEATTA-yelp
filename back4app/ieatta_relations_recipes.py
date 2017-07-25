@@ -24,9 +24,11 @@ class IEATTARelationRecipes(object):
             _event_id = peopleInEvent.event.objectId
             _user_id = peopleInEvent.user.objectId
 
+            relation_pointers = ParsePeopleInEventUtils.get_relation_pointers(_restaurant_id, _event_id, _user_id)
+
             for r_index, recipe in enumerate(peopleInEvent.recipes):
                 # Step02: Rebuild the recipe's infomation.
-                ParseRecipeUtils.relate_recipe(recipe.objectId, _restaurant_id, _event_id, _user_id)
+                ParseRecipeUtils.relate_recipe(recipe.objectId, relation_pointers)
 
 
 def main():

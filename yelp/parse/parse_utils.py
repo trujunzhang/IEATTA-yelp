@@ -240,6 +240,18 @@ class ParsePeopleInEventUtils(object):
     def get_people_in_event_list(cls):
         return PeopleInEvent.Query.all()
 
+    @classmethod
+    def get_relation_pointers(cls, restaurant_id, event_id, user_id):
+        pointer_restaurant = Restaurant.Query.filter(objectId=restaurant_id).get()
+        pointer_event = Event.Query.filter(objectId=event_id).get()
+        pointer_user = User.Query.filter(objectId=user_id).get()
+
+        return {
+            pointer_restaurant: pointer_restaurant,
+            pointer_event: pointer_event,
+            pointer_user: pointer_user
+        }
+
 
 class Event(Object):
     pass
@@ -408,11 +420,12 @@ class ParseRecipeUtils(object):
         return instance
 
     @classmethod
-    def relate_recipe(cls, recipe_id, restaurant_id, event_id, user_id):
+    def relate_recipe(cls, recipe_id, relation_pointers):
         pointer_recipe = Recipe.Query.filter(objectId=recipe_id).get()
-        pointer_restaurant = Restaurant.Query.filter(objectId=restaurant_id).get()
-        pointer_event = Event.Query.filter(objectId=event_id).get()
-        pointer_user = User.Query.filter(objectId=user_id).get()
+
+        pointer_restaurant = relation_pointers.pointer_restaurant
+        pointer_event = relation_pointers.pointer_event
+        pointer_user = relation_pointers.pointer_user
 
         if pointer_recipe and pointer_restaurant and pointer_event and pointer_user:
             pointer_recipe.restaurant = pointer_restaurant
