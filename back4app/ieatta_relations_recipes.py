@@ -27,7 +27,7 @@ class IEATTARelationRecipes(object):
             relation_pointers = ParsePeopleInEventUtils.get_relation_pointers(_restaurant_id, _event_id, _user_id)
 
             for r_index, recipe in enumerate(peopleInEvent.recipes):
-                # Step02: Rebuild the recipe's infomation.
+                # step02: rebuild the recipe's information.
                 ParseRecipeUtils.relate_recipe(recipe.objectId, relation_pointers)
 
 
