@@ -17,15 +17,16 @@ class IEATTARelationRecipes(object):
             self.peopleInEvent = ParsePeopleInEventUtils.get_people_in_event_list()
 
     def import_relation(self):
-        # Step01: restaurants
+        # Step01: get recipes from peopleInEvent
         for p_index, peopleInEvent in enumerate(self.peopleInEvent):
+
             _restaurant_id = peopleInEvent.restaurant.objectId
             _event_id = peopleInEvent.event.objectId
             _user_id = peopleInEvent.user.objectId
+
             for r_index, recipe in enumerate(peopleInEvent.recipes):
-                if r_index == 0:
-                    ParseRecipeUtils.relate_recipe(recipe.objectId, _restaurant_id, _event_id, _user_id)
-                pass
+                # Step02: Rebuild the recipe's infomation.
+                ParseRecipeUtils.relate_recipe(recipe.objectId, _restaurant_id, _event_id, _user_id)
 
 
 def main():
