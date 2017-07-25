@@ -20,9 +20,9 @@ class IEATTARelationRecipes(object):
         # Step01: restaurants
         for p_index, peopleInEvent in enumerate(self.peopleInEvent):
             recipes = peopleInEvent.recipes
-            _restaurant_id = peopleInEvent.restaurant.id
-            _event_id = peopleInEvent.event.id
-            _user_id = peopleInEvent.user.id
+            _restaurant_id = peopleInEvent.restaurant.objectId
+            _event_id = peopleInEvent.event.objectId
+            _user_id = peopleInEvent.user.objectId
             pass
             for r_index, recipe in enumerate(recipes):
                 # ParseRecipeUtils.relate_recipe()
