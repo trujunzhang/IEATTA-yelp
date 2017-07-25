@@ -418,7 +418,11 @@ class ParseRecipeUtils(object):
         pointer_restaurant = Restaurant.Query.filter(objectId=restaurant_id).get()
         pointer_event = Event.Query.filter(objectId=event_id).get()
         pointer_user = User.Query.filter(objectId=user_id).get()
-        pass
+
+        if pointer_recipe and pointer_restaurant and pointer_event and pointer_user:
+            pass
+        else:
+            raise Exception('Not found the instance on the peopleInEvent!')
 
     @classmethod
     def add_photo_for_recipe(cls, point_recipe, pointers_recipes):
