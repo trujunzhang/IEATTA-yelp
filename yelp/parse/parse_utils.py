@@ -420,15 +420,13 @@ class ParseRecipeUtils(object):
         pointer_user = User.Query.filter(objectId=user_id).get()
 
         if pointer_recipe and pointer_restaurant and pointer_event and pointer_user:
-            pass
+            pointer_recipe.restaurant = pointer_restaurant
+            pointer_recipe.event = pointer_event
+            pointer_recipe.user = pointer_user
+
+            ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
         else:
             raise Exception('Not found the instance on the peopleInEvent!')
-
-    @classmethod
-    def add_photo_for_recipe(cls, point_recipe, pointers_recipes):
-        point_recipe.add('recipes', point_recipe)
-
-        return ParseHelp.save_and_update_record(point_recipe, 'recipe')
 
     @classmethod
     def recipe_exist(cls, href):
