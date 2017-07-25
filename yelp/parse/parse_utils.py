@@ -399,6 +399,9 @@ class ParseRecipeUtils(object):
         instance = get_object_by_type(Recipe.Query, item)
         if not instance:
             instance = Recipe()
+            instance.restaurant = None
+            instance.event = None
+            instance.user = None
             instance.photos = []
 
         instance.testId = item['testId']
@@ -408,6 +411,10 @@ class ParseRecipeUtils(object):
 
         instance = ParseHelp.save_and_update_record(instance, 'recipe')
         return instance
+
+    @classmethod
+    def relate_recipe(cls, recipe_id, restaurant_id, event_id, user_id):
+        pass
 
     @classmethod
     def add_photo_for_recipe(cls, point_recipe, pointers_recipes):
