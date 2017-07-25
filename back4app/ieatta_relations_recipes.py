@@ -23,7 +23,8 @@ class IEATTARelationRecipes(object):
             _event_id = peopleInEvent.event.objectId
             _user_id = peopleInEvent.user.objectId
             for r_index, recipe in enumerate(peopleInEvent.recipes):
-                ParseRecipeUtils.relate_recipe(recipe.objectId, _restaurant_id, _event_id, _user_id)
+                if r_index == 0:
+                    ParseRecipeUtils.relate_recipe(recipe.objectId, _restaurant_id, _event_id, _user_id)
                 pass
 
 
