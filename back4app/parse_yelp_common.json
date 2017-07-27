@@ -323,5 +323,17 @@
       "password": "nkechiIEATTA@123",
       "email": "nkechi@gmail.com"
     }
+  ],
+  "reivews": [
+    {
+      "testId": "c001",
+      "rate": 4,
+      "body": [
+        "Made reservations on a Saturday night was easy and simple. My party was a little late and they were understanding. The service was great and our server did the best job he can do.",
+        "The food was good I ordered the Talas it just reminded me of chicken pot pie. My dad and sister ordered the kabobs. My dad and sister liked their food as well.",
+        "The ambience is nice and small. Not that many seats available and there is a small bar in the back. There's street parking.",
+        "I would come back and try out the other food on the menu as well."
+      ]
+    }
   ]
 }
