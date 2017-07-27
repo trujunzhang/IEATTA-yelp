@@ -208,6 +208,36 @@ class Profile(Object):
 
 
 # =============================================
+#  Review
+# =============================================
+class Review(Object):
+    pass
+
+
+class ParseReviewUtils(object):
+    @classmethod
+    def save_review(cls, item):
+        instance = get_object_by_type(Review.Query, item)
+        if not instance:
+            instance = Review()
+
+            instance.restaurant = None
+            instance.recipe = None
+            instance.event = None
+            instance.reviewType = ''
+            instance.user = None
+
+        instance.testId = item['testId']
+
+        instance.rate = item['rate']
+        instance.body = '/n/r'.join(item['body'])
+
+        instance = ParseHelp.save_and_update_record(instance, 'review')
+
+        return instance
+
+
+# =============================================
 #  Event
 # =============================================
 class PeopleInEvent(Object):

@@ -31,8 +31,9 @@ class IEATTACommonImporter(object):
         type_array = [
             # "restaurant",
             # "event",
-            "user",
-            # "recipe"
+            # "user",
+            # "recipe",
+            "review"
         ]
         for type_key in type_array:
             logging.info("     ")
@@ -54,6 +55,8 @@ class IEATTACommonImporter(object):
                     ParsePhotoUtils.save_photos_for_instance(_point_instance, item, type_key,
                                                              point_restaurant=_point_instance)
                 elif type_key == 'user':
+                    _point_instance = ParseUserUtils.signup(item)
+                elif type_key == 'review':
                     _point_instance = ParseUserUtils.signup(item)
 
 
