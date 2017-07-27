@@ -6,7 +6,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
-    ParsePhotoUtils, get_object_by_type, Restaurant, Event, Recipe, ParsePeopleInEventUtils, ParseRelationUtil
+    ParsePhotoUtils, get_object_by_type, Restaurant, Event, Recipe, ParsePeopleInEventUtils, ParseRelationUtil, \
+    ParseReviewUtils
 
 
 class IEATTARelationReviews(object):
@@ -16,21 +17,21 @@ class IEATTARelationReviews(object):
         with open('parse_yelp_reviews.json') as data_file:
             self.data = json.load(data_file)
 
+    def __relate_review_for_restaurants(self, review):
+
+        pass
+
     def import_relation(self):
         # Step01: get recipes from peopleInEvent
-        for p_index, peopleInEvent in enumerate(self.peopleInEvent):
-            logging.info("  *** step{} ".format(p_index + 1))
-            logging.info("")
+        for r_index, review in enumerate(self.data['reviews']):
+            type = review["type"]
 
-            _restaurant_id = peopleInEvent.restaurant.objectId
-            _event_id = peopleInEvent.event.objectId
-            _user_id = peopleInEvent.user.objectId
+            for r_index, pointer in enumerate(review["pointers"]):
 
-            relation_pointers = ParsePeopleInEventUtils.get_relation_pointers(_restaurant_id, _event_id, _user_id)
+                if type == "restaurant":
+                    self.__relate_review_for_restaurants(review)
 
-            for r_index, recipe in enumerate(peopleInEvent.recipes):
-                # step02: rebuild the recipe's information.
-                ParseRecipeUtils.relate_recipe(recipe.objectId, relation_pointers)
+                ParseReviewUtils.get_relation_pointers(restaurant_id=None, event_id=None, user_id=pointer["userTestId"])
 
 
 def main():

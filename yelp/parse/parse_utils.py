@@ -238,6 +238,24 @@ class ParseReviewUtils(object):
 
         return instance
 
+    @classmethod
+    def get_relation_pointers(cls, restaurant_id=None, event_id=None, user_id=None):
+        relation_pointer = {
+            "pointer_restaurant": None,
+            "pointer_event": None,
+            "pointer_user": None
+        }
+        if restaurant_id:
+            relation_pointer["pointer_restaurant"] = Restaurant.Query.filter(objectId=restaurant_id).get()
+
+        if event_id:
+            relation_pointer["pointer_event"] = Event.Query.filter(objectId=event_id).get()
+
+        if user_id:
+            relation_pointer["pointer_user"] = User.Query.filter(objectId=user_id).get()
+
+        return relation_pointer
+
 
 # =============================================
 #  Event

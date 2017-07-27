@@ -2,11 +2,23 @@
   "reviews": [
     {
       "type": "restaurant",
-      "pointer": [
+      "restaurantTestId": "s001",
+      "pointers": [
         {
-          "restaurantTestId": "s001",
-          "userTestId": "u001",
+          "userTestId": "u004",
           "reviewTestId": "c001"
+        },
+        {
+          "userTestId": "u001",
+          "reviewTestId": "c002"
+        },
+        {
+          "userTestId": "u002",
+          "reviewTestId": "c003"
+        },
+        {
+          "userTestId": "u004",
+          "reviewTestId": "c004"
         }
       ]
     }
