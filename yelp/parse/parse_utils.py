@@ -239,11 +239,12 @@ class ParseReviewUtils(object):
         if not instance:
             instance = Review()
 
-            instance.restaurant = None
-            instance.recipe = None
-            instance.event = None
             instance.reviewType = ''
             instance.user = None
+
+            instance.restaurant = None
+            instance.event = None
+            instance.recipe = None
 
         instance.testId = item['testId']
 
@@ -273,8 +274,19 @@ class ParseReviewUtils(object):
         return relation_pointer
 
     @classmethod
-    def update_relation(cls, pointer, review_type, pointer_user=None, pointer_restaurant=None, pointer_event=None):
-        pointer_review = get_object_pointer("user", pointer, "reviewTestId")
+    def update_relation(cls, pointer, review_type,
+                        pointer_user=None,
+                        pointer_restaurant=None, pointer_event=None, pointer_recipe=None):
+        pointer_review = get_object_pointer("review", pointer, "reviewTestId")
+
+        pointer_review.reviewType = review_type
+        pointer_review.user = pointer_user
+
+        pointer_review.restaurant = pointer_restaurant
+        pointer_review.event = pointer_event
+        pointer_review.recipe = pointer_recipe
+
+        pass
 
 
 # =============================================
