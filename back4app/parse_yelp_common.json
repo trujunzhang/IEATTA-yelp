@@ -334,6 +334,56 @@
         "The ambience is nice and small. Not that many seats available and there is a small bar in the back. There's street parking.",
         "I would come back and try out the other food on the menu as well."
       ]
+    },
+    {
+      "testId": "c002",
+      "rate": 2,
+      "body": [
+        "There are many different dining establishments on this street but 80% of them are Italian restaurants with almost identical menus, so this place is like a breath of fresh air!  And being that they have excellent food and excellent service, this is a well earned five stars from me.",
+        "One of my most favorite things about this place is the seating in the sunroom in the back.  There's nothing better than feeling like you're eating outside but also protected from that East Bay HEAT!  It gets super hot in Pleasanton.",
+        "They have delicious vegetarian options and a sauv blanc from New Zealand on their wine list.  I was really impressed with this place!  Our server was excellent: friendly, attentive, and accommodating with our requests."
+      ]
+    },
+    {
+      "testId": "c003",
+      "rate": 5,
+      "body": [
+        "Great food, excellent service. Nothing more to ask here. They rushed our order to satisfy the needs of a hungry toddler.",
+        "Will definitely come back!"
+      ]
+    },
+    {
+      "testId": "c004",
+      "rate": 2,
+      "body": [
+        "We came to Lokanta to celebrate a birthday and had high expectations given the high reviews for this place.",
+        "The place was ok for a regular night out but definitely not the right place to celebrate special occasions.",
+        "There were 5 of us and we were squeezed on a tiny table, the chairs were not comfortable.",
+        "The service was average, the food was good but for the price there are many other Mediterranean restaurants that offer a lot better."
+      ]
+    },
+    {
+      "testId": "c005",
+      "rate": 4,
+      "body": [
+        "Ate the daily special, which was a fish kabob. It was very well prepared and tasty. The service was good; it wasn't too busy during lunch time on a week day."
+      ]
+    },
+    {
+      "testId": "c006",
+      "rate": 1,
+      "body": [
+        "I wish yelp allowed negative stars, because this place deserves just that!",
+        "Came here with family on a weeknight around 9pm for dinner. There are maybe 3 or 4 other tables occupied in the restaurant, plenty of servers (some standing idle behind the bar too, since there's no one at the bar).",
+        "Everyone at the table takes their time picking what we want, after all it's 9pm and we're hungry. We've decided and no server has even bothered to come by and ask for drinks or serve that bread. 15 mins have passed by now!"
+      ]
+    },
+    {
+      "testId": "c007",
+      "rate": 4,
+      "body": [
+        "We were seated in the back greenhouse type room during lunch, which was beautiful and relaxing, especially since it was raining. The flaming hellumi with pear and tomato was the best part! "
+      ]
     }
   ]
 }
