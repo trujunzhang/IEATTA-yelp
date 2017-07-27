@@ -286,6 +286,8 @@ class ParseReviewUtils(object):
         pointer_review.event = pointer_event
         pointer_review.recipe = pointer_recipe
 
+        pointer_review = ParseHelp.save_and_update_record(pointer_review, 'review')
+
         pass
 
 
