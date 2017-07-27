@@ -125,6 +125,8 @@ class ParseRecordUtil(object):
             point_record.user = point_instance
         elif _record_type == 'peopleInEvent':
             point_record.peopleInEvent = point_instance
+        elif _record_type == 'review':
+            point_record.review = point_instance
         else:
             raise Exception('Not found the record type,{}!'.format(_record_type))
 
