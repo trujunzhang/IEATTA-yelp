@@ -27,6 +27,22 @@ def get_object_by_type(query, item, field='testId'):
         return query.filter(testId=item[field]).get()
 
 
+def get_object_pointer(pointer_type, item, field='testId'):
+    _query = None
+    if pointer_type == "restaurant":
+        _query = Restaurant.Query
+    elif pointer_type == "event":
+        _query = Event.Query
+    elif pointer_type == "user":
+        _query = User.Query
+    elif pointer_type == "review":
+        _query = Review.Query
+
+    if _query:
+        if _query.filter(testId=item[field]).count() > 0:
+            return _query.filter(testId=item[field]).get()
+
+
 class ParseCloudUtil(object):
     @classmethod
     def crop_image_on_cloud(self, pointer_photo):
@@ -255,6 +271,10 @@ class ParseReviewUtils(object):
             relation_pointer["pointer_user"] = User.Query.filter(objectId=user_id).get()
 
         return relation_pointer
+
+    @classmethod
+    def update_relation(cls, pointer, review_type, pointer_user=None, pointer_restaurant=None, pointer_event=None):
+        pointer_review = get_object_pointer("user", pointer, "reviewTestId")
 
 
 # =============================================

@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
     ParsePhotoUtils, get_object_by_type, Restaurant, Event, Recipe, ParsePeopleInEventUtils, ParseRelationUtil, \
-    ParseReviewUtils
+    ParseReviewUtils, get_object_pointer
 
 
 class IEATTARelationReviews(object):
@@ -18,20 +18,22 @@ class IEATTARelationReviews(object):
             self.data = json.load(data_file)
 
     def __relate_review_for_restaurants(self, review):
+        _restaurant_test_id = review['restaurantTestId']
 
-        pass
+        _pointer_restaurant = get_object_pointer("restaurant", review, "restaurantTestId")
+        for r_index, pointer in enumerate(review["pointers"]):
+            _pointer_user = get_object_pointer("user", pointer, "userTestId")
+            ParseReviewUtils.update_relation(pointer, "restaurant",
+                                             _pointer_user,
+                                             pointer_restaurant=_pointer_restaurant)
 
     def import_relation(self):
         # Step01: get recipes from peopleInEvent
         for r_index, review in enumerate(self.data['reviews']):
             type = review["type"]
 
-            for r_index, pointer in enumerate(review["pointers"]):
-
-                if type == "restaurant":
-                    self.__relate_review_for_restaurants(review)
-
-                ParseReviewUtils.get_relation_pointers(restaurant_id=None, event_id=None, user_id=pointer["userTestId"])
+            if type == "restaurant":
+                self.__relate_review_for_restaurants(review)
 
 
 def main():
