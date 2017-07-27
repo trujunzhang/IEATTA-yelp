@@ -6,7 +6,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
-    ParsePhotoUtils
+    ParsePhotoUtils, ParseReviewUtils
 
 
 class IEATTACommonImporter(object):
@@ -57,7 +57,7 @@ class IEATTACommonImporter(object):
                 elif type_key == 'user':
                     _point_instance = ParseUserUtils.signup(item)
                 elif type_key == 'review':
-                    _point_instance = ParseUserUtils.signup(item)
+                    _point_instance = ParseReviewUtils.save_review(item)
 
 
 def main():
