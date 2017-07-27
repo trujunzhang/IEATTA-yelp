@@ -13,9 +13,8 @@ class IEATTARelationReviews(object):
     def __init__(self):
         super(IEATTARelationReviews, self).__init__()
 
-        with open('parse_yelp_relations.json') as data_file:
-            self.peopleInEvent = ParsePeopleInEventUtils.get_people_in_event_list()
-            logging.info("  *** {} ,{}".format('rebuild @relatation[Recipe|Relations]', len(self.peopleInEvent)))
+        with open('parse_yelp_reviews.json') as data_file:
+            self.data = json.load(data_file)
 
     def import_relation(self):
         # Step01: get recipes from peopleInEvent

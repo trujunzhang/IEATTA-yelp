@@ -1,0 +1,14 @@
+{
+  "reviews": [
+    {
+      "type": "restaurant",
+      "pointer": [
+        {
+          "restaurantTestId": "s001",
+          "userTestId": "u001",
+          "reviewTestId": "c001"
+        }
+      ]
+    }
+  ]
+}
