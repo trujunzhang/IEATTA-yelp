@@ -288,6 +288,8 @@ class ParseReviewUtils(object):
 
         pointer_review = ParseHelp.save_and_update_record(pointer_review, 'review')
 
+        logging.info("  *** update review, for type: {}".format(review_type))
+
         pass
 
 
