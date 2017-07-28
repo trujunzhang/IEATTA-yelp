@@ -63,6 +63,20 @@
           "reviewTestId": "c013"
         }
       ]
+    },
+    {
+      "type": "recipe",
+      "recipeTestId": "r001",
+      "pointers": [
+        {
+          "userTestId": "u004",
+          "reviewTestId": "c014"
+        },
+        {
+          "userTestId": "u001",
+          "reviewTestId": "c015"
+        }
+      ]
     }
   ]
 }
