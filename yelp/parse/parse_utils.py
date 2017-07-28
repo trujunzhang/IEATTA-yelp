@@ -197,6 +197,9 @@ class ParseUserUtils(object):
                 loginType='email', testId=user['testId'],
                 photos=[]
             )
+        else:
+            point_user = User.login(user['displayName'], user['password'])
+            x = 0
 
         ParseRecordUtil.save_record(point_user, {
             "recordId": point_user.objectId,
@@ -402,7 +405,8 @@ class ParsePhotoUtils(object):
         '''
         images = item['images']
         _photos_count = 0
-        if point_instance and point_instance.photos:
+
+        if not record_type == "user" and point_instance and point_instance.photos:
             _photos_count = len(point_instance.photos)
 
         if _photos_count == len(images):
