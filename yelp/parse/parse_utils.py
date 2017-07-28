@@ -291,7 +291,7 @@ class ParseReviewUtils(object):
 
             logging.info("  *** update review, for type: {}".format(review_type))
         else:
-            logging.info("  *** not found review, for type: {}".format(review_type))
+            logging.info("  *** not found review,{} for type: {}".format(pointer['reviewTestId'], review_type))
 
 
 # =============================================
