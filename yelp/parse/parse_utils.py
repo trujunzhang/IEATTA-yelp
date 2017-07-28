@@ -253,7 +253,7 @@ class ParseReviewUtils(object):
         instance.testId = item['testId']
 
         instance.rate = item['rate']
-        instance.body = '/n/r'.join(item['body'])
+        instance.body = '\n\r'.join(item['body'])
 
         instance = ParseHelp.save_and_update_record(instance, 'review')
 
