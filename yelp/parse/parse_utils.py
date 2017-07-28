@@ -294,7 +294,7 @@ class ParseReviewUtils(object):
 
                 logging.info("  *** saved review, for type: {}".format(review_type))
         else:
-            logging.info("  *** not found review,{} for type: {}".format(pointer['reviewTestId'], review_type))
+            raise Exception("  *** not found review,{} for type: {}".format(pointer['reviewTestId'], review_type))
 
 
 # =============================================
