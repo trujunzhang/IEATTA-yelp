@@ -280,16 +280,19 @@ class ParseReviewUtils(object):
         pointer_review = get_object_pointer("review", pointer, "reviewTestId")
 
         if pointer_review:
-            pointer_review.reviewType = review_type
-            pointer_review.user = pointer_user
+            if pointer_review.reviewType == review_type:
+                logging.info("  *** exist review, for type: {}".format(review_type))
+            else:
+                pointer_review.reviewType = review_type
+                pointer_review.user = pointer_user
 
-            pointer_review.restaurant = pointer_restaurant
-            pointer_review.event = pointer_event
-            pointer_review.recipe = pointer_recipe
+                pointer_review.restaurant = pointer_restaurant
+                pointer_review.event = pointer_event
+                pointer_review.recipe = pointer_recipe
 
-            pointer_review = ParseHelp.save_and_update_record(pointer_review, 'review')
+                pointer_review = ParseHelp.save_and_update_record(pointer_review, 'review')
 
-            logging.info("  *** update review, for type: {}".format(review_type))
+                logging.info("  *** saved review, for type: {}".format(review_type))
         else:
             logging.info("  *** not found review,{} for type: {}".format(pointer['reviewTestId'], review_type))
 
