@@ -21,6 +21,48 @@
           "reviewTestId": "c004"
         }
       ]
+    },
+    {
+      "type": "event",
+      "eventTestId": "e001",
+      "pointers": [
+        {
+          "userTestId": "u004",
+          "reviewTestId": "c005"
+        },
+        {
+          "userTestId": "u005",
+          "reviewTestId": "c006"
+        },
+        {
+          "userTestId": "u002",
+          "reviewTestId": "c007"
+        },
+        {
+          "userTestId": "u004",
+          "reviewTestId": "c008"
+        },
+        {
+          "userTestId": "u001",
+          "reviewTestId": "c009"
+        },
+        {
+          "userTestId": "u005",
+          "reviewTestId": "c010"
+        },
+        {
+          "userTestId": "u004",
+          "reviewTestId": "c011"
+        },
+        {
+          "userTestId": "u001",
+          "reviewTestId": "c012"
+        },
+        {
+          "userTestId": "u003",
+          "reviewTestId": "c013"
+        }
+      ]
     }
   ]
 }
