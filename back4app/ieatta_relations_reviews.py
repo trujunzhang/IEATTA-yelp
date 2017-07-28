@@ -26,6 +26,15 @@ class IEATTARelationReviews(object):
                                              _pointer_user,
                                              pointer_restaurant=_pointer_restaurant)
 
+    def __relate_review_for_event(self, review, review_type):
+
+        _pointer_event = get_object_pointer("event", review, "eventTestId")
+        for r_index, pointer in enumerate(review["pointers"]):
+            _pointer_user = get_object_pointer("user", pointer, "userTestId")
+            ParseReviewUtils.update_relation(pointer, review_type,
+                                             _pointer_user,
+                                             pointer_event=_pointer_event)
+
     def import_relation(self):
         # Step01: get recipes from peopleInEvent
         for r_index, review in enumerate(self.data['reviews']):
@@ -35,7 +44,10 @@ class IEATTARelationReviews(object):
 
             logging.info("  *** for {} ".format(review_type))
             if review_type == "restaurant":
-                self.__relate_review_for_restaurants(review, review_type)
+                pass
+                # self.__relate_review_for_restaurants(review, review_type)
+            elif review_type == "event":
+                self.__relate_review_for_event(review, review_type)
 
 
 def main():
