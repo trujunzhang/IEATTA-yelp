@@ -289,7 +289,10 @@
       "position": 0,
       "displayName": "Jaron Lawrence",
       "password": "jaronIEATTA@123",
-      "email": "jaron@gmail.com"
+      "email": "jaron@gmail.com",
+      "images": [
+        "https://s3-media3.fl.yelpcdn.com/photo/VnKMOfICpfPb1LMZbb9CyQ/o.jpg"
+      ]
     },
     {
       "url": "https://www.yelp.com.sg/user_details?userid=1Q5Nf077W0g3GTRgrSraug",
@@ -297,7 +300,10 @@
       "position": 1,
       "displayName": "Derek Hele",
       "password": "derekIEATTA@123",
-      "email": "derek@gmail.com"
+      "email": "derek@gmail.com",
+      "images": [
+        "https://s3-media3.fl.yelpcdn.com/photo/csqJftg9mcuR9RqnImiqBQ/o.jpg"
+      ]
     },
     {
       "url": "https://www.yelp.com.sg/user_details?userid=hjFxvrz3A0pFQlEEx88kfQ",
@@ -305,7 +311,10 @@
       "position": 2,
       "displayName": "Sarah Holl",
       "password": "sarahIEATTA@123",
-      "email": "sarah@gmail.com"
+      "email": "sarah@gmail.com",
+      "images": [
+        "https://s3-media1.fl.yelpcdn.com/photo/IzKv7ZS0JpSxe0q8w5KskA/o.jpg"
+      ]
     },
     {
       "url": "https://www.yelp.com.sg/user_details?userid=7Gt426K_WTUCKboiWpJz0w",
@@ -313,7 +322,10 @@
       "position": 3,
       "displayName": "Cheryl Philly",
       "password": "cheryIEATTA@123",
-      "email": "chery@gmail.com"
+      "email": "chery@gmail.com",
+      "images": [
+        "https://s3-media2.fl.yelpcdn.com/photo/R9UP-zIqrSaGEgThqL0iaA/o.jpg"
+      ]
     },
     {
       "url": "https://www.yelp.com.sg/user_details?userid=6luSq2oDcBpndY3N-tnngQ",
@@ -321,7 +333,10 @@
       "position": 4,
       "displayName": "Nkechi Jim",
       "password": "nkechiIEATTA@123",
-      "email": "nkechi@gmail.com"
+      "email": "nkechi@gmail.com",
+      "images": [
+        "https://s3-media2.fl.yelpcdn.com/photo/GgMX7ejFiTmIRe3wNwC-Cg/o.jpg"
+      ]
     }
   ],
   "reviews": [
