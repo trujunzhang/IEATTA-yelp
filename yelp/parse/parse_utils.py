@@ -194,7 +194,8 @@ class ParseUserUtils(object):
             point_user = User.signup(
                 user['displayName'], user['password'],
                 email=user['email'], slug=slugify(user['displayName']),
-                loginType='email', testId=user['testId']
+                loginType='email', testId=user['testId'],
+                photos=[]
             )
 
         ParseRecordUtil.save_record(point_user, {
