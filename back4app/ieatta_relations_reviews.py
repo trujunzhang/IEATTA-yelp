@@ -59,7 +59,7 @@ class IEATTARelationReviews(object):
                 pass
                 # self.__relate_review_for_event(review, review_type)
             elif review_type == "recipe":
-                self.__relate_review_for_event(review, review_type)
+                self.__relate_review_for_recipe(review, review_type)
 
 
 def main():

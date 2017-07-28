@@ -37,6 +37,10 @@ def get_object_pointer(pointer_type, item, field='testId'):
         _query = User.Query
     elif pointer_type == "review":
         _query = Review.Query
+    elif pointer_type == "recipe":
+        _query = Recipe.Query
+    elif pointer_type == "peopleInEvent":
+        _query = PeopleInEvent.Query
 
     if _query:
         if _query.filter(testId=item[field]).count() > 0:
