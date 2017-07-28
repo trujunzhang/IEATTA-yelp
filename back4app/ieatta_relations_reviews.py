@@ -53,11 +53,9 @@ class IEATTARelationReviews(object):
 
             logging.info("  *** for {} ".format(review_type))
             if review_type == "restaurant":
-                pass
-                # self.__relate_review_for_restaurants(review, review_type)
+                self.__relate_review_for_restaurants(review, review_type)
             elif review_type == "event":
-                pass
-                # self.__relate_review_for_event(review, review_type)
+                self.__relate_review_for_event(review, review_type)
             elif review_type == "recipe":
                 self.__relate_review_for_recipe(review, review_type)
 
