@@ -35,6 +35,7 @@ class IEATTARelation(object):
     def import_relation(self):
         # Step01: restaurants
         for r_index, restaurant in enumerate(self.data['restaurants']):
+            logging.info("     {} ".format(r_index + 1))
             data = RelationData()
             data.point_restaurant = get_object_by_type(Restaurant.Query, restaurant)
             # Step02: Events
