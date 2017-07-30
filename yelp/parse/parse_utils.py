@@ -177,8 +177,7 @@ class ParseUserUtils(object):
                 photos=[], useful=[], funny=[], cool=[]
             )
         else:
-            point_user = User.login(user['displayName'], user['password'])
-            x = 0
+            point_user = ParseUserUtils.login(user)
 
         ParseRecordUtil.save_record(point_user, {
             "recordId": point_user.objectId,
@@ -186,6 +185,11 @@ class ParseUserUtils(object):
         })
 
         return point_user
+
+    @classmethod
+    def login(cls, user):
+        logged_user = User.login(user['displayName'], user['password'])
+        return logged_user
 
     @classmethod
     def voting_reviews(cls, p_user, voting_dict):

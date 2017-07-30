@@ -13,8 +13,25 @@ class IEATTAVotingReviews(object):
     def __init__(self):
         super(IEATTAVotingReviews, self).__init__()
 
+        self.__get_all_users()
+
         with open('parse_yelp_voting_reviews.json') as data_file:
             self.data = json.load(data_file)
+
+    def __get_all_users(self):
+        with open('parse_yelp_common.json') as data_file:
+            _data = json.load(data_file)
+            self.user_data = _data['users']
+
+    def __get_voted_user(self, test_id):
+        _user = None
+        for r_index, item in enumerate(self.user_data):
+            if item['testId'] == test_id:
+                _user = item
+
+        if _user:
+            _p_user = ParseUserUtils.login(_user)
+            return _p_user
 
     def __get_voting_reviews(self, review_voter):
         _voting = review_voter['voting']
@@ -35,7 +52,7 @@ class IEATTAVotingReviews(object):
     def import_all_base_array(self):
         for r_index, review_voter in enumerate(self.data['userVoting']):
             logging.info("  *** step {} ".format(r_index + 1))
-            _p_user = ParseUserUtils.get_user(review_voter, 'userTestId')
+            _p_user = self.__get_voted_user(review_voter['userTestId'])
 
             voting_dict = self.__get_voting_reviews(review_voter)
             ParseUserUtils.voting_reviews(_p_user, voting_dict)
