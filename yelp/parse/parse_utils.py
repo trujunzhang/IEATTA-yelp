@@ -300,7 +300,9 @@ class PeopleInEvent(Object):
 class ParsePeopleInEventUtils(object):
     @classmethod
     def save_people_in_event(cls, p_restaurant, p_event, p_user, p_recipes, item):
-        instance = ParsePeopleInEventUtils.people_in_event_exist(item['testId'])
+        instance = get_object_by_type(PeopleInEvent.Query, item)
+        if not instance:
+            instance = PeopleInEvent()
 
         instance.testId = item['testId']
 
@@ -312,12 +314,6 @@ class ParsePeopleInEventUtils(object):
         instance = ParseHelp.save_and_update_record(instance, 'peopleInEvent')
 
         return instance
-
-    @classmethod
-    def people_in_event_exist(cls, testId):
-        if PeopleInEvent.Query.filter(testId=testId).count() > 0:
-            return PeopleInEvent.Query.filter(testId=testId).get()
-        return PeopleInEvent()
 
     @classmethod
     def get_people_in_event_list(cls):
