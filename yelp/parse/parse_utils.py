@@ -188,6 +188,17 @@ class ParseUserUtils(object):
         return point_user
 
     @classmethod
+    def voting_reviews(cls, p_user, voting_dict):
+        if p_user:
+            p_user.useful = voting_dict['useful']
+            p_user.funny = voting_dict['funny']
+            p_user.cool = voting_dict['cool']
+
+            ParseHelp.save_and_update_record(p_user, 'user')
+        else:
+            raise Exception("  *** not found user")
+
+    @classmethod
     def get_user(cls, item, field):
         return get_object_by_type(User.Query, item, field)
 

@@ -38,6 +38,7 @@ class IEATTAVotingReviews(object):
             _p_user = ParseUserUtils.get_user(review_voter, 'userTestId')
 
             voting_dict = self.__get_voting_reviews(review_voter)
+            ParseUserUtils.voting_reviews(_p_user, voting_dict)
             pass
 
 
