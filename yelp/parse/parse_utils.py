@@ -72,7 +72,6 @@ class ParseFileUploadUtil(object):
 
 
 class ParseRelationUtil(object):
-
     @classmethod
     def save_relation_between_restaurant_and_event(cls, p_restaurant, p_event):
         p_event.restaurant = p_restaurant
@@ -243,7 +242,6 @@ class ParseReviewUtils(object):
         instance.rate = item['rate']
         instance.body = '\n\r'.join(item['body'])
 
-
         instance = ParseHelp.save_and_update_record(instance, 'review')
 
         return instance
@@ -380,9 +378,6 @@ class ParsePhotoUtils(object):
         images = item['images']
         _photos_count = 0
 
-        if not record_type == "user" and point_instance and point_instance.photos:
-            _photos_count = len(point_instance.photos)
-
         if _photos_count == len(images):
             logging.info("     {} ".format('exist @Array[photos]'))
         else:
@@ -421,16 +416,22 @@ class ParsePhotoUtils(object):
             instance = Photo()
             instance.original = None
             instance.thumbnail = None
+            instance.url = ''
+            instance.photoType = ''
 
-        instance.url = url
+        if instance.photoType == photo_type and instance.url == url and instance.original and instance.thumbnail:
+            pass
+        else:
+            instance.url = url
 
-        instance.restaurant = point_restaurant
-        instance.recipe = point_recipe
-        instance.user = point_user
+            instance.restaurant = point_restaurant
+            instance.recipe = point_recipe
+            instance.user = point_user
 
-        instance.photoType = photo_type
+            instance.photoType = photo_type
 
-        instance = ParseHelp.save_and_update_record(instance, 'photo')
+            instance = ParseHelp.save_and_update_record(instance, 'photo')
+
         return instance
 
     @classmethod
@@ -496,8 +497,8 @@ class ParseRecipeUtils(object):
         return instance
 
     @classmethod
-    def relate_recipe(cls, recipe_test_id, pointer_restaurant, pointer_event,pointer_user):
-        pointer_recipe = get_object_by_type(Recipe.Query, {"testId":recipe_test_id})
+    def relate_recipe(cls, recipe_test_id, pointer_restaurant, pointer_event, pointer_user):
+        pointer_recipe = get_object_by_type(Recipe.Query, {"testId": recipe_test_id})
 
         if pointer_recipe and pointer_restaurant and pointer_event and pointer_user:
             if pointer_recipe.restaurant and pointer_recipe.event and pointer_recipe.user:
@@ -507,7 +508,7 @@ class ParseRecipeUtils(object):
                 pointer_recipe.event = pointer_event
                 pointer_recipe.user = pointer_user
 
-                #ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
+                # ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
                 logging.info("  *** {}, {}".format('saved @relatation[Recipe|Relations]', pointer_recipe.objectId))
         else:
             raise Exception('Not found the instance on the peopleInEvent!')
