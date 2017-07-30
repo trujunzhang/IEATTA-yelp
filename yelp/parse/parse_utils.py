@@ -383,11 +383,6 @@ class ParseEventUtils(object):
 
         return instance
 
-    @classmethod
-    def event_exist(cls, href):
-        if Event.Query.filter(url=href).count() > 0:
-            return Event.Query.filter(url=href).get()
-
 
 # =============================================
 #  Web app
