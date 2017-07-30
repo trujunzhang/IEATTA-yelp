@@ -495,12 +495,8 @@ class ParseRecipeUtils(object):
         return instance
 
     @classmethod
-    def relate_recipe(cls, recipe_id, relation_pointers):
-        pointer_recipe = Recipe.Query.filter(objectId=recipe_id).get()
-
-        pointer_restaurant = relation_pointers['pointer_restaurant']
-        pointer_event = relation_pointers['pointer_event']
-        pointer_user = relation_pointers['pointer_user']
+    def relate_recipe(cls, recipe_test_id, pointer_restaurant, pointer_event,pointer_user):
+        pointer_recipe = get_object_by_type(Recipe.Query, {"testId":recipe_test_id})
 
         if pointer_recipe and pointer_restaurant and pointer_event and pointer_user:
             if pointer_recipe.restaurant and pointer_recipe.event and pointer_recipe.user:
@@ -510,7 +506,7 @@ class ParseRecipeUtils(object):
                 pointer_recipe.event = pointer_event
                 pointer_recipe.user = pointer_user
 
-                ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
+                #ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
                 logging.info("  *** {}, {}".format('saved @relatation[Recipe|Relations]', pointer_recipe.objectId))
         else:
             raise Exception('Not found the instance on the peopleInEvent!')
