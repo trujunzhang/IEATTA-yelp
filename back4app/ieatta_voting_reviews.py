@@ -29,14 +29,15 @@ class IEATTAVotingReviews(object):
                 voted_reviews.append(_p_review)
 
             voting_dict[review_type] = voted_reviews
-            pass
+
+        return voting_dict
 
     def import_all_base_array(self):
         for r_index, review_voter in enumerate(self.data['userVoting']):
             logging.info("  *** step {} ".format(r_index + 1))
             _p_user = ParseUserUtils.get_user(review_voter, 'userTestId')
 
-            self.__get_voting_reviews(review_voter)
+            voting_dict = self.__get_voting_reviews(review_voter)
             pass
 
 
