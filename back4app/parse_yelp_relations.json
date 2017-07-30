@@ -48,7 +48,8 @@
       "testId": "s002",
       "events": [
         {
-          "eventTestId": "e002"
+          "eventTestId": "e002",
+          "peopleInEvent": []
         }
       ]
     }

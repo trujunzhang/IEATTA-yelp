@@ -72,29 +72,9 @@ class ParseFileUploadUtil(object):
 
 
 class ParseRelationUtil(object):
-    @classmethod
-    def update_as_pointer(cls, point_instance, field, value):
-        point_instance.add(field, value)
-        _point = ParseHelp.save_and_update_record(point_instance, 'event')
-
-    @classmethod
-    def save_relation_between_event_and_users(cls, p_event, p_user):
-        if not ParseRelationUtil.__check_in_array(p_event.users, p_user):
-            p_event.users.append(p_user)
-            p_event = ParseHelp.save_and_update_record(p_event, 'event')
-            logging.info("  *** {} ".format('saved @relatation[Event|User]'))
-        else:
-            logging.info("  *** {} ".format('exist @relatation[Event|User]'))
 
     @classmethod
     def save_relation_between_restaurant_and_event(cls, p_restaurant, p_event):
-        if not ParseRelationUtil.__check_in_array(p_restaurant.events, p_event):
-            p_restaurant.events.append(p_event)
-            p_restaurant = ParseHelp.save_and_update_record(p_restaurant, 'restaurant')
-            logging.info("  *** {} ".format('saved @relatation[Restaurant|Event]'))
-        else:
-            logging.info("  *** {} ".format('exist @relatation[Restaurant|Event]'))
-
         p_event.restaurant = p_restaurant
         p_event = ParseHelp.save_and_update_record(p_event, 'event')
 
@@ -367,7 +347,6 @@ class ParseEventUtils(object):
         if not instance:
             instance = Event()
             instance.restaurant = None
-            instance.users = []
 
         instance.testId = item['testId']
 
@@ -479,8 +458,6 @@ class ParseRestaurantUtils(object):
         instance = get_object_by_type(Restaurant.Query, item)
         if not instance:
             instance = Restaurant()
-            instance.events = []
-            instance.photos = []
 
         instance.testId = item['testId']
 
