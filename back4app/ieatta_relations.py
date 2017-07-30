@@ -43,15 +43,15 @@ class IEATTARelation(object):
                 data.point_event = get_object_by_type(Event.Query, event, 'eventTestId')
                 # Save the relation(restaurant,event)
                 ParseRelationUtil.save_relation_between_restaurant_and_event(data.point_restaurant, data.point_event)
+                logging.info("     save relation(Event) between restaurant and event, {} ".format(e_index + 1))
 
                 # Step03: People in the event
                 for p_index, people_in_event in enumerate(event['peopleInEvent']):
                     _p_user = ParseUserUtils.get_user(people_in_event['userTestId'])
-                    _p_recipes = self.__get_recipes(people_in_event['recipeIds'])
                     # then save it.
                     ParsePeopleInEventUtils.save_people_in_event(data.point_restaurant, data.point_event,
-                                                                 _p_user, _p_recipes,
-                                                                 people_in_event)
+                                                                 _p_user, people_in_event)
+                    logging.info("     save relation(PeopleInEvent) between restaurant, event and user, {} ".format(e_index + 1))
 
 
 def main():
