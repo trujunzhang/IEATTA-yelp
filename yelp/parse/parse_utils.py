@@ -374,7 +374,7 @@ class ParseEventUtils(object):
         instance.url = item['url']
 
         instance.displayName = item['displayName']
-        instance.want = item['want']
+        instance.want = "\r\n".join(item['want'])
 
         instance.start = item['start']
         instance.end = item['end']
