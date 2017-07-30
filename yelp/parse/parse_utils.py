@@ -174,7 +174,7 @@ class ParseUserUtils(object):
                 user['displayName'], user['password'],
                 email=user['email'], slug=slugify(user['displayName']),
                 loginType='email', testId=user['testId'],
-                photos=[]
+                photos=[], useful=[], funny=[], cool=[]
             )
         else:
             point_user = User.login(user['displayName'], user['password'])
@@ -188,9 +188,8 @@ class ParseUserUtils(object):
         return point_user
 
     @classmethod
-    def get_user(cls, testId):
-        if User.Query.filter(testId=testId).count() > 0:
-            return User.Query.filter(testId=testId).get()
+    def get_user(cls, item, field):
+        return get_object_by_type(User.Query, item, field)
 
     @classmethod
     def user_exist(cls, user):

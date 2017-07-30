@@ -41,7 +41,7 @@ class IEATTARelation(object):
 
                 # Step03: People in the event
                 for p_index, people_in_event in enumerate(event['peopleInEvent']):
-                    _p_user = ParseUserUtils.get_user(people_in_event['userTestId'])
+                    _p_user = ParseUserUtils.get_user(people_in_event, 'userTestId')
                     # then save it.
                     ParsePeopleInEventUtils.save_people_in_event(point_restaurant, point_event,
                                                                  _p_user, people_in_event)
