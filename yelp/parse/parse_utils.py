@@ -453,6 +453,7 @@ class ParseRestaurantUtils(object):
         instance = get_object_by_type(Restaurant.Query, item)
         if not instance:
             instance = Restaurant()
+            instance.photos = []
 
         instance.testId = item['testId']
 
