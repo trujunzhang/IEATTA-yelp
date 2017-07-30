@@ -1,0 +1,41 @@
+{
+  "userVoting": [
+    {
+      "userTestId": "u001",
+      "voting": {
+        "useful": [
+          "c001",
+          "c004"
+        ],
+        "funny": [
+          "c002"
+        ],
+        "cool": [
+          "c003"
+        ]
+      }
+    },
+    {
+      "userTestId": "u002",
+      "voting": {
+        "useful": [
+          "c001"
+        ],
+        "funny": [
+          "c002",
+          "c004"
+        ],
+        "cool": [
+          "c003"
+        ]
+      }
+    }
+  ]
+}
+
+
+
+
+
+
+
