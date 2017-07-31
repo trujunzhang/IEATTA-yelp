@@ -362,8 +362,9 @@ class ParseEventUtils(object):
         instance.displayName = item['displayName']
         instance.want = "\r\n".join(item['want'])
 
-        instance.start = item['start']
-        instance.end = item['end']
+        from dateutil import parser
+        instance.start = parser.parse(item['start'])
+        instance.end = parser.parse(item['end'])
 
         instance = ParseHelp.save_and_update_record(instance, 'event')
 
