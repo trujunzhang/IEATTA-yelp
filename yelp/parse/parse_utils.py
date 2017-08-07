@@ -49,6 +49,12 @@ def get_object_pointer(pointer_type, item, field='testId'):
 
 class ParseCloudUtil(object):
     @classmethod
+    def get_address_from_location(cls):
+        hello_func = Function("getAddressFromLocation")
+        result = hello_func("38.964835", "-77.0883076")
+        return hello_func
+
+    @classmethod
     def hello_method(cls):
         hello_func = Function("hello")
         result = hello_func()

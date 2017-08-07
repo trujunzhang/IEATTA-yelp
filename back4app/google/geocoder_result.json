@@ -1,0 +1,112 @@
+{
+  "results": [
+    {
+      "address_components": [
+        {
+          "long_name": "645",
+          "short_name": "645",
+          "types": [
+            "subpremise"
+          ]
+        },
+        {
+          "long_name": "5530",
+          "short_name": "5530",
+          "types": [
+            "street_number"
+          ]
+        },
+        {
+          "long_name": "Wisconsin Avenue",
+          "short_name": "Wisconsin Ave",
+          "types": [
+            "route"
+          ]
+        },
+        {
+          "long_name": "Chevy Chase",
+          "short_name": "Chevy Chase",
+          "types": [
+            "locality",
+            "political"
+          ]
+        },
+        {
+          "long_name": "7",
+          "short_name": "7",
+          "types": [
+            "administrative_area_level_3",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Montgomery County",
+          "short_name": "Montgomery County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Maryland",
+          "short_name": "MD",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        },
+        {
+          "long_name": "20815",
+          "short_name": "20815",
+          "types": [
+            "postal_code"
+          ]
+        }
+      ],
+      "formatted_address": "5530 Wisconsin Ave #645, Chevy Chase, MD 20815, USA",
+      "geometry": {
+        "location": {
+          "lat": 38.964835,
+          "lng": -77.0883076
+        },
+        "location_type": "ROOFTOP",
+        "viewport": {
+          "northeast": {
+            "lat": 38.9661839802915,
+            "lng": -77.0869586197085
+          },
+          "southwest": {
+            "lat": 38.9634860197085,
+            "lng": -77.0896565802915
+          }
+        }
+      },
+      "place_id": "ChIJPfvb9JrJt4kRqW9LQb6Sxzo",
+      "types": [
+        "doctor",
+        "establishment",
+        "health",
+        "point_of_interest"
+      ],
+      "subpremise": "645",
+      "street_number": "5530",
+      "route": "Wisconsin Avenue",
+      "locality": "Chevy Chase",
+      "political": "United States",
+      "administrative_area_level_3": "7",
+      "administrative_area_level_2": "Montgomery County",
+      "administrative_area_level_1": "Maryland",
+      "country": "United States",
+      "postal_code": "20815"
+    }
+  ],
+  "status": "OK"
+}

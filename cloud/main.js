@@ -6,6 +6,15 @@ Parse.Cloud.define("hello", function (request, response) {
 });
 
 
+Parse.Cloud.define("getAddressFromLocation", function (request, response) {
+    // :param latlng: The latitude/longitude value or place_id for which you wish
+    const lat = request.params.lat;
+    const lng = request.params.lng;
+
+
+    response.success("get Address from Location, lat: " + lat + ", lng: " + lng);
+});
+
 Parse.Cloud.afterSave("Photo", function (request, response) {
     const photo = request.object;
 
