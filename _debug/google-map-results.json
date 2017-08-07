@@ -1,0 +1,699 @@
+{
+  "results": [
+    {
+      "address_components": [
+        {
+          "long_name": "5530",
+          "short_name": "5530",
+          "types": [
+            "street_number"
+          ]
+        },
+        {
+          "long_name": "Wisconsin Avenue",
+          "short_name": "Wisconsin Ave",
+          "types": [
+            "route"
+          ]
+        },
+        {
+          "long_name": "Chevy Chase",
+          "short_name": "Chevy Chase",
+          "types": [
+            "locality",
+            "political"
+          ]
+        },
+        {
+          "long_name": "7",
+          "short_name": "7",
+          "types": [
+            "administrative_area_level_3",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Montgomery County",
+          "short_name": "Montgomery County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Maryland",
+          "short_name": "MD",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        },
+        {
+          "long_name": "20815",
+          "short_name": "20815",
+          "types": [
+            "postal_code"
+          ]
+        }
+      ],
+      "formatted_address": "5530 Wisconsin Ave, Chevy Chase, MD 20815, USA",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 38.9652196,
+            "lng": -77.0877916
+          },
+          "southwest": {
+            "lat": 38.9644505,
+            "lng": -77.08882369999999
+          }
+        },
+        "location": {
+          "lat": 38.964835,
+          "lng": -77.0883076
+        },
+        "location_type": "ROOFTOP",
+        "viewport": {
+          "northeast": {
+            "lat": 38.9661840302915,
+            "lng": -77.0869586697085
+          },
+          "southwest": {
+            "lat": 38.9634860697085,
+            "lng": -77.0896566302915
+          }
+        }
+      },
+      "place_id": "ChIJj1TQ9JrJt4kRViAVvYCC3_o",
+      "types": [
+        "premise"
+      ]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "5532-5566",
+          "short_name": "5532-5566",
+          "types": [
+            "street_number"
+          ]
+        },
+        {
+          "long_name": "Maryland 355",
+          "short_name": "MD-355",
+          "types": [
+            "route"
+          ]
+        },
+        {
+          "long_name": "Chevy Chase",
+          "short_name": "Chevy Chase",
+          "types": [
+            "locality",
+            "political"
+          ]
+        },
+        {
+          "long_name": "7",
+          "short_name": "7",
+          "types": [
+            "administrative_area_level_3",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Montgomery County",
+          "short_name": "Montgomery County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Maryland",
+          "short_name": "MD",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        },
+        {
+          "long_name": "20815",
+          "short_name": "20815",
+          "types": [
+            "postal_code"
+          ]
+        }
+      ],
+      "formatted_address": "5532-5566 MD-355, Chevy Chase, MD 20815, USA",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 38.96544859999999,
+            "lng": -77.0876756
+          },
+          "southwest": {
+            "lat": 38.9645926,
+            "lng": -77.0880974
+          }
+        },
+        "location": {
+          "lat": 38.9648322,
+          "lng": -77.08831719999999
+        },
+        "location_type": "RANGE_INTERPOLATED",
+        "viewport": {
+          "northeast": {
+            "lat": 38.9663695802915,
+            "lng": -77.08653751970849
+          },
+          "southwest": {
+            "lat": 38.9636716197085,
+            "lng": -77.08923548029149
+          }
+        }
+      },
+      "place_id": "Eiw1NTMyLTU1NjYgTUQtMzU1LCBDaGV2eSBDaGFzZSwgTUQgMjA4MTUsIFVTQQ",
+      "types": [
+        "street_address"
+      ]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "Friendship Village",
+          "short_name": "Friendship Village",
+          "types": [
+            "locality",
+            "political"
+          ]
+        },
+        {
+          "long_name": "7",
+          "short_name": "7",
+          "types": [
+            "administrative_area_level_3",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Montgomery County",
+          "short_name": "Montgomery County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Maryland",
+          "short_name": "MD",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        },
+        {
+          "long_name": "20815",
+          "short_name": "20815",
+          "types": [
+            "postal_code"
+          ]
+        }
+      ],
+      "formatted_address": "Friendship Village, MD 20815, USA",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 38.965457,
+            "lng": -77.086242
+          },
+          "southwest": {
+            "lat": 38.961753,
+            "lng": -77.095626
+          }
+        },
+        "location": {
+          "lat": 38.9628883,
+          "lng": -77.0888669
+        },
+        "location_type": "APPROXIMATE",
+        "viewport": {
+          "northeast": {
+            "lat": 38.965457,
+            "lng": -77.086242
+          },
+          "southwest": {
+            "lat": 38.961753,
+            "lng": -77.095626
+          }
+        }
+      },
+      "place_id": "ChIJJymgbZDJt4kRiBqbK9VAMok",
+      "types": [
+        "locality",
+        "political"
+      ]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "20815",
+          "short_name": "20815",
+          "types": [
+            "postal_code"
+          ]
+        },
+        {
+          "long_name": "Chevy Chase",
+          "short_name": "Chevy Chase",
+          "types": [
+            "locality",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Montgomery County",
+          "short_name": "Montgomery County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Maryland",
+          "short_name": "MD",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        }
+      ],
+      "formatted_address": "Chevy Chase, MD 20815, USA",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 39.0116109,
+            "lng": -77.0465129
+          },
+          "southwest": {
+            "lat": 38.956767,
+            "lng": -77.1128069
+          }
+        },
+        "location": {
+          "lat": 38.9875145,
+          "lng": -77.0737149
+        },
+        "location_type": "APPROXIMATE",
+        "viewport": {
+          "northeast": {
+            "lat": 39.0116109,
+            "lng": -77.0465129
+          },
+          "southwest": {
+            "lat": 38.956767,
+            "lng": -77.1128069
+          }
+        }
+      },
+      "place_id": "ChIJhfExH7XJt4kRXAW4fj0ztBA",
+      "postcode_localities": [
+        "Bethesda",
+        "Chevy Chase",
+        "Chevy Chase Village",
+        "MARTINS ADD",
+        "Martin's Additions"
+      ],
+      "types": [
+        "postal_code"
+      ]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "7",
+          "short_name": "7",
+          "types": [
+            "administrative_area_level_3",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Montgomery County",
+          "short_name": "Montgomery County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Maryland",
+          "short_name": "MD",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        }
+      ],
+      "formatted_address": "7, MD, USA",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 39.030574,
+            "lng": -77.051769
+          },
+          "southwest": {
+            "lat": 38.934343,
+            "lng": -77.17978800000002
+          }
+        },
+        "location": {
+          "lat": 38.9868979,
+          "lng": -77.1139984
+        },
+        "location_type": "APPROXIMATE",
+        "viewport": {
+          "northeast": {
+            "lat": 39.030574,
+            "lng": -77.051769
+          },
+          "southwest": {
+            "lat": 38.9344074,
+            "lng": -77.17978800000002
+          }
+        }
+      },
+      "place_id": "ChIJ_bg0H8rLt4kR2SPiMTj-KOQ",
+      "types": [
+        "administrative_area_level_3",
+        "political"
+      ]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "Montgomery County",
+          "short_name": "Montgomery County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ]
+        },
+        {
+          "long_name": "Maryland",
+          "short_name": "MD",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        }
+      ],
+      "formatted_address": "Montgomery County, MD, USA",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 39.3535021,
+            "lng": -76.8885051
+          },
+          "southwest": {
+            "lat": 38.934343,
+            "lng": -77.52768499999999
+          }
+        },
+        "location": {
+          "lat": 39.1547426,
+          "lng": -77.2405153
+        },
+        "location_type": "APPROXIMATE",
+        "viewport": {
+          "northeast": {
+            "lat": 39.3535021,
+            "lng": -76.88865249999999
+          },
+          "southwest": {
+            "lat": 38.9343762,
+            "lng": -77.52768499999999
+          }
+        }
+      },
+      "place_id": "ChIJh6O4gzUytokRc2ipdwYZC3g",
+      "types": [
+        "administrative_area_level_2",
+        "political"
+      ]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "Washington-Arlington-Alexandria, DC-VA-MD-WV",
+          "short_name": "Washington-Arlington-Alexandria, DC-VA-MD-WV",
+          "types": [
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        }
+      ],
+      "formatted_address": "Washington-Arlington-Alexandria, DC-VA-MD-WV, USA",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 39.720018,
+            "lng": -76.38622889999999
+          },
+          "southwest": {
+            "lat": 37.9911599,
+            "lng": -78.386682
+          }
+        },
+        "location": {
+          "lat": 39.1289725,
+          "lng": -77.3783789
+        },
+        "location_type": "APPROXIMATE",
+        "viewport": {
+          "northeast": {
+            "lat": 39.720023,
+            "lng": -76.38622889999999
+          },
+          "southwest": {
+            "lat": 37.9911599,
+            "lng": -78.386682
+          }
+        }
+      },
+      "place_id": "ChIJy25QE7lFtokRgaAnbc9iMr8",
+      "types": [
+        "political"
+      ]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "Washington Metropolitan Area",
+          "short_name": "Washington Metropolitan Area",
+          "types": [
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        }
+      ],
+      "formatted_address": "Washington Metropolitan Area, USA",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 39.720045,
+            "lng": -76.32190779999999
+          },
+          "southwest": {
+            "lat": 37.991157,
+            "lng": -78.3866819
+          }
+        },
+        "location": {
+          "lat": 39.1289725,
+          "lng": -77.3783789
+        },
+        "location_type": "APPROXIMATE",
+        "viewport": {
+          "northeast": {
+            "lat": 39.720045,
+            "lng": -76.32190779999999
+          },
+          "southwest": {
+            "lat": 37.991157,
+            "lng": -78.3866819
+          }
+        }
+      },
+      "place_id": "ChIJgUbYn4i3t4kRBwT_p0uw078",
+      "types": [
+        "political"
+      ]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "Maryland",
+          "short_name": "MD",
+          "types": [
+            "administrative_area_level_1",
+            "establishment",
+            "point_of_interest",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        }
+      ],
+      "formatted_address": "Maryland, USA",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 39.723037,
+            "lng": -74.9862819
+          },
+          "southwest": {
+            "lat": 37.8866049,
+            "lng": -79.4876511
+          }
+        },
+        "location": {
+          "lat": 39.0457549,
+          "lng": -76.64127119999999
+        },
+        "location_type": "APPROXIMATE",
+        "viewport": {
+          "northeast": {
+            "lat": 39.7231319,
+            "lng": -75.049354
+          },
+          "southwest": {
+            "lat": 37.8901741,
+            "lng": -79.487274
+          }
+        }
+      },
+      "place_id": "ChIJ35Dx6etNtokRsfZVdmU3r_I",
+      "types": [
+        "administrative_area_level_1",
+        "establishment",
+        "point_of_interest",
+        "political"
+      ]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        }
+      ],
+      "formatted_address": "United States",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 71.5388001,
+            "lng": -66.885417
+          },
+          "southwest": {
+            "lat": 18.7763,
+            "lng": 170.5957
+          }
+        },
+        "location": {
+          "lat": 37.09024,
+          "lng": -95.712891
+        },
+        "location_type": "APPROXIMATE",
+        "viewport": {
+          "northeast": {
+            "lat": 49.38,
+            "lng": -66.94
+          },
+          "southwest": {
+            "lat": 25.82,
+            "lng": -124.39
+          }
+        }
+      },
+      "place_id": "ChIJCzYy5IS16lQRQrfeQ5K5Oxw",
+      "types": [
+        "country",
+        "political"
+      ]
+    }
+  ],
+  "status": "OK"
+}
