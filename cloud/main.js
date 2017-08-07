@@ -17,13 +17,12 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
 
     // https://developers.google.com/maps/documentation/geocoding/intro#reverse-example
     // https://developers.google.com/maps/documentation/javascript/examples/geocoding-reverse
-
+    // http://maps.googleapis.com/maps/api/geocode/json?latlng=35.1330343,-90.0625056
     Parse.Cloud.httpRequest({
         method: "POST",
         url: 'https://maps.googleapis.com/maps/api/geocode/json',
         params: {
-            latlng: lat + "," + lng,
-            key: API_KEY
+            latlng: lat + "," + lng
         },
         success: function (httpResponse) {
             var _response = httpResponse.data;
