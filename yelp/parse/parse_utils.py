@@ -49,6 +49,11 @@ def get_object_pointer(pointer_type, item, field='testId'):
 
 class ParseCloudUtil(object):
     @classmethod
+    def hello_method(cls):
+        hello_func = Function("hello")
+        return hello_func
+
+    @classmethod
     def crop_image_on_cloud(self, pointer_photo):
         crop_image_func = Function("cropMultipleSizesImage")
         # crop_image_func = Function("hello")
