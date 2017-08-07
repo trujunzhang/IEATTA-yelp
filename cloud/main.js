@@ -26,11 +26,12 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
             key: API_KEY
         },
         success: function (httpResponse) {
-            var response = httpResponse.data;
-            if (response.status === "OK") {
+            var _response = httpResponse.data;
+            if (_response.status === "OK") {
                 // var langLat = response.results[0].geometry.location;
-                response.success("get Address from Location, successfully. lat: " + lat + ", lng: " + lng);
+                // response.success("get Address from Location, successfully. lat: " + lat + ", lng: " + lng);
             }
+            response.success("get Address from Location, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status);
         },
         error: function (httpResponse) {
             // console.error('Request failed with response code ' + httpResponse.status);
