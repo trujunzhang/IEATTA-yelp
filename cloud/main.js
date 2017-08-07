@@ -12,9 +12,6 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
     const lng = request.params.lng;
 
 
-    const API_KEY = '77195c22cffb3d69f389ac7c384c045d7a4191bb';
-
-
     // https://developers.google.com/maps/documentation/geocoding/intro#reverse-example
     // https://developers.google.com/maps/documentation/javascript/examples/geocoding-reverse
     // http://maps.googleapis.com/maps/api/geocode/json?latlng=35.1330343,-90.0625056
