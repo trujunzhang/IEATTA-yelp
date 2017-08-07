@@ -7,6 +7,12 @@ API_KEY = '77195c22cffb3d69f389ac7c384c045d7a4191bb'
 
 
 def address_resolver(json):
+    """
+    [https://gist.github.com/scrapehero/1cb241a9dbe3798e4bdc36644b703dbb]
+
+    :param json:
+    :return:
+    """
     final = {}
     if json['results']:
         data = json['results'][0]
