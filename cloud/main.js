@@ -12,6 +12,32 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
     const lng = request.params.lng;
 
 
+    const API_KEY = '77195c22cffb3d69f389ac7c384c045d7a4191bb';
+
+
+    // https://developers.google.com/maps/documentation/geocoding/intro#reverse-example
+    // https://developers.google.com/maps/documentation/javascript/examples/geocoding-reverse
+
+    Parse.Cloud.httpRequest({
+        method: "POST",
+        url: 'https://maps.googleapis.com/maps/api/geocode/json',
+        params: {
+            latlng: [lat, lng],
+            key: API_KEY
+        },
+        success: function (httpResponse) {
+            var response = httpResponse.data;
+            if (response.status === "OK") {
+                var langLat = response.results[0].geometry.location;
+                console.log(langLat);
+            }
+        },
+        error: function (httpResponse) {
+            console.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+
+
     response.success("get Address from Location, lat: " + lat + ", lng: " + lng);
 });
 
