@@ -51,7 +51,7 @@ class ParseCloudUtil(object):
     @classmethod
     def get_address_from_location(cls):
         hello_func = Function("getAddressFromLocation")
-        result = hello_func("38.964835", "-77.0883076")
+        result = hello_func(lat="38.964835", lng="-77.0883076")
         return hello_func
 
     @classmethod

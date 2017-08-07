@@ -15,7 +15,8 @@ class InvokeParseCloudMethods(object):
         self.gmaps = googlemaps.Client(key='AIzaSyBKOlhF3Qw15YJgnCiyyL1wYI3VOXAeTQU')
 
     def invoke_hello_method(self):
-        ParseCloudUtil.hello_method()
+        # ParseCloudUtil.hello_method()
+        ParseCloudUtil.get_address_from_location()
         pass
 
 
