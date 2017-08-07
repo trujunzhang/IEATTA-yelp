@@ -51,6 +51,7 @@ class ParseCloudUtil(object):
     @classmethod
     def hello_method(cls):
         hello_func = Function("hello")
+        result = hello_func()
         return hello_func
 
     @classmethod
