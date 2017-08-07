@@ -22,23 +22,24 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
         method: "POST",
         url: 'https://maps.googleapis.com/maps/api/geocode/json',
         params: {
-            latlng: [lat, lng],
+            latlng: lat + "," + lng,
             key: API_KEY
         },
         success: function (httpResponse) {
             var response = httpResponse.data;
             if (response.status === "OK") {
-                var langLat = response.results[0].geometry.location;
-                console.log(langLat);
+                // var langLat = response.results[0].geometry.location;
+                response.success("get Address from Location, successfully. lat: " + lat + ", lng: " + lng);
             }
         },
         error: function (httpResponse) {
-            console.error('Request failed with response code ' + httpResponse.status);
+            // console.error('Request failed with response code ' + httpResponse.status);
+            response.success("get Address from Location, failure, " + httpResponse.status);
         }
     });
 
 
-    response.success("get Address from Location, lat: " + lat + ", lng: " + lng);
+    // response.success("get Address from Location, lat: " + lat + ", lng: " + lng);
 });
 
 Parse.Cloud.afterSave("Photo", function (request, response) {
