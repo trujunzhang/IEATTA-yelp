@@ -6,9 +6,9 @@ Parse.Cloud.define("hello", function (request, response) {
 });
 
 Parse.Cloud.afterSave("Restaurant", function (request, response) {
-    const restaurant = request.object;
+    var restaurant = request.object;
 
-    const restaurantId = restaurant.id;
+    var restaurantId = restaurant.id;
 
     new Parse.Query("Restaurant").get(restaurantId)
         .then(function (object) {
@@ -50,8 +50,8 @@ Parse.Cloud.afterSave("Restaurant", function (request, response) {
 
 Parse.Cloud.define("getAddressFromLocation", function (request, response) {
     // :param latlng: The latitude/longitude value or place_id for which you wish
-    const lat = request.params.lat;
-    const lng = request.params.lng;
+    var lat = request.params.lat;
+    var lng = request.params.lng;
 
     const API_KEY = "AIzaSyAyAc4iPiWoC3Qs6u-XnKCV0e4PnFvUXMU"
 
@@ -67,7 +67,7 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
             key: API_KEY
         },
         success: function (httpResponse) {
-            let _response = httpResponse.data;
+            var _response = httpResponse.data;
             if (_response.status === "OK") {
                 const final = parse_address(_response);
                 response.success(final);
@@ -90,7 +90,7 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
 function parse_address(response) {
     const results = response.results;
 
-    let final = {// length(7)
+    var final = {// length(7)
         'address': '',
         'street_number': '',
         'route': '',
@@ -110,7 +110,7 @@ function parse_address(response) {
 
     // step2: get the detailed info.
     component.map((data, index) => {
-        const dataTypes = data.types.join(';');
+        var dataTypes = data.types.join(';');
 
         if (dataTypes.indexOf('street_number') !== -1) {
             final['street_number'] = data.long_name;
@@ -133,14 +133,14 @@ function parse_address(response) {
 }
 
 Parse.Cloud.afterSave("Photo", function (request, response) {
-    const photo = request.object;
+    var photo = request.object;
 
-    const photoId = photo.id;
+    var photoId = photo.id;
 
     new Parse.Query("Photo").get(photoId)
         .then(function (object) {
 
-            const url = object.get("url");
+            var url = object.get("url");
 
             if (!!object.get('original')) {
                 console.log('(3.4) after query photo, @Exist[original]:', object.get('original'));
