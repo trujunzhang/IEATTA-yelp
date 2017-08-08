@@ -29,6 +29,7 @@ class InvokeParseCloudMethods(object):
     def save_photo_invoke_aftersave(self):
         item = self.common_data['restaurants'][0]
         image_item = item['images'][0]
+
         pass
 
 

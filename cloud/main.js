@@ -1,15 +1,59 @@
 Parse.Cloud.define("hello", function (request, response) {
     // Requires two packages to make this happen.
-    const Image = require("parse-image");
+    // const Image = require("parse-image");
 
     response.success("Hello world, trujunzhang!");
 });
 
+Parse.Cloud.afterSave("Restaurant", function (request, response) {
+    const restaurant = request.object;
+
+    const restaurantId = restaurant.id;
+
+    new Parse.Query("Restaurant").get(restaurantId)
+        .then(function (object) {
+            const location = object.get('geoLocation');
+
+            const latitude = location.latitude;
+            const longitude = location.longitude;
+
+            if (!!object.get('address')) {
+                console.log('(3.4) after query restaurant, @Exist[address]:', object.get('address'));
+                response.success(object);
+            } else if (!!latitude && !!longitude) {
+                Parse.Cloud.run('getAddressFromLocation', {"lat": latitude, 'lng': longitude}, {
+                    success: function (result) {
+
+                        object.set('address', result.address);
+                        object.set('street_number', result.street_number);
+                        object.set('route', result.route);
+                        object.set('locality', result.locality);
+                        object.set("sublocality", result.sublocality);
+                        object.set('country', result.country);
+                        object.set('postal_code', result.postal_code);
+                        object.set('administrative_area', result.administrative_area);
+
+                        return object.save();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+        })
+        .catch(function (error) {
+            console.error("(8.)Got an error " + error.code + " : " + error.message);
+        });
+
+});
 
 Parse.Cloud.define("getAddressFromLocation", function (request, response) {
     // :param latlng: The latitude/longitude value or place_id for which you wish
     const lat = request.params.lat;
     const lng = request.params.lng;
+
+    const API_KEY = "AIzaSyAyAc4iPiWoC3Qs6u-XnKCV0e4PnFvUXMU"
 
 
     // https://developers.google.com/maps/documentation/geocoding/intro#reverse-example
@@ -19,21 +63,19 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
         method: "POST",
         url: 'https://maps.googleapis.com/maps/api/geocode/json',
         params: {
-            latlng: lat + "," + lng
+            latlng: lat + "," + lng,
+            key: API_KEY
         },
         success: function (httpResponse) {
-            var _response = httpResponse.data;
+            let _response = httpResponse.data;
             if (_response.status === "OK") {
-                // var langLat = response.results[0].geometry.location;
-                // response.success("get Address from Location, successfully. lat: " + lat + ", lng: " + lng);
+                const final = parse_address(_response);
+                response.success(final);
+            } else {
+                response.success("api, failure, " + httpResponse.status);
             }
-            // const jsonData = JSON.stringify(_response)
-            // const final = address_resolver(_response)
-            const results = _response.results;
-            const data = results[0];
-            const country = data.country;
-            // response.success("api, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ",data: " + JSON.stringify(data));
-            response.success("api, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ",data: " + country);
+            // response.success("api, succhttp://maps.googleapis.com/maps/api/geocode/json?latlng=35.1330343,-90.0625056&sensor=trueessfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ", final: " + JSON.stringify(final));
+            // response.success("api, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ",data: " + country);
         },
         error: function (httpResponse) {
             // console.error('Request failed with response code ' + httpResponse.status);
@@ -41,54 +83,64 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
         }
     });
 
-
     // response.success("get Address from Location, lat: " + lat + ", lng: " + lng);
 });
 
 
-function address_resolver(json) {
-    var final = {};
-    if (json['results']) {
-        data = json['results'][0]
+function parse_address(response) {
+    const results = response.results;
 
-        final['street'] = data.get("route", null)
-        final['state'] = data.get("administrative_area_level_1", null)
-        final['city'] = data.get("locality", null)
-        final['county'] = data.get("administrative_area_level_2", null)
-        final['country'] = data.get("country", null)
-        final['postal_code'] = data.get("postal_code", null)
-        final['neighborhood'] = data.get("neighborhood", null)
-        final['sublocality'] = data.get("sublocality", null)
-        final['housenumber'] = data.get("housenumber", null)
-        final['postal_town'] = data.get("postal_town", null)
-        final['subpremise'] = data.get("subpremise", null)
-        final['latitude'] = data.get("geometry", {}).get("location", {}).get("lat", null)
-        final['longitude'] = data.get("geometry", {}).get("location", {}).get("lng", null)
-        final['location_type'] = data.get("geometry", {}).get("location_type", null)
-        final['postal_code_suffix'] = data.get("postal_code_suffix", null)
-        final['street_number'] = data.get('street_number', null)
-    }
+    let final = {// length(7)
+        'address': '',
+        'street_number': '',
+        'route': '',
+        'locality': '',
+        "sublocality": '',
+        'country': '',
+        'postal_code': '',
+        'administrative_area': ''
+    };
 
-    return final
+    const item = results[0];
+    const value = item.formatted_address;
+    const component = item.address_components;
+
+    // step1: get the whole address.
+    final['address'] = value;
+
+    // step2: get the detailed info.
+    component.map((data, index) => {
+        const dataTypes = data.types.join(';');
+
+        if (dataTypes.indexOf('street_number') !== -1) {
+            final['street_number'] = data.long_name;
+        } else if (dataTypes.indexOf('route') !== -1) {
+            final['route'] = data.long_name;
+        } else if (dataTypes.indexOf('sublocality') !== -1) {
+            final['sublocality'] = data.long_name;
+        } else if (dataTypes.indexOf('locality') !== -1) {
+            final['locality'] = data.long_name;
+        } else if (dataTypes.indexOf('country') !== -1) {
+            final['country'] = data.short_name;
+        } else if (dataTypes.indexOf('postal_code') !== -1) {
+            final['postal_code'] = data.short_name;
+        } else if (dataTypes.indexOf('administrative_area_level_1') !== -1) {
+            final['administrative_area'] = data.short_name;
+        }
+    });
+
+    return final;
 }
-
 
 Parse.Cloud.afterSave("Photo", function (request, response) {
     const photo = request.object;
 
     const photoId = photo.id;
 
-    console.log('(1.) *** log after saving photo ***', photo);
-    console.log('(2.) photoId', photoId);
-
     new Parse.Query("Photo").get(photoId)
         .then(function (object) {
 
             const url = object.get("url");
-
-            console.log('(3.1) after query photo, url:', url);
-            console.log('(3.2) after query photo, original:', object.get('original'));
-            console.log('(3.3) after query photo, thumbnail:', object.get('thumbnail'));
 
             if (!!object.get('original')) {
                 console.log('(3.4) after query photo, @Exist[original]:', object.get('original'));
@@ -96,7 +148,6 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
             } else if (!!url && url !== '') {
                 console.log('(3.5)  generating the size images, @New[original]');
 
-                const params = {"imageURL": url, "photoId": photoId};
                 Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
                     success: function (result) {
                         console.log('(4.1) callback: crop_multiple_sizes_image', result);
@@ -126,41 +177,6 @@ Parse.Cloud.afterSave("Photo", function (request, response) {
     console.log('(10.) invoke crop_multiple_sizes_image');
 });
 
-Parse.Cloud.afterSave("Photoyyy", function (request, response) {
-    const photo = request.object;
-
-    const photoId = photo.id;
-    const url = photo.url;
-
-    console.log('(1.) *** log after saving photo ***', photo);
-    console.log('(2.) photoId', photoId);
-
-
-    // const params = {"imageURL": url, "photoId": photoId};
-    Parse.Cloud.run('cropMultipleSizesImage', {"imageURL": url, "photoId": photoId}, {
-        success: function (result) {
-            console.log(result);
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-    console.log('(3.) invoke crop_multiple_sizes_image', result);
-
-    new Parse.Query("Photo").get(photoId)
-        .then(function (object) {
-
-            // object.set("photoType", "trujunzhang-720");
-            console.log('(4.) *** found the photo ***', object);
-            return object.save();
-        })
-        .catch(function (error) {
-            console.error("(8.)Got an error " + error.code + " : " + error.message);
-        });
-
-});
-
-
 Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
     const url = request.params.imageURL;
     const photoId = request.params.photoId;
@@ -171,10 +187,10 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
     console.log('(101.3) *** log crop multiple sizes image ***, photoId: ', photoId);
 
     // Requires two packages to make this happen.
-    var Image = require("parse-image");
+    let Image = require("parse-image");
 
     // Default images sizes.
-    var image_featured = [{
+    let image_featured = [{
         "type": "original"
     }, {
         "type": "thumbnail",
@@ -187,23 +203,23 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
         url: url
     }).then(function (response) {
 
-        var promise = Parse.Promise.as();
+        let promise = Parse.Promise.as();
 
         // Each request becomes a promise, execute each promise and then call success.
         image_featured.forEach(function (arrayElement) {
             promise = promise.then(function () {
                 // Create an Image from the data.
-                var image = new Image();
+                let image = new Image();
                 return image.setData(response.buffer);
             }).then(function (image) { // Crop
                 // Using some math, we maintain aspect ratio of the image but scale the width down.
-                if (arrayElement["type"] == "original") {
+                if (arrayElement["type"] === "original") {
                     return image
                 }
                 const scaleWidth = arrayElement["width"]
 
                 // Crop the image to the smaller of width or height.
-                var minSize = Math.min(image.width(), image.height());
+                let minSize = Math.min(image.width(), image.height());
                 if (minSize === image.width()) {
                     const vertical = (image.height() - image.width()) / 2;
                     return image.crop({
@@ -223,13 +239,13 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
                 }
             }).then(function (image) { // Resize
                 // Using some math, we maintain aspect ratio of the image but scale the width down.
-                if (arrayElement["type"] == "original") {
+                if (arrayElement["type"] === "original") {
                     return image
                 }
                 const scaleWidth = arrayElement["width"]
 
                 // Crop the image to the smaller of width or height.
-                var minSize = Math.min(image.width(), image.height());
+                let minSize = Math.min(image.width(), image.height());
                 if (minSize === image.width()) {
                     return image.scale({
                         width: scaleWidth,
@@ -248,7 +264,7 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
                 return image.data();
             }).then(function (data) {
                 // Save the bytes to a new file.
-                var file = new Parse.File(photoId + "-" + arrayElement["type"] + ".jpg", {
+                let file = new Parse.File(photoId + "-" + arrayElement["type"] + ".jpg", {
                     base64: data.toString("base64")
                 });
                 return file.save();
