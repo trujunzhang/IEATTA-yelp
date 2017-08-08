@@ -3,7 +3,8 @@ import os
 
 from yelp.utils.slugify import slugify
 
-os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
+# os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
+os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
 
 from parse_rest.user import User
 from parse_rest.query import QueryResourceDoesNotExist
@@ -51,7 +52,9 @@ class ParseCloudUtil(object):
     @classmethod
     def get_address_from_location(cls):
         hello_func = Function("getAddressFromLocation")
-        result = hello_func(lat="38.964835", lng="-77.0883076")
+        # result = hello_func(lat="38.964835", lng="-77.0883076")  # MaryLand
+        # result = hello_func(lat="32.399995", lng="120.555723") # local
+        result = hello_func(lat="3.889385", lng="102.460485") # Pulau,Tawar,Pahang,Malaysia
         return hello_func
 
     @classmethod

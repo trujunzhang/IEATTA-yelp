@@ -31,7 +31,7 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
             // const final = address_resolver(_response)
             const results = _response.results;
             const data = results[0];
-            const country = data.get("country", null)
+            const country = data.country;
             // response.success("api, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ",data: " + JSON.stringify(data));
             response.success("api, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ",data: " + country);
         },
