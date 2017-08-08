@@ -54,7 +54,7 @@ class ParseCloudUtil(object):
         hello_func = Function("getAddressFromLocation")
         # result = hello_func(lat="38.964835", lng="-77.0883076")  # MaryLand
         # result = hello_func(lat="32.399995", lng="120.555723") # local
-        result = hello_func(lat="3.889385", lng="102.460485") # Pulau,Tawar,Pahang,Malaysia
+        result = hello_func(lat="3.889385", lng="102.460485")  # Pulau,Tawar,Pahang,Malaysia
         return hello_func
 
     @classmethod
@@ -487,6 +487,7 @@ class ParseRestaurantUtils(object):
         if not instance:
             instance = Restaurant()
             instance.photos = []
+            instance.address = ''
 
         instance.testId = item['testId']
 
@@ -494,7 +495,7 @@ class ParseRestaurantUtils(object):
         instance.url = item['url']
 
         instance.geoLocation = GeoPoint(item['geoLocation'][0], item['geoLocation'][1])
-        instance.address = item['address']
+        # instance.address = item['address']
 
         instance = ParseHelp.save_and_update_record(instance, 'restaurant')
         return instance
