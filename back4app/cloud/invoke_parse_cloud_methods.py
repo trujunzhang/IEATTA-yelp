@@ -26,6 +26,11 @@ class InvokeParseCloudMethods(object):
         _point_instance = ParseRestaurantUtils.save_restaurant(item)
         pass
 
+    def save_photo_invoke_aftersave(self):
+        item = self.common_data['restaurants'][0]
+        image_item = item['images'][0]
+        pass
+
 
 def main():
     logging.info("  Start invoke parse cloud methods! ")
@@ -35,7 +40,8 @@ def main():
     logging.info("  * {} ".format('Ready'))
 
     # utils.invoke_hello_method()
-    utils.save_restaurant_invoke_aftersave()
+    # utils.save_restaurant_invoke_aftersave()
+    utils.save_photo_invoke_aftersave()
 
 
 if __name__ == '__main__':
