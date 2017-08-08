@@ -27,9 +27,12 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
                 // var langLat = response.results[0].geometry.location;
                 // response.success("get Address from Location, successfully. lat: " + lat + ", lng: " + lng);
             }
-            const jsonData = JSON.stringify(_response)
-            const final = address_resolver(jsonData)
-            response.success("api, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ",data: " + JSON.stringify(final));
+            // const jsonData = JSON.stringify(_response)
+            // const final = address_resolver(_response)
+            const results = _response.results;
+            const data = results[0];
+
+            response.success("api, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ",data: " + JSON.stringify(data));
         },
         error: function (httpResponse) {
             // console.error('Request failed with response code ' + httpResponse.status);
