@@ -28,7 +28,8 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
                 // response.success("get Address from Location, successfully. lat: " + lat + ", lng: " + lng);
             }
             const jsonData = JSON.stringify(_response)
-            response.success("api, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ",data: " + jsonData);
+            const final = address_resolver(jsonData)
+            response.success("api, successfully. lat: " + lat + ", lng: " + lng + ", status: " + _response.status + ",data: " + JSON.stringify(final));
         },
         error: function (httpResponse) {
             // console.error('Request failed with response code ' + httpResponse.status);
@@ -39,6 +40,34 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
 
     // response.success("get Address from Location, lat: " + lat + ", lng: " + lng);
 });
+
+
+function address_resolver(json) {
+    var final = {};
+    if (json['results']) {
+        data = json['results'][0]
+
+        final['street'] = data.get("route", null)
+        final['state'] = data.get("administrative_area_level_1", null)
+        final['city'] = data.get("locality", null)
+        final['county'] = data.get("administrative_area_level_2", null)
+        final['country'] = data.get("country", null)
+        final['postal_code'] = data.get("postal_code", null)
+        final['neighborhood'] = data.get("neighborhood", null)
+        final['sublocality'] = data.get("sublocality", null)
+        final['housenumber'] = data.get("housenumber", null)
+        final['postal_town'] = data.get("postal_town", null)
+        final['subpremise'] = data.get("subpremise", null)
+        final['latitude'] = data.get("geometry", {}).get("location", {}).get("lat", null)
+        final['longitude'] = data.get("geometry", {}).get("location", {}).get("lng", null)
+        final['location_type'] = data.get("geometry", {}).get("location_type", null)
+        final['postal_code_suffix'] = data.get("postal_code_suffix", null)
+        final['street_number'] = data.get('street_number', null)
+    }
+
+    return final
+}
+
 
 Parse.Cloud.afterSave("Photo", function (request, response) {
     const photo = request.object;
