@@ -1,3 +1,9 @@
+/**
+ * author: trujunzhang
+ * version: 1.0.1
+ */
+
+
 Parse.Cloud.define("hello", function (request, response) {
     // Requires two packages to make this happen.
     // const Image = require("parse-image");
@@ -6,9 +12,9 @@ Parse.Cloud.define("hello", function (request, response) {
 });
 
 Parse.Cloud.afterSave("Restaurant", function (request, response) {
-    var restaurant = request.object;
+    const restaurant = request.object;
 
-    var restaurantId = restaurant.id;
+    const restaurantId = restaurant.id;
 
     new Parse.Query("Restaurant").get(restaurantId)
         .then(function (object) {
@@ -50,15 +56,11 @@ Parse.Cloud.afterSave("Restaurant", function (request, response) {
 
 Parse.Cloud.define("getAddressFromLocation", function (request, response) {
     // :param latlng: The latitude/longitude value or place_id for which you wish
-    var lat = request.params.lat;
-    var lng = request.params.lng;
+    const lat = request.params.lat;
+    const lng = request.params.lng;
 
     const API_KEY = "AIzaSyAyAc4iPiWoC3Qs6u-XnKCV0e4PnFvUXMU"
 
-
-    // https://developers.google.com/maps/documentation/geocoding/intro#reverse-example
-    // https://developers.google.com/maps/documentation/javascript/examples/geocoding-reverse
-    // http://maps.googleapis.com/maps/api/geocode/json?latlng=35.1330343,-90.0625056
     Parse.Cloud.httpRequest({
         method: "POST",
         url: 'https://maps.googleapis.com/maps/api/geocode/json',
@@ -109,7 +111,8 @@ function parse_address(response) {
     final['address'] = value;
 
     // step2: get the detailed info.
-    component.map((data, index) => {
+    for (var i = 0; i < component.length; i++) {
+        var data = component[i];
         var dataTypes = data.types.join(';');
 
         if (dataTypes.indexOf('street_number') !== -1) {
@@ -127,20 +130,20 @@ function parse_address(response) {
         } else if (dataTypes.indexOf('administrative_area_level_1') !== -1) {
             final['administrative_area'] = data.short_name;
         }
-    });
+    }
 
     return final;
 }
 
 Parse.Cloud.afterSave("Photo", function (request, response) {
-    var photo = request.object;
+    const photo = request.object;
 
-    var photoId = photo.id;
+    const photoId = photo.id;
 
     new Parse.Query("Photo").get(photoId)
         .then(function (object) {
 
-            var url = object.get("url");
+            const url = object.get("url");
 
             if (!!object.get('original')) {
                 console.log('(3.4) after query photo, @Exist[original]:', object.get('original'));
@@ -187,10 +190,10 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
     console.log('(101.3) *** log crop multiple sizes image ***, photoId: ', photoId);
 
     // Requires two packages to make this happen.
-    let Image = require("parse-image");
+    var Image = require("parse-image");
 
     // Default images sizes.
-    let image_featured = [{
+    var image_featured = [{
         "type": "original"
     }, {
         "type": "thumbnail",
@@ -203,13 +206,13 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
         url: url
     }).then(function (response) {
 
-        let promise = Parse.Promise.as();
+        var promise = Parse.Promise.as();
 
         // Each request becomes a promise, execute each promise and then call success.
         image_featured.forEach(function (arrayElement) {
             promise = promise.then(function () {
                 // Create an Image from the data.
-                let image = new Image();
+                var image = new Image();
                 return image.setData(response.buffer);
             }).then(function (image) { // Crop
                 // Using some math, we maintain aspect ratio of the image but scale the width down.
@@ -219,7 +222,7 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
                 const scaleWidth = arrayElement["width"]
 
                 // Crop the image to the smaller of width or height.
-                let minSize = Math.min(image.width(), image.height());
+                var minSize = Math.min(image.width(), image.height());
                 if (minSize === image.width()) {
                     const vertical = (image.height() - image.width()) / 2;
                     return image.crop({
@@ -245,7 +248,7 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
                 const scaleWidth = arrayElement["width"]
 
                 // Crop the image to the smaller of width or height.
-                let minSize = Math.min(image.width(), image.height());
+                var minSize = Math.min(image.width(), image.height());
                 if (minSize === image.width()) {
                     return image.scale({
                         width: scaleWidth,
@@ -264,7 +267,7 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
                 return image.data();
             }).then(function (data) {
                 // Save the bytes to a new file.
-                let file = new Parse.File(photoId + "-" + arrayElement["type"] + ".jpg", {
+                var file = new Parse.File(photoId + "-" + arrayElement["type"] + ".jpg", {
                     base64: data.toString("base64")
                 });
                 return file.save();
