@@ -33,7 +33,8 @@ class InvokeParseCloudMethods(object):
         pass
 
     def invoke_user_statistic(self):
-       ParseCloudUtil.user_statistic('6ip0SOxiTG')
+        # ParseCloudUtil.user_statistic('6ip0SOxiTG')  # localhost
+        ParseCloudUtil.user_statistic('aGkde8iuL6')  # back4app.com
 
 
 def main():

@@ -1,9 +1,3 @@
-/**
- * author: trujunzhang
- * version: 1.0.1
- */
-
-
 Parse.Cloud.define("hello", function (request, response) {
     // Requires two packages to make this happen.
     // const Image = require("parse-image");
@@ -288,3 +282,54 @@ Parse.Cloud.define("cropMultipleSizesImage", function (request, response) {
             response.error(error);
         });
 });
+
+
+Parse.Cloud.define("statisticUserState", function (request, response) {
+    const userId = request.params.userId;
+
+    const userParseObject = Parse.Object.extend('User').createWithoutData(userId)
+
+    var firstQuery = new Parse.Query("Recipe").equalTo('user', userParseObject);
+    var secondQuery = new Parse.Query("Review").equalTo('user', userParseObject);
+    var thirdQuery = new Parse.Query("Photo").equalTo('user', userParseObject);
+    var fourQuery = new Parse.Query("PeopleInEvent").equalTo('user', userParseObject);
+
+    var reviewOneStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 1);
+    var reviewTwoStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 2);
+    var reviewThreeStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 3);
+    var reviewFourStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 4);
+    var reviewFiveStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 5);
+
+
+    var normalQueries = [firstQuery.count(), secondQuery.count(), thirdQuery.count(), fourQuery.count()];
+    var starsQueries = [
+        reviewOneStarsQuery.count(),
+        reviewTwoStarsQuery.count(),
+        reviewThreeStarsQuery.count(),
+        reviewFourStarsQuery.count(),
+        reviewFiveStarsQuery.count()];
+
+    var promises = normalQueries.concat(starsQueries);
+
+    Parse.Promise.when(promises).then(function (result) {
+        var returnData = {
+            "recipes": result[0],
+            "reviews": result[1],
+            "photos": result[2],
+            "events": result[3],
+            "oneStars": result[4],
+            "twoStars": result[5],
+            "threeStars": result[6],
+            "fourStars": result[7],
+            "fiveStars": result[8]
+        };
+
+        response.success(returnData);
+
+    }, function (error) {
+        response.error(error);
+    });
+
+
+});
+
