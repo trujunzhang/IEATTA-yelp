@@ -1,9 +1,8 @@
 import logging
 import os
 
-
-os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
-# os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
+# os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
+os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
 
 from parse_rest.user import User
 from parse_rest.query import QueryResourceDoesNotExist
@@ -406,8 +405,8 @@ class ParsePhotoUtils(object):
         '''
         images = item['images']
         _photos_count = 0
-        if point_instance and point_instance.photos:
-            _photos_count = len(point_instance.photos)
+        # if point_instance and point_instance.photos:
+        #     _photos_count = len(point_instance.photos)
 
         if _photos_count == len(images):
             logging.info("     {}, length: {} ".format('exist @Array[photos]', _photos_count))
@@ -540,7 +539,7 @@ class ParseRecipeUtils(object):
                 pointer_recipe.event = pointer_event
                 pointer_recipe.user = pointer_user
 
-                # ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
+                ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
                 logging.info("  *** {}, {}".format('saved @relatation[Recipe|Relations]', pointer_recipe.objectId))
         else:
             raise Exception('Not found the instance on the peopleInEvent!')
