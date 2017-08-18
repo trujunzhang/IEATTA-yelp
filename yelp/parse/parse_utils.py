@@ -71,6 +71,12 @@ class ParseCloudUtil(object):
         # pointer_original = result['result'][1]
         return result
 
+    @classmethod
+    def user_statistic(cls, user_id):
+        crop_image_func = Function("statisticUserState")
+        result = crop_image_func(userId=user_id)
+        pass
+
 
 class ParseFileUploadUtil(object):
     @classmethod
