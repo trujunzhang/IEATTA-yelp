@@ -1,8 +1,8 @@
 import logging
 import os
 
-# os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
-os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
+os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
+# os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
 
 from parse_rest.user import User
 from parse_rest.query import QueryResourceDoesNotExist
@@ -419,11 +419,14 @@ class ParsePhotoUtils(object):
         else:
             # Step1: save all photos for the restaurant
             _pointers_photos = []
-            for url in images:
+            for item in images:
+                url = item["url"]
+                user_for_photo_instance = ParseUserUtils.get_user(item, 'userId')
+                # pass
                 point_photo = ParsePhotoUtils.save_photo(url=url,
                                                          point_restaurant=point_restaurant,
                                                          point_recipe=point_recipe,
-                                                         point_user=point_user,
+                                                         point_user=user_for_photo_instance,
                                                          photo_type=record_type)
                 _pointers_photos.append(point_photo)
 
