@@ -294,12 +294,16 @@ Parse.Cloud.define("statisticUserState", function (request, response) {
     var thirdQuery = new Parse.Query("Photo").equalTo('user', userParseObject);
     var fourQuery = new Parse.Query("PeopleInEvent").equalTo('user', userParseObject);
 
-    var reviewOneStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 1);
-    var reviewTwoStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 2);
-    var reviewThreeStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 3);
-    var reviewFourStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 4);
-    var reviewFiveStarsQuery = new Parse.Query("Review").equalTo('user', userParseObject).equalTo('rate', 5);
+    var reviewOneStarsQuery = filterForReview('user', userId).equalTo('rate', 1);
+    var reviewTwoStarsQuery = filterForReview('user', userId).equalTo('rate', 2);
+    var reviewThreeStarsQuery = filterForReview('user', userId).equalTo('rate', 3);
+    var reviewFourStarsQuery = filterForReview('user', userId).equalTo('rate', 4);
+    var reviewFiveStarsQuery = filterForReview('user', userId).equalTo('rate', 5);
 
+    // var testQuery = new Parse.Query("Photo").include('recipe.user').equalTo('recipe.user', userParseObject);
+    var testQuery = new Parse.Query("PeopleInEvent")
+    // .include('event.restaurant')
+        .equalTo('restaurant', Parse.Object.extend('Restaurant').createWithoutData('rYc5t5gjo7'))
 
     var normalQueries = [firstQuery.count(), secondQuery.count(), thirdQuery.count(), fourQuery.count()];
     var starsQueries = [
@@ -307,11 +311,17 @@ Parse.Cloud.define("statisticUserState", function (request, response) {
         reviewTwoStarsQuery.count(),
         reviewThreeStarsQuery.count(),
         reviewFourStarsQuery.count(),
-        reviewFiveStarsQuery.count()];
+        reviewFiveStarsQuery.count(),
+
+        // testQuery.count()
+    ];
 
     var promises = normalQueries.concat(starsQueries);
+    // var promises = [testQuery.count()]
 
     Parse.Promise.when(promises).then(function (result) {
+
+        debugger
         var returnData = {
             "recipes": result[0],
             "reviews": result[1],
@@ -330,6 +340,86 @@ Parse.Cloud.define("statisticUserState", function (request, response) {
         response.error(error);
     });
 
+});
+
+function filterForReview(reviewType, forObjectId) {
+    const query = new Parse.Query("Review");
+    switch (reviewType) {
+        case "restaurant":
+            query.equalTo('restaurant', Parse.Object.extend('Restaurant').createWithoutData(forObjectId))
+            break;
+        case "event":
+            query.equalTo('event', Parse.Object.extend('Event').createWithoutData(forObjectId))
+            break;
+        case "recipe":
+            query.equalTo('recipe', Parse.Object.extend('Recipe').createWithoutData(forObjectId))
+            break;
+        case "user":
+            query.equalTo('user', Parse.Object.extend('User').createWithoutData(forObjectId))
+            break;
+    }
+
+    return query;
+}
+
+function reviewRateForObject(array) {
+    var sum = 0
+
+    for (var i = 0; i < array.length; i++) {
+        sum = array[i].get('rate')
+    }
+
+    var avg = (sum / array.length)
+    if (avg < 1 && avg > 0) {
+        return 1
+    }
+
+    return avg >> 0;
+}
+
+Parse.Cloud.define("statisticReviews", function (request, response) {
+    const reviewType = request.params.reviewType;
+    const forObjectId = request.params.forObjectId;
+
+    var reviewsQuery = filterForReview(reviewType, forObjectId)
+
+    var reviewOneStarsQuery = filterForReview(reviewType, forObjectId).equalTo('rate', 1);
+    var reviewTwoStarsQuery = filterForReview(reviewType, forObjectId).equalTo('rate', 2);
+    var reviewThreeStarsQuery = filterForReview(reviewType, forObjectId).equalTo('rate', 3);
+    var reviewFourStarsQuery = filterForReview(reviewType, forObjectId).equalTo('rate', 4);
+    var reviewFiveStarsQuery = filterForReview(reviewType, forObjectId).equalTo('rate', 5);
+
+    var starsQueries = [
+        reviewsQuery.find(),
+        // each rates.
+        reviewOneStarsQuery.count(),
+        reviewTwoStarsQuery.count(),
+        reviewThreeStarsQuery.count(),
+        reviewFourStarsQuery.count(),
+        reviewFiveStarsQuery.count(),
+    ];
+
+    var promises = starsQueries;
+
+    Parse.Promise.when(promises).then(function (result) {
+        const reviews = result[0];
+
+        var returnData = {
+            "total": reviews.length,
+            "oneStars": result[1],
+            "twoStars": result[2],
+            "threeStars": result[3],
+            "fourStars": result[4],
+            "fiveStars": result[5],
+            "reviewRating": reviewRateForObject(reviews)
+        };
+
+        debugger
+        response.success(returnData);
+
+    }, function (error) {
+        response.error(error);
+    });
 
 });
 

@@ -29,11 +29,11 @@ class IEATTACommonImporter(object):
         '''
 
         type_array = [
-            # "restaurant",
+            "restaurant",
             # "event",
             # "user",
-            "recipe",
-            "review"
+            # "recipe",
+            # "review"
         ]
         for type_key in type_array:
             logging.info("     ")
