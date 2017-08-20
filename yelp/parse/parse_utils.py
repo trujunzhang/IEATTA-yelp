@@ -419,10 +419,16 @@ class ParsePhotoUtils(object):
         else:
             # Step1: save all photos for the restaurant
             _pointers_photos = []
-            for item in images:
-                url = item["url"]
-                user_for_photo_instance = ParseUserUtils.get_user(item, 'userId')
-                # pass
+            for image_item in images:
+                url = None
+                user_for_photo_instance = None
+                if record_type == 'restaurant':
+                    url = image_item["url"]
+                    user_for_photo_instance = ParseUserUtils.get_user(image_item, 'userId')
+                if record_type == 'recipe':
+                    url = image_item
+                    user_for_photo_instance = point_instance.user
+
                 point_photo = ParsePhotoUtils.save_photo(url=url,
                                                          point_restaurant=point_restaurant,
                                                          point_recipe=point_recipe,
