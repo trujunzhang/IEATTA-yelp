@@ -459,7 +459,7 @@ class ParsePhotoUtils(object):
             instance.photoType = ''
 
         if instance.photoType == photo_type and instance.url == url and instance.original and instance.thumbnail:
-            pass
+            logging.info("     {} for {} ".format('exist @photo', photo_type))
         else:
             instance.url = url
 
@@ -470,6 +470,7 @@ class ParsePhotoUtils(object):
             instance.photoType = photo_type
 
             instance = ParseHelp.save_and_update_record(instance, 'photo')
+            logging.info("     {} for {} ".format('save @photo', photo_type))
 
         return instance
 
