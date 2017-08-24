@@ -11,16 +11,17 @@ class IEATTAUIDFlag(object):
 
     def append_uid_flag(self):
         type_array = [
-            # "restaurant",
+            "restaurant",
             # "event",
             # "user",
-            "recipe",
+            # "recipe",
             # "review"
         ]
 
         for type_key in type_array:
             list = get_table_list(type_key)
-            pass
+            for item in list:
+                item.save()
         pass
 
 
