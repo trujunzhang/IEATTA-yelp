@@ -38,6 +38,8 @@ def get_query(pointer_type):
         _query = Review.Query
     elif pointer_type == "recipe":
         _query = Recipe.Query
+    elif pointer_type == "photo":
+        _query = Photo.Query
     elif pointer_type == "peopleInEvent":
         _query = PeopleInEvent.Query
 
