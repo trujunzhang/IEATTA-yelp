@@ -24,7 +24,7 @@ class IEATTAUIDFlag(object):
             list = get_table_list(type_key)
             for index, item in enumerate(list):
                 item.flag = 1
-                item.uniqueId = index
+                item.uniqueId = index + 1
                 item.save()
         pass
 
