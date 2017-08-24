@@ -11,16 +11,20 @@ class IEATTAUIDFlag(object):
 
     def append_uid_flag(self):
         type_array = [
+            "event",
+            "peopleInEvent",
+            "photo",
+            "recipe",
+            "record",
             "restaurant",
-            # "event",
-            # "user",
-            # "recipe",
-            # "review"
+            "review"
         ]
 
         for type_key in type_array:
             list = get_table_list(type_key)
-            for item in list:
+            for index, item in enumerate(list):
+                item.flag = 1
+                item.uniqueId = index
                 item.save()
         pass
 
