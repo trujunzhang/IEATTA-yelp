@@ -26,7 +26,7 @@ def get_object_by_type(query, item, field='testId'):
         return query.filter(testId=item[field]).get()
 
 
-def get_object_pointer(pointer_type, item, field='testId'):
+def get_query(pointer_type):
     _query = None
     if pointer_type == "restaurant":
         _query = Restaurant.Query
@@ -41,6 +41,20 @@ def get_object_pointer(pointer_type, item, field='testId'):
     elif pointer_type == "peopleInEvent":
         _query = PeopleInEvent.Query
 
+    return _query
+
+
+def get_table_list(pointer_type):
+    _list = []
+    _query = get_query(pointer_type)
+    if _query:
+        _list = _query.all()
+
+    return _list
+
+
+def get_object_pointer(pointer_type, item, field='testId'):
+    _query = get_query(pointer_type)
     if _query:
         if _query.filter(testId=item[field]).count() > 0:
             return _query.filter(testId=item[field]).get()
