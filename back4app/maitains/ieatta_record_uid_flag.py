@@ -16,9 +16,8 @@ class IEATTAUIDFlag(object):
             item.flag = "1"
             parse_object = get_recorded_parse_instance(record=item)
             record_uuid = parse_object.uniqueId
-            x = 0
-            # item.uniqueId = row_uuid
-            # item.save()
+            item.recordUniqueId = record_uuid
+            item.save()
 
 
 def main():
