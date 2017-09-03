@@ -1,5 +1,6 @@
 import json
 import logging
+import uuid
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
     ParsePhotoUtils, ParseRecordUtil, get_table_list
@@ -11,20 +12,21 @@ class IEATTAUIDFlag(object):
 
     def append_uid_flag(self):
         type_array = [
-            # "event",
+            # "restaurant",
+            "event",
             # "peopleInEvent",
-            "photo",
+            # "photo",
             # "recipe",
             # "record",
-            # "restaurant",
             # "review"
         ]
 
         for type_key in type_array:
             list = get_table_list(type_key)
             for index, item in enumerate(list):
+                row_uuid = str(uuid.uuid4())
                 item.flag = "1"
-                item.uniqueId = "{}".format(index + 1)
+                item.uniqueId = row_uuid
                 item.save()
 
 
