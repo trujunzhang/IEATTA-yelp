@@ -42,8 +42,31 @@ def get_query(pointer_type):
         _query = Photo.Query
     elif pointer_type == "peopleInEvent":
         _query = PeopleInEvent.Query
+    elif pointer_type == "record":
+        _query = Record.Query
 
     return _query
+
+
+def get_recorded_parse_instance(record):
+    record_type = record.recordType
+    _instance = None
+    if record_type == "restaurant":
+        _instance = record.restaurant
+    elif record_type == "event":
+        _instance = record.event
+    elif record_type == "user":
+        _instance = record.user
+    elif record_type == "review":
+        _instance = record.review
+    elif record_type == "recipe":
+        _instance = record.recipe
+    elif record_type == "photo":
+        _instance = record.photo
+    elif record_type == "peopleInEvent":
+        _instance = record.peopleInEvent
+
+    return _instance
 
 
 def get_table_list(pointer_type):

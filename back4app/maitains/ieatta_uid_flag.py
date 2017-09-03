@@ -13,12 +13,11 @@ class IEATTAUIDFlag(object):
     def append_uid_flag(self):
         type_array = [
             # "restaurant",
-            "event",
-            # "peopleInEvent",
-            # "photo",
-            # "recipe",
-            # "record",
-            # "review"
+            # "event",
+            "peopleInEvent",
+            "photo",
+            "recipe",
+            "review"
         ]
 
         for type_key in type_array:
