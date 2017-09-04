@@ -86,7 +86,7 @@ Parse.Cloud.define("getAddressFromLocation", function (request, response) {
 function parse_address(response) {
     const results = response.results;
 
-    var final = {// length(7)
+    var final = {// length(8)
         'address': '',
         'street_number': '',
         'route': '',
@@ -130,6 +130,46 @@ function parse_address(response) {
 }
 
 Parse.Cloud.afterSave("Photo", function (request, response) {
+    const photo = request.object;
+
+    const photoId = photo.id;
+    const photoType = photo.get('photoType');
+    const relatedInstance = photo.get(photoType)
+    const forObjectUniqueId = photo.get('forObjectUniqueId')
+
+    if (!relatedInstance) {
+
+        new Parse.Query("Photo").get(photoId)
+            .then(function (object) {
+
+                Parse.Cloud.run('queryObjectIdByUniqueId', {
+                    "modelType": photoType,
+                    "forObjectUniqueId": forObjectUniqueId
+                }, {
+                    success: function (relatedObjectId) {
+                        if (relatedObjectId !== '') {//Exist
+                            // after push the photo instance from users's client app.
+                            // Here, using parse cloud to relate the parse object.
+                            object.set(photoType, getInstanceWithoutData(photoType, relatedObjectId))
+                            return object.save();
+                        }
+
+                        response.success();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+            })
+            .catch(function (error) {
+            });
+
+    }
+
+});
+
+Parse.Cloud.afterSave("Photoxxx", function (request, response) {
     const photo = request.object;
 
     const photoId = photo.id;
@@ -342,23 +382,29 @@ Parse.Cloud.define("statisticUserState", function (request, response) {
 
 });
 
-function filterForReview(reviewType, forObjectId) {
-    const query = new Parse.Query("Review");
-    switch (reviewType) {
+function getInstanceWithoutData(modelType, forObjectId) {
+    var relatedObject = null;
+    switch (modelType) {
         case "restaurant":
-            query.equalTo('restaurant', Parse.Object.extend('Restaurant').createWithoutData(forObjectId))
+            relatedObject = Parse.Object.extend('Restaurant').createWithoutData(forObjectId)
             break;
         case "event":
-            query.equalTo('event', Parse.Object.extend('Event').createWithoutData(forObjectId))
+            relatedObject = Parse.Object.extend('Event').createWithoutData(forObjectId)
             break;
         case "recipe":
-            query.equalTo('recipe', Parse.Object.extend('Recipe').createWithoutData(forObjectId))
+            relatedObject = Parse.Object.extend('Recipe').createWithoutData(forObjectId)
             break;
         case "user":
-            query.equalTo('user', Parse.Object.extend('User').createWithoutData(forObjectId))
+            relatedObject = Parse.Object.extend('User').createWithoutData(forObjectId)
             break;
     }
 
+    return relatedObject;
+}
+
+function filterForReview(reviewType, forObjectId) {
+    const query = new Parse.Query("Review");
+    query.equalTo(reviewType, getInstanceWithoutData(reviewType, forObjectId))
     return query;
 }
 
@@ -423,3 +469,36 @@ Parse.Cloud.define("statisticReviews", function (request, response) {
 
 });
 
+
+Parse.Cloud.define("queryObjectIdByUniqueId", function (request, response) {
+    const modelType = request.params.modelType;
+    const forObjectUniqueId = request.params.forObjectUniqueId;
+
+    debugger
+
+    var currentQuery = null;
+    switch (modelType) {
+        case 'restaurant':
+            currentQuery = new Parse.Query("Restaurant").equalTo('uniqueId', forObjectUniqueId);
+            break;
+        case 'recipe':
+            currentQuery = new Parse.Query("Recipe").equalTo('uniqueId', forObjectUniqueId);
+            break;
+        case 'user':
+            currentQuery = new Parse.Query("User").equalTo('uniqueId', forObjectUniqueId);
+            break;
+    }
+
+    var promises = [currentQuery.first()];
+
+    Parse.Promise.when(promises).then(function (result) {
+        const relatedInstance = result[0];
+        debugger
+        response.success(!!relatedInstance ? relatedInstance.id : '');
+
+    }, function (error) {
+        debugger
+        response.error(error);
+    });
+
+});
