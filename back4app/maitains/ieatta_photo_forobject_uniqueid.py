@@ -6,24 +6,23 @@ from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEv
     ParsePhotoUtils, ParseRecordUtil, get_table_list, get_recorded_parse_instance
 
 
-class IEATTRecordUUID(object):
+class IEATTPhotoForObjectUniqueId(object):
     def __init__(self):
-        super(IEATTRecordUUID, self).__init__()
+        super(IEATTPhotoForObjectUniqueId, self).__init__()
 
-    def append_uid_flag_for_records(self):
-        list = get_table_list('record')
+    def append_for_object_uniqueid_for_photos(self):
+        list = get_table_list('photo')
         for index, item in enumerate(list):
-            item.flag = "1"
             parse_object = get_recorded_parse_instance(record=item)
             record_uuid = parse_object.uniqueId
-            item.recordUniqueId = record_uuid
+            item.forObjectUniqueId = record_uuid
             item.save()
 
 
 def main():
-    utils = IEATTRecordUUID()
+    utils = IEATTPhotoForObjectUniqueId()
 
-    utils.append_uid_flag_for_records()
+    utils.append_for_object_uniqueid_for_photos()
 
 
 if __name__ == '__main__':
