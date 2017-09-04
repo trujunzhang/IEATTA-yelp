@@ -54,7 +54,7 @@ def get_object_unique_id_from_photo(photo):
     if photo_type == "restaurant":
         _instance = photo.restaurant
     elif photo_type == "recipe":
-        _instance = photo.event
+        _instance = photo.recipe
     elif photo_type == "user":
         _instance = photo.user
 
