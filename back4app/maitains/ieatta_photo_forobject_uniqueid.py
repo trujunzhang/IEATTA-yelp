@@ -3,7 +3,7 @@ import logging
 import uuid
 
 from yelp.parse.parse_utils import ParseUserUtils, ParseRestaurantUtils, ParseEventUtils, ParseRecipeUtils, \
-    ParsePhotoUtils, ParseRecordUtil, get_table_list, get_recorded_parse_instance
+    get_object_unique_id_from_photo, get_table_list
 
 
 class IEATTPhotoForObjectUniqueId(object):
@@ -13,9 +13,9 @@ class IEATTPhotoForObjectUniqueId(object):
     def append_for_object_uniqueid_for_photos(self):
         list = get_table_list('photo')
         for index, item in enumerate(list):
-            parse_object = get_recorded_parse_instance(record=item)
-            record_uuid = parse_object.uniqueId
-            item.forObjectUniqueId = record_uuid
+            for_object_unique_id = get_object_unique_id_from_photo(photo=item)
+
+            item.forObjectUniqueId = for_object_unique_id
             item.save()
 
 

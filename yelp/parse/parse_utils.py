@@ -48,6 +48,19 @@ def get_query(pointer_type):
     return _query
 
 
+def get_object_unique_id_from_photo(photo):
+    photo_type = photo.photoType
+    _instance = None
+    if photo_type == "restaurant":
+        _instance = photo.restaurant
+    elif photo_type == "recipe":
+        _instance = photo.event
+    elif photo_type == "user":
+        _instance = photo.user
+
+    return _instance.uniqueId
+
+
 def get_recorded_parse_instance(record):
     record_type = record.recordType
     _instance = None
