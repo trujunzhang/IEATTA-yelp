@@ -1,6 +1,8 @@
 import logging
 import os
 
+# https://github.com/milesrichardson/ParsePy
+
 os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
 # os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
 
@@ -176,6 +178,7 @@ class ParseRecordUtil(object):
             logging.info("     {} for {} ".format('exist @record', _record_type))
 
         instance.recordType = _record_type
+        instance.flag = "1"
 
         instance.save()
 
@@ -216,19 +219,19 @@ class ParseRecordUtil(object):
         _record_query = Record.Query
         _query_filter = _record_query
         if _record_type == 'restaurant':
-            _query_filter = _query_filter.filter("restaurant", point_instance)
+            _query_filter = _query_filter.filter(restaurant=point_instance)
         elif _record_type == 'photo':
-            _query_filter = _query_filter.filter("photo", point_instance)
+            _query_filter = _query_filter.filter(photo=point_instance)
         elif _record_type == 'event':
-            _query_filter = _query_filter.filter("event", point_instance)
+            _query_filter = _query_filter.filter(event=point_instance)
         elif _record_type == 'recipe':
-            _query_filter = _query_filter.filter("recipe", point_instance)
+            _query_filter = _query_filter.filter(recipe=point_instance)
         elif _record_type == 'user':
-            _query_filter = _query_filter.filter("user", point_instance)
+            _query_filter = _query_filter.filter(user=point_instance)
         elif _record_type == 'peopleInEvent':
-            _query_filter = _query_filter.filter("peopleInEvent", point_instance)
+            _query_filter = _query_filter.filter(peopleInEvent=point_instance)
         elif _record_type == 'review':
-            _query_filter = _query_filter.filter("review", point_instance)
+            _query_filter = _query_filter.filter(review=point_instance)
         else:
             raise Exception('Not found the record type,{}!'.format(_record_type))
 
