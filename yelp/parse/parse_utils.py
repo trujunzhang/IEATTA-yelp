@@ -617,6 +617,10 @@ class ParseRecipeUtils(object):
             instance.user = None
             instance.photos = []
 
+            logging.info("     {} for {} ".format('save @recipe', item['testId']))
+        else:
+            logging.info("     {} for {} ".format('exist @recipe', item['testId']))
+
         instance.testId = item['testId']
 
         instance.displayName = item['displayName']
