@@ -555,6 +555,10 @@ class ParseRestaurantUtils(object):
             instance.photos = []
             instance.address = ''
 
+            logging.info("     {} for {} ".format('save @restaurant', item['testId']))
+        else:
+            logging.info("     {} for {} ".format('exist @restaurant', item['testId']))
+
         instance.testId = item['testId']
 
         instance.displayName = item['displayName']
