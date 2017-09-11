@@ -175,7 +175,8 @@ class ParseRecordUtil(object):
             instance = Record()
             logging.info("     {} for {} ".format('save @record', _record_type))
         else:
-            logging.info("     {} for {} ".format('exist @record', _record_type))
+            pass
+            # logging.info("     {} for {} ".format('exist @record', _record_type))
 
         instance.recordType = _record_type
         instance.flag = "1"
