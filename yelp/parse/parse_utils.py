@@ -168,11 +168,13 @@ class ParseRecordUtil(object):
     @classmethod
     def save_record(cls, point_instance, item):
         _record_type = item['recordType']
-        instance = ParseRecordUtil.record_exist(item['recordId'])
+        instance = ParseRecordUtil.record_exist(_record_type, point_instance)
         if not instance:
             instance = Record()
+            logging.info("     {} for {} ".format('save @record', _record_type))
+        else:
+            logging.info("     {} for {} ".format('exist @record', _record_type))
 
-        instance.recordId = item['recordId']
         instance.recordType = _record_type
 
         instance.save()
@@ -210,9 +212,30 @@ class ParseRecordUtil(object):
             item.save()
 
     @classmethod
-    def record_exist(cls, recordId):
-        if Record.Query.filter(recordId=recordId).count() > 0:
-            return Record.Query.filter(recordId=recordId).get()
+    def record_exist(cls, _record_type, point_instance):
+        _record_query = Record.Query
+        _query_filter = _record_query
+        if _record_type == 'restaurant':
+            _query_filter = _query_filter.filter("restaurant", point_instance)
+        elif _record_type == 'photo':
+            _query_filter = _query_filter.filter("photo", point_instance)
+        elif _record_type == 'event':
+            _query_filter = _query_filter.filter("event", point_instance)
+        elif _record_type == 'recipe':
+            _query_filter = _query_filter.filter("recipe", point_instance)
+        elif _record_type == 'user':
+            _query_filter = _query_filter.filter("user", point_instance)
+        elif _record_type == 'peopleInEvent':
+            _query_filter = _query_filter.filter("peopleInEvent", point_instance)
+        elif _record_type == 'review':
+            _query_filter = _query_filter.filter("review", point_instance)
+        else:
+            raise Exception('Not found the record type,{}!'.format(_record_type))
+
+        pass
+        if _query_filter.count() > 0:
+            pass
+            return _query_filter.get()
 
 
 # =============================================
