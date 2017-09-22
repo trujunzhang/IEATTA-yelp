@@ -10,7 +10,7 @@ class IEATTPhotoForObjectUniqueId(object):
     def __init__(self):
         super(IEATTPhotoForObjectUniqueId, self).__init__()
 
-    def append_for_object_uniqueid_for_photos(self):
+    def append_for_who_take_the_photo(self):
         _temp_user = ['u003', 'u001', 'u002', 'u004', 'u005']
         list = get_table_list('photo')
         for index, item in enumerate(list):
@@ -30,7 +30,7 @@ class IEATTPhotoForObjectUniqueId(object):
 def main():
     utils = IEATTPhotoForObjectUniqueId()
 
-    utils.append_for_object_uniqueid_for_photos()
+    utils.append_for_who_take_the_photo()
 
 
 if __name__ == '__main__':
