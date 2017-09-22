@@ -16,23 +16,16 @@ class IEATTPhotoForObjectUniqueId(object):
         list = get_table_list('photo')
 
         for index, item in enumerate(list):
-            # _item = {'testId': _temp_user[index % 5]}
-            _item = None
+
+            logging.info("     {} for {} ".format('fix @photo', index + 1))
 
             try:
                 _related_user = item.user
-                if _related_user:
-                    _item = {'testId': item.user.testId}
-                    owner_user = ParseUserUtils.get_user(_item, 'testId')
-                    item.owner = owner_user
-                    item.save()
             except:
-                pass
-
-            x = 0
-            # owner_user = ParseUserUtils.get_user()
-            # item.owner = for_object_unique_id
-            # item.save()
+                _item = {'testId': _temp_user[index % 5]}
+                owner_user = ParseUserUtils.get_user(_item, 'testId')
+                item.owner = owner_user
+                item.save()
 
 
 def main():
