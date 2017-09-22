@@ -12,13 +12,21 @@ class IEATTPhotoForObjectUniqueId(object):
 
     def append_for_who_take_the_photo(self):
         _temp_user = ['u003', 'u001', 'u002', 'u004', 'u005']
+
         list = get_table_list('photo')
+
         for index, item in enumerate(list):
-            _item = {'testId': _temp_user[index % 5]}
-            _related_user = item.user
-            if _related_user:
-                _item = {'testId': item.user.testId}
-            else:
+            # _item = {'testId': _temp_user[index % 5]}
+            _item = None
+
+            try:
+                _related_user = item.user
+                if _related_user:
+                    _item = {'testId': item.user.testId}
+                    owner_user = ParseUserUtils.get_user(_item, 'testId')
+                    item.owner = owner_user
+                    item.save()
+            except:
                 pass
 
             x = 0
