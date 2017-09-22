@@ -62,6 +62,10 @@ class IEATTAPhotos(object):
             ParsePhotoUtils.upload_with_uploaded_files(photo, pointer_thumbnail, pointer_original)
 
     def save_photos_again(self):
+        """
+        Save it again, then will invoke the cloud code to generate thumbnail and original files.
+        :return:
+        """
         for r_index, photo in enumerate(self.instance_photos):
             photo.save()
             logging.info("     {} ".format('saved @[photo] again!'))
