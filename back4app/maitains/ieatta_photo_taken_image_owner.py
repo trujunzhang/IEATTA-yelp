@@ -11,12 +11,20 @@ class IEATTPhotoForObjectUniqueId(object):
         super(IEATTPhotoForObjectUniqueId, self).__init__()
 
     def append_for_object_uniqueid_for_photos(self):
+        _temp_user = ['u003', 'u001', 'u002', 'u004', 'u005']
         list = get_table_list('photo')
         for index, item in enumerate(list):
-            for_object_unique_id = get_object_unique_id_from_photo(photo=item)
+            _item = {'testId': _temp_user[index % 5]}
+            _related_user = item.user
+            if _related_user:
+                _item = {'testId': item.user.testId}
+            else:
+                pass
 
-            item.forObjectUniqueId = for_object_unique_id
-            item.save()
+            x = 0
+            # owner_user = ParseUserUtils.get_user()
+            # item.owner = for_object_unique_id
+            # item.save()
 
 
 def main():
