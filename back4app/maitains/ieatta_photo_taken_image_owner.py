@@ -19,13 +19,16 @@ class IEATTPhotoForObjectUniqueId(object):
 
             logging.info("     {} for {} ".format('fix @photo', index + 1))
 
-            try:
-                _related_user = item.user
-            except:
-                _item = {'testId': _temp_user[index % 5]}
-                owner_user = ParseUserUtils.get_user(_item, 'testId')
-                item.owner = owner_user
-                item.save()
+            _photo_type = item.photoType
+
+            if _photo_type == "recipe":
+                try:
+                    _related_user = item.owner
+                except:
+                    _item = {'testId': _temp_user[index % 5]}
+                    owner_user = ParseUserUtils.get_user(_item, 'testId')
+                    item.owner = owner_user
+                    item.save()
 
 
 def main():
