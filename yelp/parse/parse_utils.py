@@ -2,6 +2,7 @@ import logging
 import os
 
 # https://github.com/milesrichardson/ParsePy
+import uuid
 
 os.environ["PARSE_API_ROOT"] = "https://parseapi.back4app.com/"
 # os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
@@ -516,8 +517,12 @@ class ParsePhotoUtils(object):
                 _pointers_photos.append(point_photo)
 
             # Step2: update the instance's photo field.
-            point_instance.photos = _pointers_photos
-            ParseHelp.save_and_update_record(point_instance, record_type)
+            if len(_pointers_photos) > 0:
+                _first_photo = _pointers_photos[0]
+                _first_photo_unique_id = _first_photo.uniqueId
+                point_instance.listPhotoUniqueId = _first_photo_unique_id
+                ParseHelp.save_and_update_record(point_instance, record_type)
+
             logging.info("     {} for {} ".format('update @Array[photos]', record_type))
 
         return self
@@ -538,6 +543,7 @@ class ParsePhotoUtils(object):
         instance = ParsePhotoUtils.photo_exist(url)
         if not instance:
             instance = Photo()
+            instance.uniqueId = str(uuid.uuid4())
             instance.original = None
             instance.thumbnail = None
             instance.url = ''
@@ -579,7 +585,7 @@ class ParseRestaurantUtils(object):
         instance = get_object_by_type(Restaurant.Query, item)
         if not instance:
             instance = Restaurant()
-            instance.photos = []
+            instance.listPhotoUniqueId = None
             instance.address = ''
 
             logging.info("     {} for {} ".format('save @restaurant', item['testId']))

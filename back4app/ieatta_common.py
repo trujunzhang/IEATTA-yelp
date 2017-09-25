@@ -29,10 +29,10 @@ class IEATTACommonImporter(object):
         '''
 
         type_array = [
-            # "restaurant",
+            "restaurant",
             # "event",
             # "user",
-            "recipe",
+            # "recipe",
             # "review"
         ]
         for type_key in type_array:
@@ -48,8 +48,8 @@ class IEATTACommonImporter(object):
                     _point_instance = ParseEventUtils.save_event(item)
                 elif type_key == 'recipe':
                     _point_instance = ParseRecipeUtils.save_recipe(item)
-                    # ParsePhotoUtils.save_photos_for_instance(_point_instance, item, type_key,
-                    #                                          point_recipe=_point_instance)
+                    ParsePhotoUtils.save_photos_for_instance(_point_instance, item, type_key,
+                                                             point_recipe=_point_instance)
                 elif type_key == 'restaurant':
                     _point_instance = ParseRestaurantUtils.save_restaurant(item)
                     ParsePhotoUtils.save_photos_for_instance(_point_instance, item, type_key,

@@ -331,7 +331,7 @@ Parse.Cloud.define("statisticUserState", function (request, response) {
 
     var firstQuery = new Parse.Query("Recipe").equalTo('user', userParseObject);
     var secondQuery = new Parse.Query("Review").equalTo('user', userParseObject);
-    var thirdQuery = new Parse.Query("Photo").equalTo('user', userParseObject);
+    var thirdQuery = new Parse.Query("Photo").equalTo('owner', userParseObject);
     var fourQuery = new Parse.Query("PeopleInEvent").equalTo('user', userParseObject);
 
     var reviewOneStarsQuery = filterForReview('user', userId).equalTo('rate', 1);
