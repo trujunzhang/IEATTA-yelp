@@ -29,9 +29,9 @@ class IEATTACommonImporter(object):
         '''
 
         type_array = [
-            "restaurant",
+            # "restaurant",
             # "event",
-            # "user",
+            "user",
             # "recipe",
             # "review"
         ]

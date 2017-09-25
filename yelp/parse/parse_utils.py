@@ -505,9 +505,12 @@ class ParsePhotoUtils(object):
                 if record_type == 'restaurant':
                     url = image_item["url"]
                     user_for_photo_instance = ParseUserUtils.get_user(image_item, 'userId')
-                if record_type == 'recipe':
+                elif record_type == 'recipe':
                     url = image_item
                     user_for_photo_instance = point_instance.user
+                elif record_type == 'user':
+                    url = image_item
+                    user_for_photo_instance = point_instance
 
                 point_photo = ParsePhotoUtils.save_photo(url=url,
                                                          point_restaurant=point_restaurant,
