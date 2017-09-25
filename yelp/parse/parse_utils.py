@@ -522,8 +522,7 @@ class ParsePhotoUtils(object):
             # Step2: update the instance's photo field.
             if len(_pointers_photos) > 0:
                 _first_photo = _pointers_photos[0]
-                _first_photo_unique_id = _first_photo.uniqueId
-                point_instance.listPhotoUniqueId = _first_photo_unique_id
+                point_instance.listPhoto = _first_photo
                 ParseHelp.save_and_update_record(point_instance, record_type)
 
             logging.info("     {} for {} ".format('update @Array[photos]', record_type))
