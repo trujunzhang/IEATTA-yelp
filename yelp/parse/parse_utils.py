@@ -507,7 +507,12 @@ class ParsePhotoUtils(object):
                     user_for_photo_instance = ParseUserUtils.get_user(image_item, 'userId')
                 elif record_type == 'recipe':
                     url = image_item
-                    user_for_photo_instance = point_instance.user
+
+                    try:
+                        user_for_photo_instance = point_instance.user
+                    except:
+                        pass
+
                 elif record_type == 'user':
                     url = image_item
                     user_for_photo_instance = point_instance
