@@ -129,46 +129,6 @@ function parse_address(response) {
     return final;
 }
 
-Parse.Cloud.afterSave("Photo", function (request, response) {
-    const photo = request.object;
-
-    const photoId = photo.id;
-    const photoType = photo.get('photoType');
-    const relatedInstance = photo.get(photoType)
-    const forObjectUniqueId = photo.get('forObjectUniqueId')
-
-    if (!relatedInstance) {
-
-        new Parse.Query("Photo").get(photoId)
-            .then(function (object) {
-
-                Parse.Cloud.run('queryObjectIdByUniqueId', {
-                    "modelType": photoType,
-                    "forObjectUniqueId": forObjectUniqueId
-                }, {
-                    success: function (relatedObjectId) {
-                        if (relatedObjectId !== '') {//Exist
-                            // after push the photo instance from users's client app.
-                            // Here, using parse cloud to relate the parse object.
-                            object.set(photoType, getInstanceWithoutData(photoType, relatedObjectId))
-                            return object.save();
-                        }
-
-                        response.success();
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
-
-            })
-            .catch(function (error) {
-            });
-
-    }
-
-});
-
 Parse.Cloud.afterSave("Photoxxx", function (request, response) {
     const photo = request.object;
 
