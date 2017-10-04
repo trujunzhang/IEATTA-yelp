@@ -279,8 +279,7 @@ class ParseUserUtils(object):
                 user['displayName'], user['password'],
                 email=user['email'],
                 loginType='email', testId=user['testId'],
-                uniqueId=str(uuid.uuid4()),
-                photos=[]
+                uniqueId=str(uuid.uuid4())
             )
         else:
             point_user = ParseUserUtils.login(user)
