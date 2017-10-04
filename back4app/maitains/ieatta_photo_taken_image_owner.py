@@ -10,25 +10,37 @@ class IEATTPhotoForObjectUniqueId(object):
     def __init__(self):
         super(IEATTPhotoForObjectUniqueId, self).__init__()
 
+    def __save_photo_owner(self, photo, item):
+        owner_user = ParseUserUtils.get_user(item, 'testId')
+        photo.owner = owner_user
+        photo.save()
+
     def append_for_who_take_the_photo(self):
         _temp_user = ['u003', 'u001', 'u002', 'u004', 'u005']
 
         list = get_table_list('photo')
 
-        for index, item in enumerate(list):
+        for index, photo in enumerate(list):
+            _photo_type = photo.photoType
 
-            logging.info("     {} for {} ".format('fix @photo', index + 1))
+            logging.info("     {} for {}, photoType: {} ".format('fix @photo', index + 1, _photo_type))
 
-            _photo_type = item.photoType
+            _item = None
 
             if _photo_type == "recipe":
                 try:
-                    _related_user = item.owner
+                    _item = {"testId": photo.recipe.user.testId}
                 except:
                     _item = {'testId': _temp_user[index % 5]}
-                    owner_user = ParseUserUtils.get_user(_item, 'testId')
-                    item.owner = owner_user
-                    item.save()
+                finally:
+                    # self.__save_photo_owner(photo, _item)
+                    pass
+            elif _photo_type == "restaurant":
+                _item = {'testId': _temp_user[index % 5]}
+                self.__save_photo_owner(photo, _item)
+            elif _photo_type == "user":
+                _item = {'testId': photo.user.testId}
+                # self.__save_photo_owner(photo, _item)
 
 
 def main():

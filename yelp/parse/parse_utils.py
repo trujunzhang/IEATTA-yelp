@@ -273,7 +273,8 @@ class ParseUserUtils(object):
                 user['displayName'], user['password'],
                 email=user['email'],
                 loginType='email', testId=user['testId'],
-                photos=[], useful=[], funny=[], cool=[]
+                uniqueId=str(uuid.uuid4()),
+                photos=[]
             )
         else:
             point_user = ParseUserUtils.login(user)
@@ -346,11 +347,8 @@ class ParseReviewUtils(object):
             instance.event = None
             instance.recipe = None
 
-            instance.useful = 0
-            instance.funny = 0
-            instance.cool = 0
-
         instance.testId = item['testId']
+        instance.uniqueId = str(uuid.uuid4()),
 
         instance.rate = item['rate']
         instance.body = '\n\r'.join(item['body'])
@@ -629,6 +627,7 @@ class ParseRecipeUtils(object):
             instance.restaurant = None
             instance.event = None
             instance.user = None
+            instance.uniqueId = str(uuid.uuid4())
             instance.photos = []
 
             logging.info("     {} for {} ".format('save @recipe', item['testId']))
