@@ -250,6 +250,12 @@ class ParseRecordUtil(object):
 class ParseHelp(object):
     @classmethod
     def save_and_update_record(cls, instance, record_type):
+
+        try:
+            _object_uniqueId = instance.uniqueId
+        except:
+            instance.uniqueId = str(uuid.uuid4())
+
         instance.save()
 
         ParseRecordUtil.save_record(instance, {
@@ -348,7 +354,6 @@ class ParseReviewUtils(object):
             instance.recipe = None
 
         instance.testId = item['testId']
-        instance.uniqueId = str(uuid.uuid4()),
 
         instance.rate = item['rate']
         instance.body = '\n\r'.join(item['body'])
@@ -548,7 +553,6 @@ class ParsePhotoUtils(object):
         instance = ParsePhotoUtils.photo_exist(url)
         if not instance:
             instance = Photo()
-            instance.uniqueId = str(uuid.uuid4())
             instance.original = None
             instance.thumbnail = None
             instance.url = ''
@@ -627,7 +631,6 @@ class ParseRecipeUtils(object):
             instance.restaurant = None
             instance.event = None
             instance.user = None
-            instance.uniqueId = str(uuid.uuid4())
             instance.photos = []
 
             logging.info("     {} for {} ".format('save @recipe', item['testId']))
