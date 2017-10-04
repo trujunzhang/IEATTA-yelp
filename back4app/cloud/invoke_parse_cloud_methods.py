@@ -33,7 +33,7 @@ class InvokeParseCloudMethods(object):
         pass
 
     def invoke_user_statistic(self):
-        ParseCloudUtil.user_statistic('6ip0SOxiTG')  # localhost
+        ParseCloudUtil.user_statistic('9FaAwlxK1d')  # heroku
         # ParseCloudUtil.user_statistic('aGkde8iuL6')  # back4app.com
 
 
@@ -44,10 +44,10 @@ def main():
     logging.info("     ")
     logging.info("  * {} ".format('Ready'))
 
-    utils.invoke_hello_method()
+    # utils.invoke_hello_method()
     # utils.save_restaurant_invoke_aftersave()
     # utils.save_photo_invoke_aftersave()
-    # utils.invoke_user_statistic()
+    utils.invoke_user_statistic()
 
 
 if __name__ == '__main__':
