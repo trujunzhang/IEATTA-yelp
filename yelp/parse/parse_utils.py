@@ -630,7 +630,6 @@ class ParseRecipeUtils(object):
             instance.restaurant = None
             instance.event = None
             instance.user = None
-            instance.photos = []
 
             logging.info("     {} for {} ".format('save @recipe', item['testId']))
         else:
