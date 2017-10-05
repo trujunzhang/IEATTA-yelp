@@ -12,21 +12,25 @@
               "recipeIds": [
                 "r001",
                 "r002",
-                "r003"
+                "r003",
+                "r006"
               ]
             },
             {
               "userTestId": "u002",
               "testId": "i002",
               "recipeIds": [
+                "r002",
                 "r004",
-                "r005"
+                "r007",
+                "r009"
               ]
             },
             {
               "userTestId": "u003",
               "testId": "i003",
               "recipeIds": [
+                "r001",
                 "r006",
                 "r007",
                 "r008"
@@ -36,6 +40,7 @@
               "userTestId": "u004",
               "testId": "i004",
               "recipeIds": [
+                "r003",
                 "r009",
                 "r010"
               ]
@@ -53,7 +58,6 @@
         }
       ]
     }
-
   ]
 }
 

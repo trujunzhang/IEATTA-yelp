@@ -628,7 +628,6 @@ class ParseRecipeUtils(object):
         if not instance:
             instance = Recipe()
             instance.restaurant = None
-            instance.event = None
             instance.user = None
 
             logging.info("     {} for {} ".format('save @recipe', item['testId']))
@@ -652,7 +651,6 @@ class ParseRecipeUtils(object):
                 logging.info("  *** {}, {}".format('exist @relatation[Recipe|Relations]', pointer_recipe.objectId))
             else:
                 pointer_recipe.restaurant = pointer_restaurant
-                pointer_recipe.event = pointer_event
                 pointer_recipe.user = pointer_user
 
                 ParseHelp.save_and_update_record(pointer_recipe, 'recipe')
