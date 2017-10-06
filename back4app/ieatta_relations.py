@@ -64,6 +64,10 @@ class IEATTARelation(object):
                     ParsePeopleInEventUtils.save_people_in_event(point_restaurant, point_event, _p_user,
                                                                  _array_pointer_recipes,
                                                                  people_in_event)
+
+                    # Set the recipe's creator
+                    ParseRecipeUtils.recipe_update_creator(_p_user, _array_pointer_recipes)
+
                     logging.info(
                         "     save relation(PeopleInEvent) between restaurant, event and user, {} ".format(p_index + 1))
                     logging.info("     ")
