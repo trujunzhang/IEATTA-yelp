@@ -47,6 +47,27 @@
       ],
       "start": "2017-07-28T04:30:57.566Z",
       "end": "2017-07-28T08:30:57.566Z"
+    },
+    {
+      "url": "https://www.yelp.com/events/san-francisco-team-pottery-offsite-ceramic-claycation-13",
+      "testId": "e005",
+      "displayName": "Team Pottery - Offsite Ceramic - Claycation",
+      "want": [
+        "Looking for the perfect off-site experience for your team? Come Play-in-Clay and see what companies like Salesforce, Facebook, Twitter, Uber, Genentech, Airbnb, Google, Sephora, Clif Bar and others have discovered at SMAart.",
+        "Our instructors will guide the group through the throwing and/or hand-building clay process. Each team member gets up to four pounds of clay to try their hand at this fund creative activity. Anything they want to keep will be cleaned-up, signed and dated, left to dry, fired, glazed to their color choice and then re-fired. Once cool, we will send you a note they are ready for pick-up."
+      ],
+      "start": "2017-08-28T04:30:57.566Z",
+      "end": "2017-08-28T08:30:57.566Z"
+    },
+    {
+      "url": "https://www.yelp.com/events/san-francisco-gospel-funk-according-to-rev-john-lee-hooker-jr",
+      "testId": "e006",
+      "displayName": "Gospel Funk According to Rev. John Lee Hooker Jr",
+      "want": [
+        "John Lee Hooker Jr., grew up in Detroit, Michigan as the son of one of the greatest blues and Legendary music icons in the world, the late and great John Lee Hooker (1971-2001). He is a musicala artist who has received multiple awards ranging from The California Music Award for Best Traditional Artist in 2004, the esteemed W.C. Handy Award in 2004, and the Bay Area Music Chapter for Come Back Artist of the Year. The younger Hooker musical style is markedly modernized, featuring contemporary arrangements with a funky big horn sound with elements of funky Gospel, with ingredients of a Johnny \"Guitar\" Watson sound, with a James Brown feel, and some John lee Hooker Sr. Boogie Beat, and also with his Daddy work ethic, \"Give the people what they want\"."
+      ],
+      "start": "2017-09-28T04:30:57.566Z",
+      "end": "2017-09-28T08:30:57.566Z"
     }
   ],
   "recipes": [
