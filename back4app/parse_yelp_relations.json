@@ -5,6 +5,7 @@
       "events": [
         {
           "eventTestId": "e001",
+          "userCount": 4,
           "peopleInEvent": [
             {
               "userTestId": "u001",
@@ -40,6 +41,37 @@
                 "r002",
                 "r003",
                 "r005"
+              ]
+            }
+          ]
+        },
+        {
+          "eventTestId": "e003",
+          "userCount": 3,
+          "peopleInEvent": [
+            {
+              "userTestId": "u001",
+              "testId": "i011",
+              "recipeIds": [
+                "r001",
+                "r0019"
+              ]
+            },
+            {
+              "userTestId": "u002",
+              "testId": "i012",
+              "recipeIds": [
+                "r002",
+                "r0018"
+              ]
+            },
+            {
+              "userTestId": "u005",
+              "testId": "i013",
+              "recipeIds": [
+                "r001",
+                "r004",
+                "r0017"
               ]
             }
           ]
