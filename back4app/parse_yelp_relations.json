@@ -2,6 +2,7 @@
   "restaurants": [
     {
       "testId": "s001",
+      "eventsCount": 3,
       "events": [
         {
           "eventTestId": "e001",
