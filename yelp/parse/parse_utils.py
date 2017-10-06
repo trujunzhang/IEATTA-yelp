@@ -629,7 +629,6 @@ class ParseRecipeUtils(object):
         if not instance:
             instance = Recipe()
             instance.restaurant = None
-            instance.user = None
 
             logging.info("     {} for {} ".format('save @recipe', item['testId']))
         else:

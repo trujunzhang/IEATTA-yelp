@@ -64,9 +64,9 @@ class IEATTARelation(object):
                     ParsePeopleInEventUtils.save_people_in_event(point_restaurant, point_event, _p_user,
                                                                  _array_pointer_recipes,
                                                                  people_in_event)
-                logging.info(
-                    "     save relation(PeopleInEvent) between restaurant, event and user, {} ".format(p_index + 1))
-                logging.info("     ")
+                    logging.info(
+                        "     save relation(PeopleInEvent) between restaurant, event and user, {} ".format(p_index + 1))
+                    logging.info("     ")
 
 
 def main():
