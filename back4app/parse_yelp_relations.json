@@ -75,6 +75,19 @@
               ]
             }
           ]
+        },
+        {
+          "eventTestId": "e004",
+          "userCount": 1,
+          "peopleInEvent": [
+            {
+              "userTestId": "u002",
+              "testId": "i021",
+              "recipeIds": [
+                "r001"
+              ]
+            }
+          ]
         }
       ]
     },
