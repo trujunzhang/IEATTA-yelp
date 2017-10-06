@@ -19,8 +19,6 @@ class IEATTARelation(object):
 
         self.recipes_dict = self.__get_recipes_dict()
 
-        pass
-
     def __get_recipes_dict(self):
         list = get_table_list('recipe')
         recipes_dict = {}
@@ -30,10 +28,10 @@ class IEATTARelation(object):
 
         return recipes_dict
 
-    def __get_recipes_pointer_array(self, recipeIds):
+    def __get_recipes_pointer_array(self, recipe_ids):
         p_recipes = []
-        for recipeId in recipeIds:
-            p_recipes.append(get_object_by_type(Recipe.Query, {'testId': recipeId}))
+        for recipe_id in recipe_ids:
+            p_recipes.append(self.recipes_dict[recipe_id])
 
         return p_recipes
 
@@ -55,17 +53,20 @@ class IEATTARelation(object):
 
                 # Step03: People in the event
                 for p_index, people_in_event in enumerate(event['peopleInEvent']):
-                    _p_user = ParseUserUtils.get_user(people_in_event, 'userTestId')
-                    # then save it.
-                    point_people_in_event_ = ParsePeopleInEventUtils.save_people_in_event(point_restaurant, point_event,
-                                                                                          _p_user, people_in_event)
-                    logging.info(
-                        "     save relation(PeopleInEvent) between restaurant, event and user, {} ".format(p_index + 1))
-                    logging.info("     ")
+                    # Get the recipes array.
+                    recipe_ids = people_in_event['recipeIds']
+                    _array_pointer_recipes = self.__get_recipes_pointer_array(recipe_ids)
 
-                    for recipe_index, recipe_test_id in enumerate(people_in_event['recipeIds']):
-                        # ParseRecipeUtils.relate_recipe(recipe_test_id, point_restaurant, point_event, _p_user)
-                        logging.info("     save relation(Recipe), {} ".format(recipe_index + 1))
+                    # Get the user pointer.
+                    _p_user = ParseUserUtils.get_user(people_in_event, 'userTestId')
+
+                    # then save it.
+                    ParsePeopleInEventUtils.save_people_in_event(point_restaurant, point_event, _p_user,
+                                                                 _array_pointer_recipes,
+                                                                 people_in_event)
+                logging.info(
+                    "     save relation(PeopleInEvent) between restaurant, event and user, {} ".format(p_index + 1))
+                logging.info("     ")
 
 
 def main():

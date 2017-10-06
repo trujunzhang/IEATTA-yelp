@@ -412,7 +412,7 @@ class PeopleInEvent(Object):
 
 class ParsePeopleInEventUtils(object):
     @classmethod
-    def save_people_in_event(cls, p_restaurant, p_event, p_user, item):
+    def save_people_in_event(cls, p_restaurant, p_event, p_user, array_pointer_recipes, item):
         instance = get_object_by_type(PeopleInEvent.Query, item)
         if not instance:
             instance = PeopleInEvent()
@@ -422,6 +422,7 @@ class ParsePeopleInEventUtils(object):
         instance.restaurant = p_restaurant
         instance.event = p_event
         instance.user = p_user
+        instance.recipes = array_pointer_recipes
 
         instance = ParseHelp.save_and_update_record(instance, 'peopleInEvent')
 
