@@ -23,6 +23,30 @@
       ],
       "start": "2017-03-28T04:30:57.566Z",
       "end": "2017-03-28T08:30:57.566Z"
+    },
+    {
+      "url": "https://www.yelp.com/events/san-francisco-sketch-the-block-art-night-market",
+      "testId": "e003",
+      "displayName": "Sketch the Block - art night market",
+      "want": [
+        "Meet and mingle with the local artists that have created the many prints and books available at the gallery. This is a one night art market featuring prints, paintings, sketches, art books, zines and more! It's happening during the 2 Blocks of Art - Art Walk + Block Party, which is an art walk and multi-block gallery event happening the night of Oct. 13.",
+        "In addition to the artist tables, we'll have a bunch of great giveaways to be announced in the days leading up to the event.",
+        "2 Blocks of Art - Art Walk + Block Party will be on Oct 13 from 5-9pm, in downtown SF, with Sketch the Block at Sketchpad Gallery at 505 Natoma."
+      ],
+      "start": "2017-04-28T04:30:57.566Z",
+      "end": "2017-04-28T08:30:57.566Z"
+    },
+    {
+      "url": "https://www.yelp.com/events/lafayette-bay-area-kids-book-fair-east-bay-edition",
+      "testId": "e004",
+      "displayName": "Bay Area Kids' Book Fair | East Bay Edition",
+      "want": [
+        "Bay Area Festivals  is having its 2nd annual FREE Bay Area Kids' Book Fair. There will be story-telling all day and other free activities for attendees. The first 200 families will get a free goody bag. Attendees are encouraged to bring canned food to donate to the Food Bank. A free raffle ticket will be given for each canned food item! ",
+        "Kids can meet their favorite characters including Pete the Cat, Clifford the Big Red Dog, The Very Hungry Caterpillar, and Curious George! ",
+        "Admission and parking is free on the day to the general public."
+      ],
+      "start": "2017-07-28T04:30:57.566Z",
+      "end": "2017-07-28T08:30:57.566Z"
     }
   ],
   "recipes": [
