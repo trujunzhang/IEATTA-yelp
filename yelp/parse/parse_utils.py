@@ -644,8 +644,10 @@ class ParseRecipeUtils(object):
 
     @classmethod
     def recipe_update_creator(cls, pointer_user, array_pointer_recipes):
+        for recipe_instance in array_pointer_recipes:
+            recipe_instance.creator = pointer_user
 
-        pass
+            recipe_instance = ParseHelp.save_and_update_record(recipe_instance, 'recipe')
 
     @classmethod
     def recipe_exist(cls, href):
