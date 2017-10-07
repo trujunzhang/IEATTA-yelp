@@ -42,11 +42,18 @@ class IEATTPhotoForObjectUniqueId(object):
                 _item = {'testId': photo.user.testId}
                 # self.__save_photo_owner(photo, _item)
 
+    def move_from_own_to_creator(self):
+        list = get_table_list('photo')
+        for index, photo in enumerate(list):
+            photo.creator = photo.owner
+            photo.save()
+
 
 def main():
     utils = IEATTPhotoForObjectUniqueId()
 
-    utils.append_for_who_take_the_photo()
+    # utils.append_for_who_take_the_photo()
+    utils.move_from_own_to_creator()
 
 
 if __name__ == '__main__':
