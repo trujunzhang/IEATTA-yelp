@@ -4,7 +4,6 @@ import os
 # https://github.com/milesrichardson/ParsePy
 import uuid
 
-
 os.environ["PARSE_API_ROOT"] = "https://ieattaps.herokuapp.com/parse"
 # os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
 
@@ -474,6 +473,9 @@ class ParseEventUtils(object):
 
         instance.displayName = item['displayName']
         instance.want = "\r\n".join(item['want'])
+
+        # Creator
+        instance.creator = ParseUserUtils.get_random_user()
 
         from dateutil import parser
         instance.start = parser.parse(item['start'])
