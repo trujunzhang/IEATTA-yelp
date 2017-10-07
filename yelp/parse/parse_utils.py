@@ -4,7 +4,6 @@ import os
 # https://github.com/milesrichardson/ParsePy
 import uuid
 
-from yelp.parse.ieatta_utils import IEATTAUtiles
 
 os.environ["PARSE_API_ROOT"] = "https://ieattaps.herokuapp.com/parse"
 # os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
