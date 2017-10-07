@@ -43,9 +43,9 @@ class IEATTPhotoForObjectUniqueId(object):
                 # self.__save_photo_owner(photo, _item)
 
     def move_from_own_to_creator(self):
-        list = get_table_list('photo')
+        list = get_table_list('review')
         for index, photo in enumerate(list):
-            photo.creator = photo.owner
+            photo.creator = photo.user
             photo.save()
 
 

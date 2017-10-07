@@ -356,7 +356,7 @@ class ParseReviewUtils(object):
             instance = Review()
 
             instance.reviewType = ''
-            instance.user = None
+            instance.creator = None
 
             instance.restaurant = None
             instance.event = None
@@ -400,7 +400,7 @@ class ParseReviewUtils(object):
                 logging.info("  *** exist review, for type: {}".format(review_type))
             else:
                 pointer_review.reviewType = review_type
-                pointer_review.user = pointer_user
+                pointer_review.creator = pointer_user
 
                 pointer_review.restaurant = pointer_restaurant
                 pointer_review.event = pointer_event
