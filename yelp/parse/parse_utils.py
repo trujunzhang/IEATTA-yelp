@@ -4,6 +4,8 @@ import os
 # https://github.com/milesrichardson/ParsePy
 import uuid
 
+from yelp.parse.ieatta_utils import IEATTAUtiles
+
 os.environ["PARSE_API_ROOT"] = "https://ieattaps.herokuapp.com/parse"
 # os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
 
@@ -312,6 +314,16 @@ class ParseUserUtils(object):
         return get_object_by_type(User.Query, item, field)
 
     @classmethod
+    def get_random_user(cls):
+        _temp_user = ['u003', 'u001', 'u002', 'u004', 'u005']
+
+        import random
+        index = random.randint(1, 100)
+        _item = {'testId': _temp_user[index % 5]}
+
+        return get_object_by_type(User.Query, _item)
+
+    @classmethod
     def user_exist(cls, user):
         if User.Query.filter(username=user['displayName']).count() > 0:
             return User.Query.filter(username=user['displayName']).get()
@@ -606,8 +618,10 @@ class ParseRestaurantUtils(object):
         instance.displayName = item['displayName']
         instance.url = item['url']
 
+        # Creator
+        instance.creator = ParseUserUtils.get_random_user()
+
         instance.geoLocation = GeoPoint(item['geoLocation'][0], item['geoLocation'][1])
-        # instance.address = item['address']
 
         instance = ParseHelp.save_and_update_record(instance, 'restaurant')
         return instance
