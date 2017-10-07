@@ -52,8 +52,8 @@ class IEATTACommonImporter(object):
                                                              point_recipe=_point_instance)
                 elif type_key == 'restaurant':
                     _point_instance = ParseRestaurantUtils.save_restaurant(item)
-                    # ParsePhotoUtils.save_photos_for_instance(_point_instance, item, type_key,
-                    #                                          point_restaurant=_point_instance)
+                    ParsePhotoUtils.save_photos_for_instance(_point_instance, item, type_key,
+                                                             point_restaurant=_point_instance)
                 elif type_key == 'user':
                     _point_instance = ParseUserUtils.signup(item)
                     ParsePhotoUtils.save_photos_for_instance(_point_instance, item, type_key,
