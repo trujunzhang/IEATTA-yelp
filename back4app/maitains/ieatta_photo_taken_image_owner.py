@@ -48,12 +48,19 @@ class IEATTPhotoForObjectUniqueId(object):
             photo.creator = photo.user
             photo.save()
 
+    def copy_from_user_to_creator(self):
+        list = get_table_list('peopleInEvent')
+        for index, photo in enumerate(list):
+            photo.creator = photo.user
+            photo.save()
+
 
 def main():
     utils = IEATTPhotoForObjectUniqueId()
 
     # utils.append_for_who_take_the_photo()
     utils.move_from_own_to_creator()
+    utils.copy_from_user_to_creator()
 
 
 if __name__ == '__main__':
