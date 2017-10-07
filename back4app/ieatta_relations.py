@@ -24,7 +24,10 @@ class IEATTARelation(object):
         recipes_dict = {}
 
         for recipe in list:
-            recipes_dict[recipe.testId] = recipe
+            try:
+                recipes_dict[recipe.testId] = recipe
+            except:
+                pass
 
         return recipes_dict
 

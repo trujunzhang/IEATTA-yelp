@@ -89,6 +89,15 @@
               ]
             }
           ]
+        },
+        {
+          "eventTestId": "e005",
+          "peopleInEvent": [
+          ]
+        },
+        {
+          "eventTestId": "e006",
+          "peopleInEvent": []
         }
       ]
     },
