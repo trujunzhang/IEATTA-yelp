@@ -576,7 +576,13 @@ class ParsePhotoUtils(object):
             instance.url = ''
             instance.photoType = ''
 
-        if instance.photoType == photo_type and instance.url == url and not instance.originalUrl == '' and not instance.thumbnailUrl:
+            # Creator
+            if point_user:
+                instance.creator = point_user
+            else:
+                instance.creator = ParseUserUtils.get_random_user()
+
+        if instance.photoType == photo_type and instance.url == url and not instance.originalUrl == '' and not instance.thumbnailUrl == '':
             logging.info("     {} for {} ".format('exist @photo', photo_type))
         else:
             instance.url = url
@@ -586,9 +592,6 @@ class ParsePhotoUtils(object):
             instance.user = point_user
 
             instance.photoType = photo_type
-
-            # Creator
-            instance.creator = ParseUserUtils.get_random_user()
 
             instance = ParseHelp.save_and_update_record(instance, 'photo')
             logging.info("     {} for {} ".format('save @photo', photo_type))
