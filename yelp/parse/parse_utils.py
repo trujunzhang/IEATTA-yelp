@@ -4,8 +4,8 @@ import os
 # https://github.com/milesrichardson/ParsePy
 import uuid
 
-os.environ["PARSE_API_ROOT"] = "https://ieattaps.herokuapp.com/parse"
-# os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
+# os.environ["PARSE_API_ROOT"] = "https://ieattaps.herokuapp.com/parse"
+os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
 
 from parse_rest.user import User
 from parse_rest.query import QueryResourceDoesNotExist
@@ -118,6 +118,11 @@ class ParseCloudUtil(object):
 
     @classmethod
     def crop_image_on_cloud(self, pointer_photo):
+        """
+        Removed on the parse cloud.
+        :param pointer_photo:
+        :return:
+        """
         crop_image_func = Function("cropMultipleSizesImage")
         # crop_image_func = Function("hello")
         result = crop_image_func(imageURL=pointer_photo.url,
@@ -552,8 +557,8 @@ class ParsePhotoUtils(object):
 
     @classmethod
     def upload_with_uploaded_files(cls, pointer_photo, pointer_thumbnail, pointer_original):
-        pointer_photo.original = pointer_original
-        pointer_photo.thumbnail = pointer_thumbnail
+        # pointer_photo.original = pointer_original
+        # pointer_photo.thumbnail = pointer_thumbnail
 
         instance = ParseHelp.save_and_update_record(pointer_photo, 'photo')
         return instance
@@ -566,12 +571,12 @@ class ParsePhotoUtils(object):
         instance = ParsePhotoUtils.photo_exist(url)
         if not instance:
             instance = Photo()
-            instance.original = None
-            instance.thumbnail = None
+            instance.originalUrl = ''
+            instance.thumbnailUrl = ''
             instance.url = ''
             instance.photoType = ''
 
-        if instance.photoType == photo_type and instance.url == url and instance.original and instance.thumbnail:
+        if instance.photoType == photo_type and instance.url == url and not instance.originalUrl == '' and not instance.thumbnailUrl:
             logging.info("     {} for {} ".format('exist @photo', photo_type))
         else:
             instance.url = url

@@ -67,6 +67,8 @@ class IEATTAPhotos(object):
         :return:
         """
         for r_index, photo in enumerate(self.instance_photos):
+            # if r_index >= 1:
+            #     break
             photo.save()
             logging.info("     {} ".format('saved @[photo] again!'))
             x = 0
