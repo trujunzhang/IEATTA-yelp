@@ -17,8 +17,8 @@ class InvokeParseCloudMethods(object):
             pass
 
     def invoke_hello_method(self):
-        # ParseCloudUtil.hello_method()
-        ParseCloudUtil.get_address_from_location()
+        ParseCloudUtil.hello_method()
+        # ParseCloudUtil.get_address_from_location()
         pass
 
     def save_restaurant_invoke_aftersave(self):
@@ -47,10 +47,10 @@ def main():
     logging.info("     ")
     logging.info("  * {} ".format('Ready'))
 
-    # utils.invoke_hello_method()
+    utils.invoke_hello_method()
     # utils.save_restaurant_invoke_aftersave()
     # utils.save_photo_invoke_aftersave()
-    utils.invoke_user_statistic()
+    # utils.invoke_user_statistic()
 
 
 if __name__ == '__main__':

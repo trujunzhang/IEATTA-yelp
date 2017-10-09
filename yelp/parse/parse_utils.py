@@ -587,6 +587,9 @@ class ParsePhotoUtils(object):
 
             instance.photoType = photo_type
 
+            # Creator
+            instance.creator = ParseUserUtils.get_random_user()
+
             instance = ParseHelp.save_and_update_record(instance, 'photo')
             logging.info("     {} for {} ".format('save @photo', photo_type))
 
