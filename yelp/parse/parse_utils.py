@@ -436,8 +436,10 @@ class ParsePeopleInEventUtils(object):
 
         instance.restaurant = p_restaurant
         instance.event = p_event
-        instance.user = p_user
         instance.recipes = array_pointer_recipes
+
+        instance.user = p_user
+        instance.creator = p_user
 
         instance = ParseHelp.save_and_update_record(instance, 'peopleInEvent')
 
@@ -472,15 +474,15 @@ class ParseEventUtils(object):
             instance = Event()
             instance.restaurant = None
 
+            # Creator
+            instance.creator = ParseUserUtils.get_random_user()
+
         instance.testId = item['testId']
 
         instance.url = item['url']
 
         instance.displayName = item['displayName']
         instance.want = "\r\n".join(item['want'])
-
-        # Creator
-        instance.creator = ParseUserUtils.get_random_user()
 
         from dateutil import parser
         instance.start = parser.parse(item['start'])
@@ -621,6 +623,9 @@ class ParseRestaurantUtils(object):
             instance.listPhotoUniqueId = None
             instance.address = ''
 
+            # Creator
+            instance.creator = ParseUserUtils.get_random_user()
+
             logging.info("     {} for {} ".format('save @restaurant', item['testId']))
         else:
             logging.info("     {} for {} ".format('exist @restaurant', item['testId']))
@@ -629,9 +634,6 @@ class ParseRestaurantUtils(object):
 
         instance.displayName = item['displayName']
         instance.url = item['url']
-
-        # Creator
-        instance.creator = ParseUserUtils.get_random_user()
 
         instance.geoLocation = GeoPoint(item['geoLocation'][0], item['geoLocation'][1])
 
@@ -656,6 +658,9 @@ class ParseRecipeUtils(object):
             instance = Recipe()
             instance.restaurant = None
 
+            # Creator
+            instance.creator = ParseUserUtils.get_random_user()
+
             logging.info("     {} for {} ".format('save @recipe', item['testId']))
         else:
             logging.info("     {} for {} ".format('exist @recipe', item['testId']))
@@ -672,6 +677,13 @@ class ParseRecipeUtils(object):
     def recipe_update_creator(cls, pointer_user, array_pointer_recipes):
         for recipe_instance in array_pointer_recipes:
             recipe_instance.creator = pointer_user
+
+            recipe_instance = ParseHelp.save_and_update_record(recipe_instance, 'recipe')
+
+    @classmethod
+    def recipe_update_restaurant(cls, pointer_restaurant, array_pointer_recipes):
+        for recipe_instance in array_pointer_recipes:
+            recipe_instance.restaurant = pointer_restaurant
 
             recipe_instance = ParseHelp.save_and_update_record(recipe_instance, 'recipe')
 

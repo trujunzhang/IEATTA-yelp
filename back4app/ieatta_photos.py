@@ -63,6 +63,7 @@ class IEATTAPhotos(object):
 
     def save_photos_again(self):
         """
+        pending.
         Save it again, then will invoke the cloud code to generate thumbnail and original files.
         :return:
         """
@@ -88,7 +89,7 @@ def main():
     logging.info("     ")
     logging.info("  * {} ".format('Ready'))
 
-    utils.save_photos_again()
+    # utils.save_photos_again()
 
 
 if __name__ == '__main__':
