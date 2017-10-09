@@ -4,8 +4,8 @@ import os
 # https://github.com/milesrichardson/ParsePy
 import uuid
 
-# os.environ["PARSE_API_ROOT"] = "https://ieattaps.herokuapp.com/parse"
-os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
+os.environ["PARSE_API_ROOT"] = "https://ieattaps.herokuapp.com/parse"
+# os.environ["PARSE_API_ROOT"] = "http://localhost:1337/parse"
 
 from parse_rest.user import User
 from parse_rest.query import QueryResourceDoesNotExist

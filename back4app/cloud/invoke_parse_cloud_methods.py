@@ -32,6 +32,9 @@ class InvokeParseCloudMethods(object):
 
         pass
 
+    # def invoke_cloudinary(self):
+    #     ParseCloudUtil.upload_image_from_url('')  # heroku
+
     def invoke_user_statistic(self):
         ParseCloudUtil.user_statistic('9FaAwlxK1d')  # heroku
         # ParseCloudUtil.user_statistic('aGkde8iuL6')  # back4app.com

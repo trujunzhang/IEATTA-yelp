@@ -69,9 +69,16 @@ class IEATTAPhotos(object):
         for r_index, photo in enumerate(self.instance_photos):
             # if r_index >= 1:
             #     break
-            photo.save()
-            logging.info("     {} ".format('saved @[photo] again!'))
-            x = 0
+
+            _generate_cloudinary = True
+            try:
+                _url = photo.url
+            except:
+                _generate_cloudinary = False
+
+            if _generate_cloudinary:
+                photo.save()
+                logging.info("     {} ".format('saved @[photo] again!'))
 
 
 def main():
