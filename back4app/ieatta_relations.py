@@ -68,7 +68,7 @@ class IEATTARelation(object):
                                                                  _array_pointer_recipes,
                                                                  people_in_event)
 
-                    # Set the recipe's restaurant
+                    # Step4: Set the recipe's restaurant
                     ParseRecipeUtils.recipe_update_restaurant(point_restaurant, _array_pointer_recipes)
 
                     logging.info(
