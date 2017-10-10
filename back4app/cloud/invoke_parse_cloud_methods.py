@@ -32,8 +32,8 @@ class InvokeParseCloudMethods(object):
 
         pass
 
-    # def invoke_cloudinary(self):
-    #     ParseCloudUtil.upload_image_from_url('')  # heroku
+    def invoke_cloudinary(self):
+        ParseCloudUtil.invoke_cloudinary()  # heroku
 
     def invoke_user_statistic(self):
         ParseCloudUtil.user_statistic('9FaAwlxK1d')  # heroku
@@ -47,10 +47,11 @@ def main():
     logging.info("     ")
     logging.info("  * {} ".format('Ready'))
 
-    utils.invoke_hello_method()
+    # utils.invoke_hello_method()
     # utils.save_restaurant_invoke_aftersave()
     # utils.save_photo_invoke_aftersave()
     # utils.invoke_user_statistic()
+    utils.invoke_cloudinary()
 
 
 if __name__ == '__main__':

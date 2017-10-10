@@ -111,6 +111,12 @@ class ParseCloudUtil(object):
         return hello_func
 
     @classmethod
+    def invoke_cloudinary(cls):
+        hello_func = Function("invokeCloudinary")
+        result = hello_func(imageURL='https://s3-media1.fl.yelpcdn.com/bphoto/603BoVuMunR92Dd1_ge-yA/o.jpg')
+        return hello_func
+
+    @classmethod
     def hello_method(cls):
         hello_func = Function("hello")
         result = hello_func()
