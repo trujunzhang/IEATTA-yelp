@@ -16,7 +16,7 @@ class IEATTPeopleInEventUUID(object):
             _event_pointer = item.event
             _user_pointer = item.user
 
-            _new_unique_id = '{}_{}'.format(_event_pointer.uniqueId, _user_pointer.uniqueId)
+            _new_unique_id = '{}_{}'.format(_event_pointer.uniqueId, _user_pointer.objectId)
             item.uniqueId = _new_unique_id
 
             item.save()
