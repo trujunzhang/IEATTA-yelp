@@ -35,6 +35,9 @@ class InvokeParseCloudMethods(object):
     def invoke_cloudinary(self):
         ParseCloudUtil.invoke_cloudinary()  # heroku
 
+    def invoke_send_email(self):
+        ParseCloudUtil.send_email()  # heroku
+
     def invoke_user_statistic(self):
         ParseCloudUtil.user_statistic('9FaAwlxK1d')  # heroku
         # ParseCloudUtil.user_statistic('aGkde8iuL6')  # back4app.com
@@ -51,7 +54,8 @@ def main():
     # utils.save_restaurant_invoke_aftersave()
     # utils.save_photo_invoke_aftersave()
     # utils.invoke_user_statistic()
-    utils.invoke_cloudinary()
+    # utils.invoke_cloudinary()
+    utils.invoke_send_email()
 
 
 if __name__ == '__main__':
