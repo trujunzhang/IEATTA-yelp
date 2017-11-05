@@ -23,6 +23,7 @@ class IEATTPhotoRecipeWithRestaurant(object):
             try:
                 restaurant_instance = recipe_instance.restaurant
                 if restaurant_instance == None:
+                    # If recipe's restaurant is empty, give it a default restaurant.
                     recipe_instance.restaurant = self.default_restaurant
                     recipe_instance.save()
             except:
