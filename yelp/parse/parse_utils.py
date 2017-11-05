@@ -110,7 +110,13 @@ class ParseCloudUtil(object):
     @classmethod
     def send_email(cls):
         hello_func = Function("inviteCompose")
-        result = hello_func()
+        result = hello_func(
+            username='djzhangxxx',
+            userLink='http://localhost:3000',
+            homepage='http://localhost:3000',
+            fromEmail='trujunzhang@gmail.com',
+            toEmail='yinhaixiadrop@gmail.com',
+        )
         return hello_func
 
     @classmethod
